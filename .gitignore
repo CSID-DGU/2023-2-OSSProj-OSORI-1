@@ -1,0 +1,14 @@
+__pycache__
+
+.venv
+
+*.exe
+col_static
+update_table
+PG.sock
+cmd
+
+admin
+.env
+
+.DS_Store
