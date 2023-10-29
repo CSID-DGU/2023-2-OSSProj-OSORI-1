@@ -9,6 +9,5 @@ PG.sock
 cmd
 
 admin
-.env
 
 .DS_Store
