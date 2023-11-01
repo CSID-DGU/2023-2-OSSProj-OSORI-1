@@ -45,8 +45,8 @@ class Lecture(models.Model):
 # ------------------------------------- ( 관심 강의 테이블 ) -------------------------------------
 
 class relation(models.Model):
-    subject_num = models.CharField(max_length=10)
-    student_id = models.CharField(max_length=10)
+    subject_num = models.ForeignKey(Lecture))
+    student_id = models.ForeignKey(UserInfo)
 
  #   class Meta:
  #      managed = False
@@ -55,8 +55,8 @@ class relation(models.Model):
 # ------------------------------------- ( 강의 평가 테이블 ) -------------------------------------
 class Review(models.Model):
     id = models.IntegerField(primary_key=True) # 번호
-    subject_num = models.CharField(max_length=10)
-    student_id = models.CharField(max_length=10)
+    subject_num = models.ForeignKey(Lecture, on_delete=models.SET_NULL)
+    student_id = models.ForeignKey(UserInfo, on_delete=models.SET_NULL)
     u_year = models.IntegerField() # 수강 학년
     u_semester = models.IntegerField() # 수강 학기
     star = models.IntegerField() # 별점(1~5)
