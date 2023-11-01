@@ -172,9 +172,9 @@ input[type="button"]
 
 .sejong_logo{
     margin:1rem;
-    width:10rem;
-    min-height:10rem;
-    background-image: url('../img/sejong_logo.png');
+    width:15rem;
+    min-height:15rem;
+    background-image: url('../img/dongguk_logo.png');
     background-size: 100% 100%;
     float:right;
 }
