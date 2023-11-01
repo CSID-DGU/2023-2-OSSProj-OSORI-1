@@ -23,9 +23,9 @@ class UserInfo(models.Model): #
     eg = models.BooleanField() # 공대/비공대 여부
     sum_credit = models.IntegerField() # 총 졸업학점
 
- #   class Meta:  # 자동 migrate 막을 때 사용
- #       managed = False
- #       db_table = 'user_info'
+    class Meta:  # 자동 migrate 막을 때 사용
+        managed = False
+        db_table = 'user_info'
 
 # ------------------------------------- ( 강의 정보 테이블 ) -------------------------------------
 
@@ -38,33 +38,33 @@ class Lecture(models.Model):
     subject_credit = models.IntegerField()
     major_ge = models.BooleanField()
 
- #   class Meta:
- #      managed = False
- #       db_table = 'lecture'
+    class Meta:
+       managed = False
+       db_table = 'lecture'
 
 # ------------------------------------- ( 관심 강의 테이블 ) -------------------------------------
 
 class relation(models.Model):
-    subject_num = models.ForeignKey(Lecture))
-    student_id = models.ForeignKey(UserInfo)
+    subject_num = models.ForeignKey(Lecture,on_delete=models.SET_NULL,null=True)
+    student_id = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True)
 
- #   class Meta:
- #      managed = False
- #       db_table = 'relation'
+    class Meta:
+       managed = False
+       db_table = 'relation'
 
 # ------------------------------------- ( 강의 평가 테이블 ) -------------------------------------
 class Review(models.Model):
     id = models.IntegerField(primary_key=True) # 번호
-    subject_num = models.ForeignKey(Lecture, on_delete=models.SET_NULL)
-    student_id = models.ForeignKey(UserInfo, on_delete=models.SET_NULL)
+    subject_num = models.ForeignKey(Lecture,on_delete=models.SET_NULL,null=True) # 학수번호
+    student_id = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True) # 학번
     u_year = models.IntegerField() # 수강 학년
     u_semester = models.IntegerField() # 수강 학기
     star = models.IntegerField() # 별점(1~5)
     content = models.TextField() # 평가 내용
 
- #   class Meta:
- #      managed = False
- #       db_table = 'review'
+    class Meta:
+       managed = False
+       db_table = 'review'
 
  # ------------------------------------- ( 검사 기준 테이블 ) -------------------------------------
 
@@ -75,10 +75,10 @@ class Standard(models.Model):
     subject_num = models.CharField(max_length=10)
     subject_name = models.CharField(max_length=70)
     subject_credit = models.IntegerField()
-    delete = models.BooleanField()
-    msc = models.CharField(70)
-    msc_type = models.CharField(70)
-    eng_sub = models.BooleanField()
+    delete = models.BooleanField(null=True)
+    msc = models.CharField(max_length=70,null=True)
+    msc_type = models.CharField(max_length=70,null=True)
+    eng_sub = models.BooleanField(null=True)
 
     class Meta:
         managed = False
