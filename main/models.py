@@ -11,7 +11,7 @@ password_validator = RegexValidator(
     message="비밀번호는 대문자, 소문자, 특수 문자 및 숫자를 포함해야 합니다."
 )
 
-class UserInfo(models.Model): # 
+class UserInfo(models.Model): 
     student_id = models.CharField(primary_key=True, max_length=10) # 학번 입력요구
     password = models.CharField(max_length=100, validators=[password_validator]) # 비밀번호
     year = models.IntegerField() # 학년
@@ -29,18 +29,32 @@ class UserInfo(models.Model): #
 
 # ------------------------------------- ( 강의 정보 테이블 ) -------------------------------------
 
-class Lecture(models.Model):
+class UserLecture(models.Model): # 학생성적정보파일 업로드 시 저장
+    subject_num = models.CharField(primary_key=True, max_length=10)
+    subject_name = models.CharField(max_length=70)
+    classification = models.CharField(max_length=45) # 전공과 교양 구분은 이 필드로
+    classification_ge = models.CharField(max_length=45)
+    professor = models.CharField(max_length=50)
+    subject_credit = models.IntegerField()
+    #    major_ge = models.BooleanField() 
+
+    class Meta:
+       managed = False
+       db_table = 'userlecture'
+
+class Lecture(models.Model): # 에브리타임 강의 크롤링
     subject_num = models.CharField(primary_key=True, max_length=10)
     subject_name = models.CharField(max_length=70)
     classification = models.CharField(max_length=45)
     classification_ge = models.CharField(max_length=45)
     professor = models.CharField(max_length=50)
     subject_credit = models.IntegerField()
-    major_ge = models.BooleanField()
+    sum_stu = models.IntegerField() # 강좌 담은 횟수
 
     class Meta:
        managed = False
        db_table = 'lecture'
+
 
 # ------------------------------------- ( 관심 강의 테이블 ) -------------------------------------
 
