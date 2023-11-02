@@ -14,10 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from django.conf import settings
 from main import views
 
 urlpatterns = [
@@ -34,39 +32,5 @@ urlpatterns = [
     path('success_delete/', views.r_success_delete),
     path('result/', views.r_result),
     path('en_result/', views.r_en_result),
-
-    # 다른 함수사용 url 패턴
-    path('f_login/', views.f_login),
-    path('f_logout/', views.f_logout),
-    path('f_certify/', views.f_certify),
-    path('f_register/', views.f_register),
-    path('f_mod_info/', views.f_mod_info),
-    path('f_mod_info_ms/', views.f_mod_info_ms),
-    path('f_mod_ms_eng/', views.f_mod_ms_eng),
-    path('f_mod_pw/', views.f_mod_pw),
-    path('f_mod_grade/', views.f_mod_grade),
-    path('f_find_pw/', views.f_find_pw),
-    path('f_add_custom/', views.f_add_custom),
-    path('f_delete_account/', views.f_delete_account),
-
-    # AJAX 통신
-    path('a_statistics/', views.a_statistics),
-    path('a_search/', views.a_search),
-    
-    # 테스트용
-    path('admin_home/', views.r_admin_home),
-    path('admin_test/', views.r_admin_test),
-
-    path('f_user_test/', views.f_user_test),
-    path('f_test/', views.f_test),
-    path('f_insert_user/', views.f_insert_user),
-    path('f_update_lecture/', views.f_update_lecture),
-    path('f_test_update_lecture/', views.f_test_update_lecture),
-    path('f_update_standard/', views.f_update_standard),
-    path('f_update_major/', views.f_update_major),
-    path('f_update_subject_group/', views.f_update_subject_group),
-    path('f_update_changed_classification/', views.f_update_changed_classification),
 ]
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
