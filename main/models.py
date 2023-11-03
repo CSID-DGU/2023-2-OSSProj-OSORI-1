@@ -25,7 +25,7 @@ class UserInfo(models.Model):
 
     class Meta:  # 자동 migrate 막을 때 사용
         managed = False
-        db_table = 'user_info'
+        db_table = 'main_userinfo'
 
 # ------------------------------------- ( 강의 정보 테이블 ) -------------------------------------
 
@@ -40,7 +40,7 @@ class UserLecture(models.Model): # 학생성적정보파일 업로드 시 저장
 
     class Meta:
        managed = False
-       db_table = 'user_lecture'
+       db_table = 'main_userlecture'
 
 class Lecture(models.Model): # 에브리타임 강의 크롤링
     subject_num = models.CharField(primary_key=True, max_length=10)
@@ -53,7 +53,7 @@ class Lecture(models.Model): # 에브리타임 강의 크롤링
 
     class Meta:
        managed = False
-       db_table = 'lecture'
+       db_table = 'main_lecture'
 
 
 # ------------------------------------- ( 관심 강의 테이블 ) -------------------------------------
@@ -64,7 +64,7 @@ class Relation(models.Model):
 
     class Meta:
        managed = False
-       db_table = 'relation'
+       db_table = 'main_relation'
 
 # ------------------------------------- ( 강의 평가 테이블 ) -------------------------------------
 class Review(models.Model):
@@ -78,7 +78,7 @@ class Review(models.Model):
 
     class Meta:
        managed = False
-       db_table = 'review'
+       db_table = 'main_review'
 
  # ------------------------------------- ( 검사 기준 테이블 ) -------------------------------------
 
@@ -96,4 +96,4 @@ class Standard(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'standard'
+        db_table = 'main_standard'
