@@ -40,7 +40,7 @@ class UserLecture(models.Model): # 학생성적정보파일 업로드 시 저장
 
     class Meta:
        managed = False
-       db_table = 'userlecture'
+       db_table = 'user_lecture'
 
 class Lecture(models.Model): # 에브리타임 강의 크롤링
     subject_num = models.CharField(primary_key=True, max_length=10)
@@ -58,7 +58,7 @@ class Lecture(models.Model): # 에브리타임 강의 크롤링
 
 # ------------------------------------- ( 관심 강의 테이블 ) -------------------------------------
 
-class relation(models.Model):
+class Relation(models.Model):
     subject_num = models.ForeignKey(Lecture,on_delete=models.SET_NULL,null=True)
     student_id = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True)
 
