@@ -32,5 +32,9 @@ urlpatterns = [
     path('success_delete/', views.r_success_delete),
     path('result/', views.r_result),
     path('en_result/', views.r_en_result),
+
+     # 다른 함수사용 url 패턴
+    path('f_login/', views.f_login),
+    path('f_logout/', views.f_logout),
 ]
 
