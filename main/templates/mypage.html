@@ -403,25 +403,15 @@
     function pop_score(){
         var eng_box = document.getElementById('eng');
         var eng_ind = document.getElementById("eng").options.selectedIndex;
-        //아래 코드가 영어 인증 오픽을 설정했을 때 스코어 숫자로 입력하는 인풋 대신 오픽 레벨 입력하는 옵션 띄울라고 있는 코드 같아서 일단 주석처리함.
-        //우리 학교는 영어 인증에 오픽 포함 X이기 때문에
-        /*if(eng_box.options[eng_ind].value !== "해당없음" && eng_box.options[eng_ind].value !== "초과학기면제")
+        if(eng_box.options[eng_ind].value !== "해당없음" && eng_box.options[eng_ind].value !== "초과학기면제")
         {
-            if(eng_box.options[eng_ind].value === "OPIc")
-            {
-                document.getElementById('opic').style.display = "block";
-                document.getElementById('eng_score').style.display = "none";
-            }
-            else
-            {
                 document.getElementById('eng_score').style.display = "block";
                 document.getElementById('opic').style.display = "none";
-            }
+            
         }
         else{
-            document.getElementById('opic').style.display = "none";
             document.getElementById('eng_score').style.display = "none";
-        }*/
+        }
     }
 
     // 크롤링할때 비번 안치면 빠꾸
