@@ -255,6 +255,26 @@
     </div>
 </div>
 
+<!-- 7. 졸업논문 통과 여부 모달 -->
+<div id='m7' class="modal">
+    <div class="update_modal_content">
+        <div id='c7' class="close">&times;</div>
+        <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
+            졸업논문 통과 여부
+        </div>
+        <hr style="width:80%; margin-top:1.3rem;">
+        <!-- 폼 -->
+        <form action="/f_mod_ms_eng/" method="post" name='form2' onsubmit="return check_up2()">
+            {% csrf_token %}
+            <div class="regi_box">
+                <label>졸업논문 통과 여부</label>
+                <select name="thesis_status">
+                    <option value="통과" selected>통과</option>
+                    <option value="미통과">미통과</option>
+                </select>
+            </form>
+        </div>
+    </div>
 
 <!-- 로그인시 로딩 모달 창 -->
 <div id='load_madal' class="modal">
