@@ -52,34 +52,19 @@
                     <select onclick="pop_score()" id="eng" name="eng">
                         <option value="해당없음" selected>해당없음</option>
                         <option value="TOEIC">TOEIC</option>
-                        <option value="TOEFL">TOEFL</option>
-                        <option value="TEPS">TEPS</option>
-                        <option value="New_TEPS">New TEPS</option>
-                        <option value="OPIc">OPIc</option>
-                        <option value="TOEIC_Speaking">TOEIC Speaking</option>
-                        <option value="초과학기면제">초과학기 2학기이상 면제</option>
-                    </select>
-                    <!-- 숨겨져있는 애들 -->
-                    <input id="eng_score" style="display:none" type="number" name="eng_score" placeholder='점수'>
-                    <select id="opic" name="opic" style="display:none">
-                        <option value="NL" selected>Novice Low</option>
-                        <option value="NM">Novice Mid</option>
-                        <option value="NH">Novice High</option>
-                        <option value="IL">Intermediate Low</option>
-                        <option value="IM">Intermediate Mid</option>
-                        <option value="IH">Intermediate High</option>
-                        <option value="AL">Advanced Low</option>
-                    </select>
-                {% else %}
-                    <select id="eng" name="eng">
-                        <option value="영어인증면제학과" selected>영어인증 면제학과</option>
                     </select>
                 {% endif %}
+
+                <label>졸업논문 인정 여부</label>
+                <select name="thesis_status">
+                    <option value="통과" selected>통과</option>
+                    <option value="미통과">미통과</option>
+                </select>
 
                 <label>비밀번호</label>
                 <input id="pw1" type="password" name="password">
                 <div class='regi_guide'>
-                    * Please Graduate 사이트의 고유 비밀번호를 설정해주세요
+                    * Graduate is good 사이트의 고유 비밀번호를 설정해주세요
                 </div>
                 <label>비밀번호 재확인</label>
                 <input id="pw2" type="password">
@@ -101,19 +86,11 @@
         var eng_ind = document.getElementById("eng").options.selectedIndex;
         if(eng_box.options[eng_ind].value !== "해당없음" && eng_box.options[eng_ind].value !== "초과학기면제")
         {
-            if(eng_box.options[eng_ind].value === "OPIc")
-            {
-                document.getElementById('opic').style.display = "block";
-                document.getElementById('eng_score').style.display = "none";
-            }
-            else
-            {
                 document.getElementById('eng_score').style.display = "block";
                 document.getElementById('opic').style.display = "none";
-            }
+            
         }
         else{
-            document.getElementById('opic').style.display = "none";
             document.getElementById('eng_score').style.display = "none";
         }
     }
