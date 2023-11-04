@@ -22,6 +22,9 @@ class UserInfo(models.Model):
     eng = models.IntegerField(blank=True, null=True) # 영어 공인 성적(토익기준)
     eg = models.BooleanField() # 공대/비공대 여부
     sum_credit = models.IntegerField() # 총 졸업학점
+    mypage_json = models.JSONField(blank=True, null=True)
+    result_json = models.JSONField(blank=True, null=True)
+    en_result_json = models.JSONField(blank=True, null=True)
 
     class Meta:  # 자동 migrate 막을 때 사용
         managed = False
