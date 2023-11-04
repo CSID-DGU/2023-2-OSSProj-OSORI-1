@@ -35,9 +35,6 @@ def f_login(request):
 def f_mypage(user_id):
     ui_row = UserInfo.objects.get(student_id=user_id)
     ug = UserLecture.objects.filter(student_id=user_id)
-    # 성적표 띄울땐 커스텀과 찐 성적 구분한다
-    grade = list(ug.exclude(year='커스텀').values())
-    custom_grade = list(ug.filter(year='커스텀').values())
     # 만약 성적표 업로드 안했다면
     is_grade = 1
     if not ug.exists():
@@ -50,8 +47,6 @@ def f_mypage(user_id):
         'sub_major' : ui_row.sub_major,
         'name' : ui_row.name,
         'eng' : ui_row.eng,
-        'grade' : grade,
-        'custom_grade' : custom_grade,
         'is_grade' : is_grade,
     }
     return mypage_context
