@@ -179,45 +179,45 @@ def f_result(user_id):
     result_context['user_info'] = context_user_info
 
 
-    ####################################################
-    ################### 고전독서 영역 ###################
-    ####################################################
-    pass_book = 0
-    if ui_row.book == '고특통과': 
-        pass_book = 2
-        context_book = {
-            'pass' : pass_book
-        }
-    else:
-        W, E, EW, S = int(ui_row.book[0]), int(ui_row.book[1]), int(ui_row.book[2]), int(ui_row.book[3])
-        total_book = 0
-        if W > 4: 
-            total_book += 4
-        else : 
-            total_book += W
-        if E > 2: 
-            total_book += 2
-        else : 
-            total_book += E
-        if EW > 3: 
-            total_book += 3
-        else : 
-            total_book += EW
-        if S > 1: 
-            total_book += 1
-        else : 
-            total_book += S
-        if total_book == 10:
-            pass_book = 1
-        context_book = {
-            'W' : W,
-            'E' : E,
-            'EW' : EW,
-            'S' : S,
-            'total' : total_book,
-            'pass' : pass_book
-        }
-    result_context['book'] = context_book
+    # ####################################################
+    # ################### 고전독서 영역 ###################
+    # ####################################################
+    # pass_book = 0
+    # if ui_row.book == '고특통과': 
+    #     pass_book = 2
+    #     context_book = {
+    #         'pass' : pass_book
+    #     }
+    # else:
+    #     W, E, EW, S = int(ui_row.book[0]), int(ui_row.book[1]), int(ui_row.book[2]), int(ui_row.book[3])
+    #     total_book = 0
+    #     if W > 4: 
+    #         total_book += 4
+    #     else : 
+    #         total_book += W
+    #     if E > 2: 
+    #         total_book += 2
+    #     else : 
+    #         total_book += E
+    #     if EW > 3: 
+    #         total_book += 3
+    #     else : 
+    #         total_book += EW
+    #     if S > 1: 
+    #         total_book += 1
+    #     else : 
+    #         total_book += S
+    #     if total_book == 10:
+    #         pass_book = 1
+    #     context_book = {
+    #         'W' : W,
+    #         'E' : E,
+    #         'EW' : EW,
+    #         'S' : S,
+    #         'total' : total_book,
+    #         'pass' : pass_book
+    #     }
+    # result_context['book'] = context_book
     
     ################################################
     ################### 전공 공통 ###################
@@ -558,17 +558,17 @@ def f_result(user_id):
                 # 영어 점수 기재했을 경우
                 else: 
                     eng_category, eng_score = eng_category.split('/')
-                    # OPIc일 경우
-                    if eng_category == 'OPIc':
-                        # 영어영문은 기준이 더 높다
-                        if ui_row.major == '영어영문학전공':
-                            opic_standard = ['AL', 'IH', 'IM']
-                        else:
-                            opic_standard = ['AL', 'IH', 'IM', 'IL']
-                        if eng_score in opic_standard:
-                            eng_pass = 1
-                    elif int(eng_score) >= eng_standard[eng_category] :
-                        eng_pass = 1
+                    # # OPIc일 경우
+                    # if eng_category == 'OPIc':
+                    #     # 영어영문은 기준이 더 높다
+                    #     if ui_row.major == '영어영문학전공':
+                    #         opic_standard = ['AL', 'IH', 'IM']
+                    #     else:
+                    #         opic_standard = ['AL', 'IH', 'IM', 'IL']
+                    #     if eng_score in opic_standard:
+                    #         eng_pass = 1
+                    # elif int(eng_score) >= eng_standard[eng_category] :
+                    #     eng_pass = 1
         context_english = {
             'standard' : eng_standard,
             'category' : eng_category,
