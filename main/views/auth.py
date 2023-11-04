@@ -1,6 +1,7 @@
 # 파이썬 라이브러리
 import datetime
 import bcrypt
+import json
 # 장고 관련 참조
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -25,6 +26,8 @@ def f_login(request):
     if not bcrypt.checkpw(pw.encode('utf-8'), ui_row[0].password.encode('utf-8')):
         messages.error(request, '⚠️ Graduate is Good 비밀번호를 확인하세요.')
         return redirect('/login/')
+    # !! 로그인시마다 json을 최신화시킨다 !!
+    update_json(user_id)
     # 세션에 ID 저장
     request.session['id'] = user_id
     return redirect('/mypage/')
@@ -52,3 +55,10 @@ def f_mypage(user_id):
         'is_grade' : is_grade,
     }
     return mypage_context
+
+def update_json(user_id):
+    ui_row = UserInfo.objects.get(student_id = user_id)
+    # mypage json 업데이트
+    mypage_context = f_mypage(user_id)
+    ui_row.mypage_json = json.dumps(mypage_context)
+    return
