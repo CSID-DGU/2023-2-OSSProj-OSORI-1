@@ -58,12 +58,12 @@
         <form action="/f_find_pw/" method="post" name='form2' onsubmit="return check_up2()">
             {% csrf_token %}
             <div class="regi_box">
-                <label style="text-align: center;">아이디</label>
+                <label style="text-align: center;">ID</label>
                 <input type="text" id="id2" name="id2" placeholder='ID'>
-                <label style="text-align: center;">휴대폰번호</label>
+                <label style="text-align: center;">EMAIL</label>
                 <input type="email" id="email" name="email" placeholder="EMAIL">
             </div>
-            <input type='submit' class='login_btn' value='임시 비밀번호 받기' style="margin:2.5rem 0 2rem 0;">
+            <input type='submit' class='login_btn' value='완료' style="margin:2.5rem 0 2rem 0;">
         </form>
     </div>
 </div>
