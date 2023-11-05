@@ -844,14 +844,13 @@ body:not(.device-touch) .suc_btn
     margin-top:1.5rem;
     padding-left : 12rem;
     padding-right : 12rem;
-    height: 130rem;
 }
 
 .my_box{
     display: flex;
     flex-direction: column;
     width: 28rem;
-    height: 33rem;
+    height: 120rem;
     padding:2.5rem;
     margin: 1rem 1rem 1rem;
     border:1px solid rgb(216, 216, 216);
