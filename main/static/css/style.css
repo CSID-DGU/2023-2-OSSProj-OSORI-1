@@ -1,7 +1,7 @@
 
 
 .csstest{
-    color:red;
+    color:rgb(255, 149, 0);
 }
 
 body {
@@ -89,7 +89,7 @@ input[type="button"]
 .regi_find_pwd a:hover 
 {
     font-weight: bold;
-    color : rgb(164, 26, 55);
+    color : rgb(255, 149, 0);
 }
 
 /* ---------------------------------( ref footer )---------------------------------------- */
@@ -149,7 +149,7 @@ input[type="button"]
 }
 
 .info_btn:hover {
-    background-color: rgba(164, 26, 56, 0.829);
+    background-color: rgb(255, 149, 0);
   }
 
 /* ---------------------------------( head - 메인 )---------------------------------------- */
@@ -243,7 +243,7 @@ input[type="button"]
     margin-top:2rem;
     font-size:2.5rem; 
     font-weight:bold; 
-    color : rgb(164, 26, 55)
+    color : rgb(255, 149, 0);
 }
 .popup_box{
     margin:0 auto;
@@ -294,7 +294,7 @@ input[type="button"]
 .statistics_color_span {
     font-size: 2rem;
     font-weight: bold;
-    color: rgb(164, 26, 55)
+    color: rgb(255, 149, 0);
 }
 
 .filter_wrap {
@@ -367,7 +367,7 @@ input[type="button"]
 }
 
 .filter_btn {
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     width: 12%;
     color: white;
     font-size: 1.1rem;
@@ -397,7 +397,7 @@ input[type="button"]
     width: 15px;
     height: 15px;
     border: 10px solid #e0e0e0;
-    border-top: 10px solid rgb(164, 26, 55);
+    border-top: 10px solid rgb(255, 149, 0);;
     border-radius: 50em;
     transition: all .1s;
     animation-name: spinCircle;
@@ -502,7 +502,7 @@ input[type=checkbox] {
 }
 
 .login_btn {
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     width:17%;  
     color: white;
     font-size: 1.2rem;
@@ -565,7 +565,7 @@ body:not(.device-touch) .suc_btn
 
 .login_btn_default{
     margin-top: 22px;
-    color:#d32f2f; 
+    color:rgb(255, 149, 0);; 
     font-weight: bold;
     font-size:1.2rem;
 }
@@ -605,7 +605,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .confirm_btn {
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     width:15%;  
     color: white;
     font-size: 1.2rem;
@@ -624,7 +624,7 @@ body:not(.device-touch) .suc_btn
 .target_color_span {
     font-size: 1.8rem;
     font-weight: bold;
-    color: rgb(164, 26, 55)
+    color: rgb(255, 149, 0);
 }
 
 .target_num_div {
@@ -633,7 +633,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .target_caution_div {
-    color:#d32f2f; 
+    color:rgb(255, 149, 0); 
     font-weight:bold;
     font-size:1rem;
     margin : 2.3rem 0 2.3rem 0;
@@ -673,11 +673,11 @@ body:not(.device-touch) .suc_btn
     padding:0.1rem 0.3rem 0.1rem 0.3rem;
     color:white;
     border-radius: 3px;
-    background-color: rgb(164, 26, 55);
+    background-color: rgb(255, 149, 0);;
 }
 
 .caution_info{
-    color:#d32f2f; 
+    color:rgb(255, 149, 0);; 
     font-weight:bold;
 }
 
@@ -731,7 +731,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .regi_btn{
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     width:15%;  
     color: white;
     font-size: 1.2rem;
@@ -748,7 +748,7 @@ body:not(.device-touch) .suc_btn
 
 .regi_guide{
     text-align: left; 
-    color:#d32f2f; 
+    color:rgb(255, 149, 0);; 
     font-size:0.9rem; 
     font-weight: lighter;
 }
@@ -772,7 +772,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .suc_container span{
-    color:rgb(164, 26, 55);
+    color:rgb(255, 149, 0);;
 }
 
 .suc_content1{
@@ -789,7 +789,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .suc_btn{
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     width:230px;  
     color: white;
     font-size: 1.2rem;
@@ -823,7 +823,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .go_result_btn{
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     color: white;
     font-size: 1rem;
     font-weight: bold;
@@ -850,7 +850,7 @@ body:not(.device-touch) .suc_btn
     display: flex;
     flex-direction: column;
     width: 28rem;
-    height: 35rem;
+    height: 40rem;
     padding:2.5rem;
     margin: 1rem 1rem 1rem;
     border:1px solid rgb(216, 216, 216);
@@ -1001,7 +1001,7 @@ body:not(.device-touch) .suc_btn
 /* ---------------------------------( custom )---------------------------------------- */
 
 .caution_div {
-    color: #d32f2f;
+    color: rgb(255, 149, 0);;
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
@@ -1098,7 +1098,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .ajax_search_btn {
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     width: 8%;
     color: white;
     font-size: 1.1rem;
@@ -1112,7 +1112,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .add_btn {
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     width: 14%;
     color: white;
     font-size: 1rem;
@@ -1137,7 +1137,7 @@ body:not(.device-touch) .suc_btn
 }
 
 .save_btn {
-    background: rgb(164, 26, 55);
+    background: rgb(255, 149, 0);;
     width: 9%;
     color: white;
     font-size: 1rem;
@@ -1601,7 +1601,7 @@ strong {
 
 .tooltip_info {
     cursor: pointer;
-    color:#d32f2f; 
+    color:rgb(255, 149, 0);; 
     text-decoration : underline
 }
 
@@ -1658,7 +1658,7 @@ strong {
 
 
 .tooltip_span{
-    color : #d32f2f;
+    color : rgb(255, 149, 0);;
 }
 
 .tooltip_sub_p{
