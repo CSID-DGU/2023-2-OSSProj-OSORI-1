@@ -13,11 +13,13 @@ def a_statistics(request):
     grade_list = request.POST.getlist('grade[]')
     selection_list = request.POST.getlist('selection[]')
 
-    # 선택영역 동국대 강의형식으로 나중에 추가로 수정 예정
-    if "기타" in selection_list:
-        selection_list += ["인성과도덕", "사회와제도", "예술과생활", "생명과자연", "생명과 과학", "역사와문화", "인성과창의력"]
-    if "자기계발과진로" in selection_list:
-        selection_list += ["융합과창업"]
+    # 선택영역 동국대 강의형식으로 수정완료
+    if "공교" in selection_list:
+        selection_list += ["자아성찰","대학탐구","시민","글쓰기","명작","리더십","지역연구","영어","한국문화","SW"]
+    if "일교" in selection_list:
+        selection_list += ["인문","사회","자연","문화예술체육","자기계발","융복합"]
+    if "학기" in selection_list:
+        selection_list += ["제4영역:자연과학","제5영역:외국어"]    
     
     # 사용자 과목정보에서 긁어올 정보 수정예정
     cs_queryset = UserLecture.objects.filter(
