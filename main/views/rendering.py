@@ -28,6 +28,15 @@ def r_statistics(request):
     }
     return render(request, "statistics.html", context)
 
+def r_statistics_ge(request):
+    user_num = UserInfo.objects.count()
+    major_num = UserInfo.objects.values('major').distinct().count()
+    context = {
+        'user_num' : user_num,
+        'major_num' : major_num,
+    }
+    return render(request, "statistics_ge.html", context)
+
 def r_login(request):
     request.session.clear()
     return render(request, "login.html")
