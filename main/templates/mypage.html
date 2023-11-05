@@ -70,9 +70,9 @@
         <!-- 관심과목 장바구니 / 영어 수정 / 회원 탈퇴 -->
         <div class="my_box">
             <div class="my_box_title">
-                <div><i class="fas fa-book"></i>관심전공 및 관심교양</div>
+                <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">관심전공 및 관심교양</div>
             </div>
-            <hr style="margin-bottom:0.8rem;">
+            <hr style="width:80%; margin-top:1.3rem;">
             <table>
                 <tr>
                     <div><i class="my_box_table_1st_td"></i>관심전공<div>
@@ -94,8 +94,139 @@
                 <button id='b6' class="my_box_mod_btn">탈퇴하기</button>
             </div>
         </div>
+
+        <!-- 기이수과목 -->
+        <div class="my_box_grade">
+            <div style="padding:2.5rem 2.5rem 0 2.5rem">
+                <div class="my_box_title">
+                    <div></div>
+                    <div style="margin-left:180px">내 기이수과목</div>
+                    <div>
+                        <button id='b5' class="my_box_mod_btn" style="margin-right:1.3rem">커스텀하기</button>
+                        <button id='b4' class="my_box_mod_btn">업데이트</button>
+                    </div>
+                </div>
+                <hr>
+
+                {% if is_grade %}
+                <!-- 커스텀 + 7개까지만 보여준다. -->
+                <table id="short_table" class="grade_table" style="margin-top:2rem;">
+                    <tr>
+                        <th class="grade_table_th" style="width:10%">년도</th>
+                        <th class="grade_table_th" style="width:10%">학기</th>
+                        <th class="grade_table_th" style="width:10%">학수번호</th>
+                        <th class="grade_table_th" style="width:40%">과목명</th>
+                        <th class="grade_table_th" style="width:10%">이수구분</th>
+                        <th class="grade_table_th" style="width:14%">선택영역</th>
+                        <th class="grade_table_th" style="width:6%; border-right :0px">학점</th>
+                    </tr>
+                    <!-- 커스텀과목 먼저 보여주고 -->
+                    {% for cg in custom_grade %}
+                    <tr style='color : rgb(170, 170, 170)'>
+                        <td class="grade_table_td">{{ cg.year }}</td>
+                        <td class="grade_table_td">{{ cg.semester }}</td>
+                        <td class="grade_table_td">{{ cg.subject_num }}</td>
+                        <td class="grade_table_td">{{ cg.subject_name }}</td>
+                        <td class="grade_table_td">{{ cg.classification }}</td>
+                        <td class="grade_table_td">{{ cg.selection }}</td>
+                        <td class="grade_table_td" style="border-right :0px">{{ cg.grade | floatformat }}</td>
+                    </tr>
+                    {% endfor %}
+                    <!-- 그리고 찐 과목 -->
+                    {% for g in grade %}
+                    {% if forloop.counter <= 7 %} 
+                    <tr>
+                        <td class="grade_table_td">{{ g.year }}</td>
+                        <td class="grade_table_td">{{ g.semester }}</td>
+                        <td class="grade_table_td">{{ g.subject_num }}</td>
+                        <td class="grade_table_td">{{ g.subject_name }}</td>
+                        <td class="grade_table_td" >
+                            {% if g.is_changed_classification %}
+                                <span class="tooltip tooltip_info">{{ g.classification }}</span>
+                                <div class="tooltip_text2">
+                                    <p>&#183; 해당 과목의 이수구분이 자신의 학년에 맞도록 자동으로 변경되었습니다.</p>
+                                    <p class='tooltip_sub_p'>&nbsp;&nbsp;&nbsp;- 특정 과목은 학년마다 인정되는 이수구분이 다릅니다.</p>
+                                    <p class='tooltip_sub_p'>&nbsp;&nbsp;&nbsp;- 
+                                        <a class="link_site" target="_blank"
+                                        href="http://board.sejong.ac.kr/boardview.do?bbsConfigFK=335&pkid=146645&siteGubun=19">
+                                        수강편람</a> -> 22p -> "교과목 수강안내"를 참고해주세요. 
+                                    </p>
+                                    <p>&#183; 졸업요건 검사시 <span class='tooltip_span'>변경된 이수구분</span>으로 검사합니다.</p>
+                                </div>
+                            {% else %}
+                                {{ g.classification }}
+                            {% endif %}
+                        </td>
+                        <td class="grade_table_td">{{ g.selection }}</td>
+                        <td class="grade_table_td" style="border-right :0px">{{ g.grade | floatformat }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+                <!-- 전체보기 클릭시 모두 보여준다 -->
+                <table id="long_table" class="grade_table" style="display:none; ">
+                    <tr>
+                        <th class="grade_table_th" style="width:10%">년도</th>
+                        <th class="grade_table_th" style="width:10%">학기</th>
+                        <th class="grade_table_th" style="width:10%">학수번호</th>
+                        <th class="grade_table_th" style="width:40%">과목명</th>
+                        <th class="grade_table_th" style="width:10%">이수구분</th>
+                        <th class="grade_table_th" style="width:14%">선택영역</th>
+                        <th class="grade_table_th" style="width:6%; border-right :0px">학점</th>
+                    </tr>
+                    {% for cg in custom_grade %}
+                    <tr style='color : rgb(170, 170, 170)'>
+                        <td class="grade_table_td">{{ cg.year }}</td>
+                        <td class="grade_table_td">{{ cg.semester }}</td>
+                        <td class="grade_table_td">{{ cg.subject_num }}</td>
+                        <td class="grade_table_td">{{ cg.subject_name }}</td>
+                        <td class="grade_table_td">{{ cg.classification }}</td>
+                        <td class="grade_table_td">{{ cg.selection }}</td>
+                        <td class="grade_table_td" style="border-right :0px">{{ cg.grade | floatformat }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for g in grade %}
+                    <tr>
+                        <td class="grade_table_td">{{ g.year }}</td>
+                        <td class="grade_table_td">{{ g.semester }}</td>
+                        <td class="grade_table_td">{{ g.subject_num }}</td>
+                        <td class="grade_table_td">{{ g.subject_name }}</td>
+                        <td class="grade_table_td" >
+                            {% if g.is_changed_classification %}
+                                <span class="tooltip tooltip_info">{{ g.classification }}</span>
+                                <div class="tooltip_text2">
+                                    <p>&#183; 해당 과목의 이수구분이 자신의 학년에 맞도록 자동으로 변경되었습니다.</p>
+                                    <p class='tooltip_sub_p'>&nbsp;&nbsp;&nbsp;- 특정 과목은 학년마다 인정되는 이수구분이 다릅니다.</p>
+                                    <p class='tooltip_sub_p'>&nbsp;&nbsp;&nbsp;- 
+                                        <a class="link_site" target="_blank"
+                                        href="http://board.sejong.ac.kr/boardview.do?bbsConfigFK=335&pkid=146645&siteGubun=19">
+                                        수강편람</a> -> 22p -> "교과목 수강안내"를 참고해주세요. 
+                                    </p>
+                                    <p>&#183; 졸업요건 검사시 <span class='tooltip_span'>변경된 이수구분</span>으로 검사합니다.</p>
+                                </div>
+                            {% else %}
+                                {{ g.classification }}
+                            {% endif %}
+                        </td>                        <td class="grade_table_td">{{ g.selection }}</td>
+                        <td class="grade_table_td" style="border-right :0px">{{ g.grade | floatformat }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="show_btn" onclick="show_table()" class="show_table"><i class="fas fa-chevron-down"></i>&nbsp;펼치기
+            </div>
+            <div id="hide_btn" onclick="hide_table()" class="show_table" style="display:none"><i
+                    class="fas fa-chevron-up"></i>&nbsp;접기</div>
+            {% else %}
+                <div class="caution_div" style='margin:3rem 0 3rem 0'>아직 기이수과목을 업로드하지 않았습니다.</div>
+            </div>
+            {% endif %}
+        </div>
     </div>
 </div>
+
+
 
 <!-- 1. 내정보 업데이트 모달 -->
 <div id='m1' class="modal">
