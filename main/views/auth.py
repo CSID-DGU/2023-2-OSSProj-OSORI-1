@@ -42,7 +42,7 @@ def f_mypage(user_id):
 
     mypage_context ={
         'student_id' : ui_row.student_id,
-        'year' : ui_row.year,
+        'email' : ui_row.email,
         'major' : ui_row.major,
         'sub_major' : ui_row.sub_major,
         'name' : ui_row.name,
