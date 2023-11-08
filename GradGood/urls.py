@@ -26,7 +26,7 @@ urlpatterns = [
     path('login/', views.r_login),
     path('changePW/', views.r_changePW),
     path('mypage/', views.r_mypage),
-    path('agree/', views.r_agree),
+    #path('agree/', views.r_agree),
     path('custom/', views.r_custom),
     path('register/', views.r_register),
     path('success/', views.r_success),
