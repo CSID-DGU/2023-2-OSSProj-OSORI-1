@@ -14,14 +14,13 @@ password_validator = RegexValidator(
 class UserInfo(models.Model): 
     student_id = models.CharField(primary_key=True, max_length=10) # 학번 입력요구
     password = models.CharField(max_length=100, validators=[password_validator]) # 비밀번호
-    year = models.IntegerField() # 학년
     major = models.CharField(max_length=45) # 전공
     sub_major = models.CharField(max_length=45, blank=True, null=True) # 부전공
     name = models.CharField(max_length=45) # 학생 이름
     thesis = models.BooleanField() # 졸업논문(시험) 통과여부(o,x)
     eng = models.IntegerField(blank=True, null=True) # 영어 공인 성적(토익기준)
-    eg = models.BooleanField() # 공대/비공대 여부
     sum_credit = models.IntegerField() # 총 졸업학점
+    email = models.CharField(max_length=30) # 비밀번호 찾기 기능 때 필요
     mypage_json = models.JSONField(blank=True, null=True)
     result_json = models.JSONField(blank=True, null=True)
     en_result_json = models.JSONField(blank=True, null=True)
@@ -39,7 +38,7 @@ class UserLecture(models.Model): # 학생성적정보파일 업로드 시 저장
     classification_ge = models.CharField(max_length=45)
     professor = models.CharField(max_length=50)
     subject_credit = models.IntegerField()
-    #    major_ge = models.BooleanField() 
+    student_id = models.CharField(max_length=10)
 
     class Meta:
        managed = False
