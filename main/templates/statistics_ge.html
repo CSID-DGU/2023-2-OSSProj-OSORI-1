@@ -166,18 +166,15 @@
                     html += "<th class='grade_table_th' style='width:12%; border-right :0px'>담은횟수</th>"
                     html += "</tr>";
                     for (let i = 0; i < zip_lecture_count.length; i++) {
-                        lecture_info = zip_lecture_count[i][0]
-                        count = zip_lecture_count[i][1]
+                        lecture_info = zip_lecture_count[i]
                         html += "<tr>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_name + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.classification + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.classification_ge + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.professor + "</td>";
-                        html += "<td class='grade_table_td'>" + lecture_info.grade + "</td>";
-                        html += "<td class='grade_table_td'>" + lecture_info.sum_stu + "</td>";
-                        html += "<td class='grade_table_td' style='border-right :0px;'><span style='font-weight:bold; color:#17a55e;'>" +
-                            count + "</span> 회</td>";
+                        html += "<td class='grade_table_td'>" + lecture_info.subject_credit + "</td>";
+                        html += "<td class='grade_table_td' style='border-right :0px;'><span style='font-weight:bold; color:#17a55e;'>" + lecture_info.sum_stu + "</span>회</td>";
                         html += "</tr>";
                     }
                     html += "</table>";
