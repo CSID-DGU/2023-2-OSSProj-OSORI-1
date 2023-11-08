@@ -62,10 +62,6 @@ def r_agree(request):
     return render(request, "agree.html", context)
 
 def r_register(request):
-    temp_user_info = request.session.get('temp_user_info')
-    if not temp_user_info :
-        messages.error(request, '❌ 세션 정보가 없습니다!')
-        return redirect('/')
     return render(request, "register.html")
 
 def r_success(request):
