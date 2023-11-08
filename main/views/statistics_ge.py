@@ -15,23 +15,23 @@ def a_statistics(request):
     
     # 선택영역 동국대 강의형식으로 수정완료
     selection =[]
-    if "공교" in selection_list:
+    if "공통교양" in selection_list:
         selection += ["자아성찰","대학탐구","시민","글쓰기","명작","리더십","지역연구","영어","한국문화","SW"]
-    if "일교" in selection_list:
+    if "일반교양" in selection_list:
         selection += ["인문","사회","자연","문화예술체육","자기계발","융복합"]
-    if "학기" in selection_list:
+    if "학문기초" in selection_list:
         selection += ["제4영역:자연과학","제5영역:외국어"]    
     
     # 에브리타임 강좌 목록에서 긁어올 정보
     cs_queryset = Lecture.objects.filter(
         classification = ['공교', '일교', '학기'], 
         classification_ge = selection, 
-        grade__in= grade_list
+        subject_credit = grade_list
     ).order_by('-sum_stu') # 에브리타임 담은 강좌인원에 따라 내림차순 정렬 
 
     zip_lecture_count = []
     for lecture in cs_queryset:
-        if lecture.sum_stu < 10:
+        if lecture.sum_stu < 5: # 담은 인원이 5명 이하이면 제외 
             continue
         # 다른 필드에 관한 조건은 필요한 경우 추가할 것
         zip_lecture_count.append([lecture])
