@@ -19,26 +19,16 @@
             <div class="regi_box" style="width:400px">
 
                 <label>이름</label>
-                <input type="text" name="name" placeholder="{{ request.session.temp_user_info.name }}" style="background-color:rgb(248,249,250);" disabled>
+                <input type="text" name="name">
 
                 <label>학과</label>
-                <input type="text" name="major" placeholder="{{ request.session.temp_user_info.major }}" style="background-color:rgb(248,249,250);" disabled>
-
-                <!-- 학부일 경우엔 선택지 주기 (1학년 학부생에게만 해당함. )-->
-                {% if request.session.temp_user_info.major_select %}
-                <select id="major_select" name="major_select">
-                    <option value="x" selected>-- 선택(필수) --</option>
-                    {% for ms in request.session.temp_user_info.major_select %}
-                    <option value="{{ ms }}">{{ ms }}</option>
-                    {% endfor %}
-                </select>
-                <div class='regi_guide'>
-                    * 전공이 정해지지 않은 경우 희망 전공을 선택하세요
-                </div>
-                {% endif %}
+                <input type="text" name="major">
 
                 <label>학번</label>
-                <input type="text" name="student_id" placeholder='{{ request.session.temp_user_info.id }}' style="background-color:rgb(248,249,250);" disabled>
+                <input type="text" name="student_id">
+
+                <label>이메일</label>
+                <input type="text" name="email">
 
                 <label>전공상태</label>
                 <select name="major_status">
@@ -48,12 +38,11 @@
                 </select>
 
                 <label>영어인증</label>
-                {% if not request.session.temp_user_info.is_exempt_english %}
-                    <select onclick="pop_score()" id="eng" name="eng">
-                        <option value="해당없음" selected>해당없음</option>
-                        <option value="TOEIC">TOEIC</option>
-                    </select>
-                {% endif %}
+                <select onclick="pop_score()" id="eng" name="eng">
+                    <option value="해당없음" selected>해당없음</option>
+                    <option value="TOEIC">TOEIC</option>
+                </select>
+                <input id="eng_score" style="display:none" type="number" name="eng_score" placeholder='점수'>
 
                 <label>졸업논문 인정 여부</label>
                 <select name="thesis_status">
@@ -86,9 +75,7 @@
         var eng_ind = document.getElementById("eng").options.selectedIndex;
         if(eng_box.options[eng_ind].value !== "해당없음" && eng_box.options[eng_ind].value !== "초과학기면제")
         {
-                document.getElementById('eng_score').style.display = "block";
-                document.getElementById('opic').style.display = "none";
-            
+                document.getElementById('eng_score').style.display = "block"; 
         }
         else{
             document.getElementById('eng_score').style.display = "none";
