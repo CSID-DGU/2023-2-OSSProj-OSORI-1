@@ -36,10 +36,18 @@ urlpatterns = [
     path('result/', views.r_result),
     path('en_result/', views.r_en_result),
 
-     # 다른 함수사용 url 패턴
+    # 다른 함수사용 url 패턴
     path('f_login/', views.f_login),
     path('f_logout/', views.f_logout),
-    path('f_mypage/', views.f_mypage),
+    path('f_certify/', views.f_certify),
     path('f_register/', views.f_register),
+    path('f_mod_info/', views.f_mod_info),
+    path('f_mod_info_ms/', views.f_mod_info_ms),
+    path('f_mod_ms_eng/', views.f_mod_ms_eng),
+    path('f_mod_pw/', views.f_mod_pw),
+    path('f_mod_grade/', views.f_mod_grade),
+    path('f_find_pw/', views.f_find_pw),
+    path('f_add_custom/', views.f_add_custom),
+    path('f_delete_account/', views.f_delete_account),
 ]
 
