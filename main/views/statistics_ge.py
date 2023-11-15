@@ -24,8 +24,8 @@ def a_statistics_ge(request):
     
     # 에브리타임 강좌 목록에서 긁어올 정보
     cs_queryset = Lecture.objects.filter(
-        classification = ['공교', '일교', '학기'], 
-        classification_ge = selection, 
+        classification__in = ['공교', '일교', '학기'], 
+        classification_ge__in = selection, 
         subject_credit__in = grade_list
     ).order_by('-sum_stu') # 에브리타임 담은 강좌인원에 따라 내림차순 정렬 
 
