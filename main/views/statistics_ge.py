@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 @csrf_exempt
-def a_statistics(request):
+def a_statistics_ge(request):
     # POST로 온 form 데이터 꺼내기
     grade_list = request.POST.getlist('grade[]') # 학점 
     selection_list = request.POST.getlist('selection[]') # 선택영역 
