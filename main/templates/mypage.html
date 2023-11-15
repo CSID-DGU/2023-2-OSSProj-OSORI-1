@@ -258,7 +258,7 @@
 {% if messages %}
 {% for m in messages %}
 {% if m.tags == 'warning' %}
-<div id='m7' class="modal" style="display: block;">
+<div id='m1' class="modal" style="display: block;">
     <div class="update_modal_content">
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">전공 선택</div>
         <hr style="width:80%; margin-top:1.3rem;">
@@ -311,7 +311,7 @@
 </div>
 
 <!-- 3. 졸업논문 통과 여부 모달 -->
-<div id='m7' class="modal">
+<div id='m3' class="modal">
     <div class="update_modal_content">
         <div id='c7' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
@@ -332,7 +332,7 @@
     </div>
 
 <!-- 4. 비번 변경 모달-->
-<div id='m3' class="modal">
+<div id='m4' class="modal">
     <div class="update_modal_content">
         <div id='c3' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">비밀번호 변경</div>
@@ -352,7 +352,7 @@
 </div>
 
 <!-- 5.기이수성적 업데이트 모달 -->
-<div id='m4' class="modal">
+<div id='m5' class="modal">
     <div class="update_modal_content">
         <div id='c4' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
@@ -388,7 +388,7 @@
 </div>
 
 <!-- 6. 기이수과목 커스텀 모달-->
-<div id='m5' class="modal" style="display:none">
+<div id='m6' class="modal" style="display:none">
     <div class="update_modal_content">
         <div id='c5' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
@@ -408,7 +408,7 @@
 
 
 <!-- 7. 회원탈퇴 모달 -->
-<div id='m6' class="modal">
+<div id='m7' class="modal">
     <div class="update_modal_content">
         <div id='c6' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
@@ -664,6 +664,7 @@
     var b5 = document.getElementById("b5");     // 5. 기이수성적 업로드
     var b6 = document.getElementById("b6");     // 6. 커스텀
     var b7 = document.getElementById("b7");     // 7. 회원탈퇴
+    var b7 = document.getElementById("b8");     // 8. 전공선택
 
     // 모달 id
     var m1 = document.getElementById('m1');
@@ -673,6 +674,7 @@
     var m5 = document.getElementById('m5');
     var m6 = document.getElementById('m6');
     var m7 = document.getElementById('m7');
+    var m7 = document.getElementById('m8');
 
     // 모달 끄는 버튼(X) id
     var c1 = document.getElementById("c1");
@@ -682,6 +684,7 @@
     var c5 = document.getElementById("c5");
     var c6 = document.getElementById("c6");
     var c7 = document.getElementById("c7");
+    var c7 = document.getElementById("c8");
 
     // 모달 키는 함수 호출
     Btnclick(b1, m1);
@@ -691,6 +694,7 @@
     Btnclick(b5, m5);
     Btnclick(b6, m6);
     Btnclick(b7, m7);
+    Btnclick(b8, m8);
     // 모달 끄는 함수 호출
     Spanclick(c1, m1);
     Spanclick(c2, m2);
@@ -699,6 +703,7 @@
     Spanclick(c5, m5);
     Spanclick(c6, m6);
     Spanclick(c7, m7);
+    Spanclick(c8, m8);
     // 모달 밖 화면 누를때 꺼지게하기
     window.onclick = function (event) {
         if (event.target == m1) {
@@ -721,6 +726,9 @@
         }
         if (event.target == m7) {
             m7.style.display = "none";
+        }
+        if (event.target == m8) {
+            m8.style.display = "none";
         }
     }
 
