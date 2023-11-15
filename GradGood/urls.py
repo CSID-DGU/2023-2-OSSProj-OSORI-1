@@ -23,6 +23,8 @@ urlpatterns = [
     path('', views.r_head),
     path('statistics/', views.r_statistics),
     path('statistics_ge/',views.r_statistics_ge),
+    path('statistics/', views.a_statistics),
+    path('statistics_ge/',views.a_statistics_ge),
     path('login/', views.r_login),
     path('changePW/', views.r_changePW),
     path('mypage/', views.r_mypage),
