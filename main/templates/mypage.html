@@ -282,7 +282,9 @@
 {% endfor %}
 {% endif %} {% endcomment %}
 
-<!-- 2. 관심전공 장바구니 모달 수정필요 -->
+
+<!--이 부분 모달이 아니라 페이지로 넘겨야할 거 같음-->
+{% comment %} <!-- 2. 관심전공 장바구니 모달 수정필요 -->
 <div id='m2' class="modal">
     <div class="update_modal_content">
         <div id='c2' class="close">&times;</div>
@@ -329,12 +331,12 @@
                 </select>
             </form>
         </div>
-    </div>
+    </div> {% endcomment %}
 
-<!-- 4. 비번 변경 모달-->
-<div id='m3' class="modal">
+<!-- 2. 비번 변경 모달-->
+<div id='m2' class="modal">
     <div class="update_modal_content">
-        <div id='c3' class="close">&times;</div>
+        <div id='c2' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">비밀번호 변경</div>
         <hr style="width:80%; margin-top:1.3rem;">
         <!-- 폼 -->
@@ -351,10 +353,36 @@
     </div>
 </div>
 
-<!-- 5.기이수성적 업데이트 모달 -->
-<div id='m5' class="modal">
+<!-- 3. 회원탈퇴 모달 -->
+<div id='m3' class="modal">
     <div class="update_modal_content">
-        <div id='c5' class="close">&times;</div>
+        <div id='c3' class="close">&times;</div>
+        <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
+            회원 탈퇴
+        </div>
+        <div style="margin-top:0.5rem; font-size:0.9rem; color:rgb(199, 199, 199)">
+            비밀번호를 입력하여 Graduate is Good에서 탈퇴합니다. 회원 정보 및 성적정보파일 데이터가 모두 삭제됩니다.
+        </div>
+        <hr style="width:80%; margin-top:1.3rem;">
+        
+        <form action="/f_delete_account/" method="post" name='form6' onsubmit="return check_up6()">
+            {% csrf_token %}
+            <div class="regi_box">
+                <label style="text-align: center;">아이디</label>
+                <input type="text" name="student_id" placeholder='{{ request.session.id }}'
+                    style="background-color:rgb(248,249,250);" disabled>
+                <label style="text-align: center;">비밀번호</label>
+                <input type="password" id="pw6" name="pw" placeholder="PASSWORD">
+            </div>
+            <input type='submit' class='login_btn' value='탈퇴하기' style="margin:2.5rem 0 2rem 0;">
+        </form>
+    </div>
+</div>
+
+<!-- 4.기이수성적 업데이트 모달 -->
+<div id='m4' class="modal">
+    <div class="update_modal_content">
+        <div id='c4' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
             학생성적파일 업로드
         </div>
@@ -387,10 +415,10 @@
     </div>
 </div>
 
-<!-- 6. 기이수과목 커스텀 모달-->
-<div id='m6' class="modal" style="display:none">
+<!-- 5. 기이수과목 커스텀 모달-->
+<div id='m5' class="modal" style="display:none">
     <div class="update_modal_content">
-        <div id='c6' class="close">&times;</div>
+        <div id='c5' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
             기이수과목 커스텀
         </div>
@@ -407,31 +435,7 @@
 </div>
 
 
-<!-- 7. 회원탈퇴 모달 -->
-<div id='m7' class="modal">
-    <div class="update_modal_content">
-        <div id='c7' class="close">&times;</div>
-        <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
-            회원 탈퇴
-        </div>
-        <div style="margin-top:0.5rem; font-size:0.9rem; color:rgb(199, 199, 199)">
-            비밀번호를 입력하여 Graduate is Good에서 탈퇴합니다. 회원 정보 및 성적정보파일 데이터가 모두 삭제됩니다.
-        </div>
-        <hr style="width:80%; margin-top:1.3rem;">
-        
-        <form action="/f_delete_account/" method="post" name='form6' onsubmit="return check_up6()">
-            {% csrf_token %}
-            <div class="regi_box">
-                <label style="text-align: center;">아이디</label>
-                <input type="text" name="student_id" placeholder='{{ request.session.id }}'
-                    style="background-color:rgb(248,249,250);" disabled>
-                <label style="text-align: center;">비밀번호</label>
-                <input type="password" id="pw6" name="pw" placeholder="PASSWORD">
-            </div>
-            <input type='submit' class='login_btn' value='탈퇴하기' style="margin:2.5rem 0 2rem 0;">
-        </form>
-    </div>
-</div>
+
 
 <!-- 로그인시 로딩 모달 창 -->
 <div id='load_madal' class="modal">
@@ -661,10 +665,7 @@
     var b2 = document.getElementById("b2");     // 2. 관심전공 장바구니
     var b3 = document.getElementById("b3");     // 3. 관심교양 장바구니
     var b4 = document.getElementById("b4");     // 4. 비번 변경
-    var b5 = document.getElementById("b5");     // 5. 기이수성적 업로드
-    var b6 = document.getElementById("b6");     // 6. 커스텀
-    var b7 = document.getElementById("b7");     // 7. 회원탈퇴
-    var b7 = document.getElementById("b8");     // 8. 전공선택
+    var b5 = document.getElementById("b5");
 
     // 모달 id
     var m1 = document.getElementById('m1');
@@ -672,9 +673,6 @@
     var m3 = document.getElementById('m3');
     var m4 = document.getElementById('m4');
     var m5 = document.getElementById('m5');
-    var m6 = document.getElementById('m6');
-    var m7 = document.getElementById('m7');
-    var m7 = document.getElementById('m8');
 
     // 모달 끄는 버튼(X) id
     var c1 = document.getElementById("c1");
@@ -682,9 +680,6 @@
     var c3 = document.getElementById("c3");
     var c4 = document.getElementById("c4");
     var c5 = document.getElementById("c5");
-    var c6 = document.getElementById("c6");
-    var c7 = document.getElementById("c7");
-    var c7 = document.getElementById("c8");
 
     // 모달 키는 함수 호출
     Btnclick(b1, m1);
@@ -692,18 +687,12 @@
     Btnclick(b3, m3);
     Btnclick(b4, m4);
     Btnclick(b5, m5);
-    Btnclick(b6, m6);
-    Btnclick(b7, m7);
-    Btnclick(b8, m8);
     // 모달 끄는 함수 호출
     Spanclick(c1, m1);
     Spanclick(c2, m2);
     Spanclick(c3, m3);
     Spanclick(c4, m4);
     Spanclick(c5, m5);
-    Spanclick(c6, m6);
-    Spanclick(c7, m7);
-    Spanclick(c8, m8);
     // 모달 밖 화면 누를때 꺼지게하기
     window.onclick = function (event) {
         if (event.target == m1) {
@@ -720,15 +709,6 @@
         }
         if (event.target == m5) {
             m5.style.display = "none";
-        }
-        if (event.target == m6) {
-            m6.style.display = "none";
-        }
-        if (event.target == m7) {
-            m7.style.display = "none";
-        }
-        if (event.target == m8) {
-            m8.style.display = "none";
         }
     }
 
