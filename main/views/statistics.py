@@ -34,7 +34,7 @@ def a_statistics(request):
     # 사용자 과목정보에서 긁어올 정보 수정예정
     cs_queryset = Lecture.objects.filter(
         classification__in = ['전공'], 
-        selection__in = selection_list, 
+        subject_num__in = selection_list, 
         subject_credit__in= grade_list
     ).order_by('-sum_stu')
 
