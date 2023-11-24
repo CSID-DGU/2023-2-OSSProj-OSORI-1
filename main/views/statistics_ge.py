@@ -33,7 +33,7 @@ def a_statistics_ge(request):
 
     zip_lecture_count = []
     if cs_queryset.exists():
-            lecture = list(cs_queryset.values())[0]
+            lecture = list(cs_queryset.values())
             zip_lecture_count.append([lecture])
     # context 전송
     context={
