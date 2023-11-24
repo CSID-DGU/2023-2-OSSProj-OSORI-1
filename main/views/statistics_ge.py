@@ -31,6 +31,7 @@ def a_statistics_ge(request):
         subject_credit__in = grade_list
     ).order_by('-sum_stu') # 에브리타임 담은 강좌인원에 따라 내림차순 정렬 
 
+    zip_lecture_count = []
     if cs_queryset.exists():
             lecture = list(cs_queryset.values())[0]
             zip_lecture_count.append([lecture])
