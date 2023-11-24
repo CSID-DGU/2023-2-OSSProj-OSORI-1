@@ -29,13 +29,16 @@ def a_statistics_ge(request):
         subject_credit__in = grade_list
     ).order_by('-sum_stu') # 에브리타임 담은 강좌인원에 따라 내림차순 정렬 
 
-    zip_lecture_count = []
-    for lecture in cs_queryset:
+    # zip_lecture_count = []
+    # for lecture in cs_queryset:
         # 다른 필드에 관한 조건은 필요한 경우 추가할 것
-        zip_lecture_count.append(lecture)
+        # zip_lecture_count.append(lecture)
 
     # context 전송
-    context = {
-        'zip_lecture_count': zip_lecture_count
-    }
-    return JsonResponse(context)
+    # context = {
+    #     'zip_lecture_count': zip_lecture_count
+    # }
+    # return JsonResponse(context)
+
+    serialized_data = serialize('json', cs_queryset)
+    return JsonResponse({'serialized_data': serialized_data})
