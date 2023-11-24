@@ -13,10 +13,6 @@ def a_statistics(request):
     grade_list = request.POST.getlist('grade[]')
     selection_list = request.POST.getlist('selection[]')
 
-    sta = []
-    pub = []
-    ise = []
-    scs = []
     # 선택영역 동국대 강의형식으로 나중에 추가로 수정 예정
     if "통계학과" in selection_list:
         sta = list(Lecture.objects.filter(subject_num__startswith='STA'))
