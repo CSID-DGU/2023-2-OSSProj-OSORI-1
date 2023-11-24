@@ -23,7 +23,7 @@ def a_statistics(request):
         selection_list += sta
     if "행정학과" in selection_list:
         pub = list(Lecture.objects.filter(subject_num__startswith='PUB'))
-        selection_list += sta
+        selection_list += pub
     if "산업시스템공학과" in selection_list:
         ise = list(Lecture.objects.filter(subject_num__startswith='ISE'))
         selection_list += ise
