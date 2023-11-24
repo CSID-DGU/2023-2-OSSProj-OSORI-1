@@ -15,23 +15,19 @@ def a_statistics(request):
 
     # 선택영역 동국대 강의형식으로 나중에 추가로 수정 예정
     if "통계학과" in selection_list:
-        sta = list(Lecture.objects.filter(subject_num__startswith='STA'))
-        selection_list += sta
+        selection_list += Lecture.objects.filter(subject_num__startswith ='STA').values_list('subject_num', flat=True)
     if "행정학과" in selection_list:
-        pub = list(Lecture.objects.filter(subject_num__startswith='PUB'))
-        selection_list += pub
+        selection_list += Lecture.objects.filter(subject_num__startswith ='PUB').values_list('subject_num', flat=True)
     if "산업시스템공학과" in selection_list:
-        ise = list(Lecture.objects.filter(subject_num__startswith='ISE'))
-        selection_list += ise
+         selection_list += Lecture.objects.filter(subject_num__startswith ='ISE').values_list('subject_num', flat=True)
     if "융합소프트웨어" in selection_list:
-        scs = list(Lecture.objects.filter(subject_num__startswith='SCS'))
-        selection_list += scs
+        selection_list += Lecture.objects.filter(subject_num__startswith ='SCS').values_list('subject_num', flat=True)
     
     # 사용자 과목정보에서 긁어올 정보 수정예정
     cs_queryset = Lecture.objects.filter(
-        classification__in = ['전공'], 
+        classification = '전공', 
         subject_num__in = selection_list, 
-        subject_credit__in= grade_list
+        subject_credit__in = grade_list
     ).order_by('-sum_stu')
 
     zip_lecture_count = []
