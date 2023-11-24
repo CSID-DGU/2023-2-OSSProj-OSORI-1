@@ -31,10 +31,8 @@ def a_statistics_ge(request):
 
     zip_lecture_count = []
     for lecture in cs_queryset:
-        if lecture.sum_stu < 5: # 담은 인원이 5명 이하이면 제외 
-            continue
         # 다른 필드에 관한 조건은 필요한 경우 추가할 것
-        zip_lecture_count.append([lecture])
+        zip_lecture_count.append(lecture)
 
     # context 전송
     context = {
