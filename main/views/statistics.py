@@ -20,7 +20,7 @@ def a_statistics(request):
         selection_list += Lecture.objects.filter(subject_num__startswith ='PUB').values_list('subject_num', flat=True)
     if "산업시스템공학과" in selection_list:
          selection_list += Lecture.objects.filter(subject_num__startswith ='ISE').values_list('subject_num', flat=True)
-    if "융합소프트웨어" in selection_list:
+    if "융합소프트웨어학과" in selection_list:
         selection_list += Lecture.objects.filter(subject_num__startswith ='SCS').values_list('subject_num', flat=True)
     
     # 사용자 과목정보에서 긁어올 정보 수정예정
