@@ -34,10 +34,13 @@ def a_statistics_ge(request):
     zip_lecture_count = []
     if cs_queryset.exists():
             lecture = list(cs_queryset.values())
-            zip_lecture_count.append([lecture])
+            # zip_lecture_count.append([lecture])
+    else:
+         lecture =[]
     # context 전송
     context={
-        'zip_lecture_count': zip_lecture_count
+        # 'zip_lecture_count': zip_lecture_count
+        'zip_lecture_count' : lecture
     }
     return JsonResponse(context)
     # zip_lecture_count = []
