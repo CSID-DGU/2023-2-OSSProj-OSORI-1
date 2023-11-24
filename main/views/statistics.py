@@ -13,40 +13,40 @@ def a_statistics(request):
     grade_list = request.POST.getlist('grade[]')
     selection_list = request.POST.getlist('selection[]')
 
+    sta = []
+    pub = []
+    ise = []
+    scs = []
     # 선택영역 동국대 강의형식으로 나중에 추가로 수정 예정
-    if "기타" in selection_list:
-        selection_list += ["인성과도덕", "사회와제도", "예술과생활", "생명과자연", "생명과 과학", "역사와문화", "인성과창의력"]
-    if "자기계발과진로" in selection_list:
-        selection_list += ["융합과창업"]
+    if "통계학과" in selection_list:
+        sta = list(Lecture.objects.filter(subject_num__startswith='STA'))
+        selection_list += sta
+    if "행정학과" in selection_list:
+        pub = list(Lecture.objects.filter(subject_num__startswith='PUB'))
+        selection_list += sta
+    if "산업시스템공학과" in selection_list:
+        ise = list(Lecture.objects.filter(subject_num__startswith='ISE'))
+        selection_list += ise
+    if "융합소프트웨어" in selection_list:
+        scs = list(Lecture.objects.filter(subject_num__startswith='SCS'))
+        selection_list += scs
     
     # 사용자 과목정보에서 긁어올 정보 수정예정
-    cs_queryset = UserLecture.objects.filter(
-        classification__in = ['교선', '교선1', '교선2'], 
-        selection__in=selection_list, 
+    cs_queryset = Lecture.objects.filter(
+        classification__in = ['전공'], 
+        selection__in = selection_list, 
         grade__in= grade_list
-    )
-    cs_count = cs_queryset.values_list('subject_num').annotate(count=Count('subject_num'))
-    # 쿼리셋을 리스트로 변환 -> 업로드된 학생성적정보에 따라 내림차순 정렬 
-    cs_count = sorted(list(cs_count), key = lambda x : x[1], reverse=True)
+    ).order_by('-sum_stu')
+
     zip_lecture_count = []
-    for s_num, count in cs_count:
-        if count < 10:
-            continue
-        al_queryset = Lecture.objects.filter(
-            subject_num = s_num, 
-            subject_name = s_name,
-            classification = ['전공','복수1'], # 꿀전공찾기 페이지이기 때문에 전공만 추출
-            classification_ge = ['기초', '전문'], 
-            professor =pro,
-            subject_credit = sub_c,
-            # selection__in=selection_list,
-            # grade__in=grade_list
-        )
-        if al_queryset.exists():
-            lec_info = list(al_queryset.values())[0]
-            zip_lecture_count.append([lec_info, count])
+    if cs_queryset.exists():
+            lecture = list(cs_queryset.values())
+            # zip_lecture_count.append([lecture])
+    else:
+         lecture =[]
     # context 전송
     context={
-        'zip_lecture_count': zip_lecture_count
+        # 'zip_lecture_count': zip_lecture_count
+        'zip_lecture_count' : lecture
     }
     return JsonResponse(context)
