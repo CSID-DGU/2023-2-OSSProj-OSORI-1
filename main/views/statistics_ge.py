@@ -1,5 +1,7 @@
 # 장고 관련 참조
 from django.http import JsonResponse
+from django.core.serializers import serialize
+from ..models import Lecture
 # 모델 참조
 from django.db.models import Count
 from ..models import *
