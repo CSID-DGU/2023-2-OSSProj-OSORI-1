@@ -35,7 +35,7 @@ def a_statistics(request):
     cs_queryset = Lecture.objects.filter(
         classification__in = ['전공'], 
         selection__in = selection_list, 
-        grade__in= grade_list
+        subject_credit__in= grade_list
     ).order_by('-sum_stu')
 
     zip_lecture_count = []
