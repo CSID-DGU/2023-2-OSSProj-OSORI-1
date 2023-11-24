@@ -16,8 +16,9 @@ class UserInfo(models.Model):
     password = models.CharField(max_length=100, validators=[password_validator]) # 비밀번호
     major = models.CharField(max_length=45) # 전공
     sub_major = models.CharField(max_length=45, blank=True, null=True) # 부전공
+    major_state = models.CharField(max_length=45) # 전공상태(복수,연계/융합,해당없음)
     name = models.CharField(max_length=45) # 학생 이름
-    thesis = models.BooleanField() # 졸업논문(시험) 통과여부(o,x)
+    thesis = models.CharField(max_length=10) # 졸업논문(시험) 통과여부(o,x)
     eng = models.IntegerField(blank=True, null=True) # 영어 공인 성적(토익기준)
     sum_credit = models.IntegerField() # 총 졸업학점
     email = models.CharField(max_length=30) # 비밀번호 찾기 기능 때 필요
