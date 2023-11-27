@@ -37,27 +37,27 @@
             <table>
                 <tr>
                     <td class="my_box_table_1st_td">이름</td>
-                    <td>{{ name }}</td>
+                    <td>{{ new_ui.name }}</td>
                 </tr>
                 <tr>
                     <td class="my_box_table_1st_td">학과</td>
                     {% if sub_major %}
-                        <td>{{ major }} ({{ sub_major }})</td>
+                        <td>{{ new_ui.major }} ({{ new_ui.sub_major }})</td>
                     {% else %}
-                        <td>{{ major }}</td>
+                        <td>{{ new_ui.major }}</td>
                     {% endif %}
                 </tr>
                 <tr>
                     <td class="my_box_table_1st_td">학번</td>
-                    <td>{{ student_id }}</td>
+                    <td>{{ new_ui.student_id }}</td>
                 </tr>
                 <tr>
                     <td class="my_box_table_1st_td">졸업논문/시험 현황</td>
-                    <td>{{ thesis }}</td>
+                    <td>{{ new_ui.thesis }}</td>
                 </tr>
                 <tr>
                     <td class="my_box_table_1st_td">공인영어성적</td>
-                    <td>{{ eng }}</td>
+                    <td>{{ new_ui.eng }}</td>
                 </tr>
             </table>
         </div>
