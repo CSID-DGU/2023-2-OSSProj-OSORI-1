@@ -41,5 +41,10 @@ urlpatterns = [
     path('f_logout/', views.f_logout),
     path('f_mypage/', views.f_mypage),
     path('f_register/', views.f_register),
+    path('f_mod_info_ms/', views.f_mod_info_ms),
+    path('f_mod_info/', views.f_mod_info),
+    path('f_mod_ms_eng/', views.f_mod_ms_eng),
+    path('f_mod_pw/', views.f_mod_pw),
+    path('f_mod_grade/', views.f_mod_grade),
 ]
 
