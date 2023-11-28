@@ -35,30 +35,32 @@
             </div>
             <hr>
             <table>
+                {% for ui in ui_row %}
                 <tr>
                     <td class="my_box_table_1st_td">이름</td>
-                    <td>{{ ui_row.name }}</td>
+                    <td>{{ ui.name }}</td>
                 </tr>
                 <tr>
                     <td class="my_box_table_1st_td">학과</td>
                     {% if sub_major %}
-                        <td>{{ ui_row.major }} ({{ ui_row.sub_major }})</td>
+                        <td>{{ ui.major }} ({{ ui.sub_major }})</td>
                     {% else %}
-                        <td>{{ ui_row.major }}</td>
+                        <td>{{ ui.major }}</td>
                     {% endif %}
                 </tr>
                 <tr>
                     <td class="my_box_table_1st_td">학번</td>
-                    <td>{{ ui_row.student_id }}</td>
+                    <td>{{ ui.student_id }}</td>
                 </tr>
                 <tr>
                     <td class="my_box_table_1st_td">졸업논문/시험 현황</td>
-                    <td>{{ ui_row.thesis }}</td>
+                    <td>{{ ui.thesis }}</td>
                 </tr>
                 <tr>
                     <td class="my_box_table_1st_td">공인영어성적</td>
-                    <td>{{ ui_row.eng }}</td>
+                    <td>{{ ui.eng }}</td>
                 </tr>
+                {% endfor %}
             </table>
         </div>
 
