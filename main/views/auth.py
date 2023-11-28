@@ -56,4 +56,5 @@ def update_json(user_id):
     # mypage json 업데이트
     mypage_context = f_mypage(user_id)
     ui_row.mypage_json = json.dumps(mypage_context)
+    ui_row.save()
     return
