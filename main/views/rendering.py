@@ -84,19 +84,11 @@ def r_mypage(request):
     if not user_id :
         messages.error(request, '❌ 세션 정보가 없습니다!')
         return redirect('/')
-    try:
-        ui_row = UserInfo.objects.get(student_id=user_id)
-        mypage_json = ui_row.mypage_json
-        if mypage_json:
-            context = json.loads(mypage_json)
-        else:
-            context = {}
+    ui_row = UserInfo.objects.get(student_id=user_id)
+    context = json.loads(ui_row.mypage_json)
     # user_info DB에서 json을 꺼내 contest 딕셔너리에 저장
     # context = json.loads(ui_row.mypage_json)
-        return render(request, "mypage.html", context)
-    except Exception as e:
-        messages.error(request, f'❌ 오류 발생: {str(e)}')
-        return redirect('/')
+    return render(request, "mypage.html", context)
 
 def r_custom(request):
     user_id = request.session.get('id')
