@@ -114,7 +114,7 @@ def f_mod_grade(request):
         if row['등급'] in ['F', 'FA', 'NP']:
             df.drop(i, inplace=True)
     # 불필요 컬럼 삭제
-    df.drop([ '교과목명', '담당교원', '등급', '삭제구분', '재수강구분', '공학인증', '공학요소', '공학세부요소', '원어강의종류', '인정구분', '성적인정대학명', '교과목영문명', '대학대학원'], axis=1, inplace=True)
+    df.drop(['담당교원', '등급', '삭제구분', '재수강구분', '공학인증', '공학요소', '공학세부요소', '원어강의종류', '인정구분', '성적인정대학명', '교과목영문명', '대학대학원'], axis=1, inplace=True)
 
     # 추가 전 user_grade DB에 이미 데이터가 있는지 확인 후 삭제
     user_id = request.session.get('id')
