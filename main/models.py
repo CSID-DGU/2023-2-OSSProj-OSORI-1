@@ -32,7 +32,7 @@ class UserInfo(models.Model):
 # ------------------------------------- ( 강의 정보 테이블 ) -------------------------------------
 
 class UserLecture(models.Model): # 학생성적정보파일 업로드 시 저장
-    subject_num = models.CharField(primary_key=True, max_length=10)
+    subject_num = models.CharField( max_length=10)
     subject_name = models.CharField(max_length=70)
     classification = models.CharField(max_length=45) # 전공과 교양 구분은 이 필드로
     classification_ge = models.CharField(max_length=45)
@@ -42,6 +42,7 @@ class UserLecture(models.Model): # 학생성적정보파일 업로드 시 저장
     year = models.IntegerField()
     semester = models.CharField(max_length=20)
     subject_credit = models.FloatField()
+    id = models.AutoField(primary_key=True)
 
     class Meta:
        managed = False
