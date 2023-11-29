@@ -134,7 +134,7 @@ def f_mod_grade(request):
         new_ug.subject_name = row['교과목명']
         new_ug.classification = row['이수구분']
         new_ug.classification_ge = row['이수구분영역']
-        new_ug.grade = int(row['학점'])
+        new_ug.grade = row['학점']
         new_ug.save()
     # json DB도 업데이트
     update_json(user_id)
