@@ -47,9 +47,26 @@ def f_mypage(user_id):
         'sub_major' : ui_row.sub_major,
         'name' : ui_row.name,
         'eng' : ui_row.eng,
+        'thesis' : ui_row.thesis,
         'is_grade' : is_grade,
     }
     return mypage_context
+
+# 회원 탈퇴
+def f_delete_account(request):
+    user_id = request.session.get('id')
+    pw = request.POST.get('pw')
+    # 해당 사용자의 DB 쿼리셋
+    ui_row = UserInfo.objects.get(student_id=user_id)
+    ug = UserLecture.objects.filter(student_id = user_id)
+    # 비밀번호 일치 검사
+    if not bcrypt.checkpw(pw.encode('utf-8'), ui_row.password.encode('utf-8')):
+        messages.error(request, '⚠️ 비밀번호를 확인하세요.')
+        return redirect('/mypage/')
+    # 데이터베이스 삭제
+    ui_row.delete()
+    ug.delete()
+    return redirect('/success_delete/')
 
 def update_json(user_id):
     ui_row = UserInfo.objects.get(student_id = user_id)

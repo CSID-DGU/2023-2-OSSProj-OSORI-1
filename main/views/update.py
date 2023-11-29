@@ -105,7 +105,7 @@ def f_mod_grade(request):
         return redirect('/mypage/')
 
     # 검사2 : 형식에 맞는지 검사
-    if list(df.columns) != ['년도', '학기', '학수번호', '교과목명', '이수구분', '교직영역', '선택영역', '학점', '평가방식', '등급', '평점', '개설학과코드']:
+    if list(df.columns) != ['번호', '년도', '학기', '이수구분', '이수구분영역', '학수강좌번호', '', '교과목명', '담당교원', '학점', '등급', '삭제구분', '재수강구분', '공학인증', '공학요소', '공학세부요소', '원어강의종류', '인정구분', '성적인정대학명', '교과목영문명', '대학대학원']:
         messages.error(request, '⚠️ 엑셀 내용이 다릅니다! 수정하지 않은 엑셀파일을 올려주세요.')
         return redirect('/mypage/')
     # 검사를 통과하면 df를 형식에 맞게 수정
@@ -116,7 +116,7 @@ def f_mod_grade(request):
         if row['등급'] in ['F', 'FA', 'NP']:
             df.drop(i, inplace=True)
     # 불필요 컬럼 삭제
-    df.drop(['교직영역', '평가방식','등급', '평점', '개설학과코드'], axis=1, inplace=True)
+    df.drop(['번호', '', '교과목명', '담당교원', '등급', '삭제구분', '재수강구분', '공학인증', '공학요소', '공학세부요소', '원어강의종류', '인정구분', '성적인정대학명', '교과목영문명', '대학대학원'], axis=1, inplace=True)
 
     # 추가 전 user_grade DB에 이미 데이터가 있는지 확인 후 삭제
     user_id = request.session.get('id')
@@ -131,11 +131,11 @@ def f_mod_grade(request):
         new_ug.student_id = user_id
         new_ug.major = ui_row.major
         new_ug.year = row['년도']
-        new_ug.semester = row['학기']
-        new_ug.subject_num = str(row['학수번호']).lstrip('0')
+        new_ug.semester = str(row['학기'])
+        new_ug.subject_num = str(row['학수강좌번호'])
         new_ug.subject_name = row['교과목명']
         new_ug.classification = row['이수구분']
-        new_ug.selection = row['선택영역']
+        new_ug.classification_ge = row['이수구분영역']
         new_ug.grade = row['학점']
         new_ug.save()
     # json DB도 업데이트
