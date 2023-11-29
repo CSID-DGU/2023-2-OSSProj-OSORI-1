@@ -360,6 +360,7 @@ input[type="button"]
     text-align: left;
     margin: 0 auto;
     line-height: 2.2rem;
+    background:rgb(255, 149, 0)
 }
 
 .filter_select_chk label{
@@ -367,7 +368,7 @@ input[type="button"]
 }
 
 .filter_btn {
-    background: rgb(255, 149, 0);;
+    background: rgb(255, 149, 0);
     width: 12%;
     color: white;
     font-size: 1.1rem;
