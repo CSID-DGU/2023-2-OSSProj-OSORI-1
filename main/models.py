@@ -41,7 +41,7 @@ class UserLecture(models.Model): # 학생성적정보파일 업로드 시 저장
     major = models.CharField(max_length=50)
     year = models.IntegerField()
     semester = models.CharField(max_length=20)
-    grade = models.FloatField()
+    subject_credit = models.FloatField()
 
     class Meta:
        managed = False
