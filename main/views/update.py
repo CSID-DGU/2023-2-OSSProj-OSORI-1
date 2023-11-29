@@ -91,21 +91,18 @@ def f_mod_grade(request):
         # 엑셀 파일을 수정해줘야함
         wb = openpyxl.load_workbook(excel)
         ws = wb.active
-        # 1~4 행에서 컬럼명 행 빼고 삭제
-        ws.delete_rows(1,2)
-        ws.delete_rows(2)
         # 엑셀을 df로 변환
         df = pd.DataFrame(ws.values)
         # 첫 행을 컬럼으로 지정
         df.columns = df.iloc[0, :]
         df = df.iloc[1:, :]
-        df = df.drop(['순번'], axis=1)
+        df = df.drop(['번호'], axis=1)
     except:
         messages.error(request, '⚠️ 엑셀 내용이 다릅니다! 수정하지 않은 엑셀파일을 올려주세요.')
         return redirect('/mypage/')
 
     # 검사2 : 형식에 맞는지 검사
-    if list(df.columns) != ['번호', '년도', '학기', '이수구분', '이수구분영역', '학수강좌번호', '', '교과목명', '담당교원', '학점', '등급', '삭제구분', '재수강구분', '공학인증', '공학요소', '공학세부요소', '원어강의종류', '인정구분', '성적인정대학명', '교과목영문명', '대학대학원']:
+    if list(df.columns) != ['년도', '학기', '이수구분', '이수구분영역', '학수강좌번호', '', '교과목명', '담당교원', '학점', '등급', '삭제구분', '재수강구분', '공학인증', '공학요소', '공학세부요소', '원어강의종류', '인정구분', '성적인정대학명', '교과목영문명', '대학대학원']:
         messages.error(request, '⚠️ 엑셀 내용이 다릅니다! 수정하지 않은 엑셀파일을 올려주세요.')
         return redirect('/mypage/')
     # 검사를 통과하면 df를 형식에 맞게 수정
@@ -116,7 +113,7 @@ def f_mod_grade(request):
         if row['등급'] in ['F', 'FA', 'NP']:
             df.drop(i, inplace=True)
     # 불필요 컬럼 삭제
-    df.drop(['번호', '', '교과목명', '담당교원', '등급', '삭제구분', '재수강구분', '공학인증', '공학요소', '공학세부요소', '원어강의종류', '인정구분', '성적인정대학명', '교과목영문명', '대학대학원'], axis=1, inplace=True)
+    df.drop(['', '교과목명', '담당교원', '등급', '삭제구분', '재수강구분', '공학인증', '공학요소', '공학세부요소', '원어강의종류', '인정구분', '성적인정대학명', '교과목영문명', '대학대학원'], axis=1, inplace=True)
 
     # 추가 전 user_grade DB에 이미 데이터가 있는지 확인 후 삭제
     user_id = request.session.get('id')
