@@ -328,7 +328,7 @@
         </div>
     </div> {% endcomment %}
 
-<!-- 2. 비번 변경 모달-->
+<!-- 2. 관심전공 장바구니 모달-->
 <div id='m2' class="modal">
     <div class="update_modal_content">
         <div id='c2' class="close">&times;</div>
@@ -348,10 +348,50 @@
     </div>
 </div>
 
-<!-- 3. 회원탈퇴 모달 -->
+<!-- 3. 관심교양 장바구니 모달-->
 <div id='m3' class="modal">
     <div class="update_modal_content">
         <div id='c3' class="close">&times;</div>
+        <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">비밀번호 변경</div>
+        <hr style="width:80%; margin-top:1.3rem;">
+        <!-- 폼 -->
+        <form action="/f_mod_pw/" method="post" name='form3' onsubmit="return check_up3()">
+            {% csrf_token %}
+            <div class="regi_box">
+                <label>새 비밀번호</label>
+                <input id="pw1" type="password" name="password">
+                <label>비밀번호 재확인</label>
+                <input id="pw2" type="password">
+            </div>
+            <input type='submit' class='login_btn' value='변경하기' style="margin:2.5rem 0 2rem 0;">
+        </form>
+    </div>
+</div>
+
+<!-- 4. 비번 변경 모달-->
+<div id='m4' class="modal">
+    <div class="update_modal_content">
+        <div id='c4' class="close">&times;</div>
+        <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">비밀번호 변경</div>
+        <hr style="width:80%; margin-top:1.3rem;">
+        <!-- 폼 -->
+        <form action="/f_mod_pw/" method="post" name='form3' onsubmit="return check_up3()">
+            {% csrf_token %}
+            <div class="regi_box">
+                <label>새 비밀번호</label>
+                <input id="pw1" type="password" name="password">
+                <label>비밀번호 재확인</label>
+                <input id="pw2" type="password">
+            </div>
+            <input type='submit' class='login_btn' value='변경하기' style="margin:2.5rem 0 2rem 0;">
+        </form>
+    </div>
+</div>
+
+<!-- 5. 회원탈퇴 모달 -->
+<div id='m5' class="modal">
+    <div class="update_modal_content">
+        <div id='c5' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
             회원 탈퇴
         </div>
@@ -374,10 +414,10 @@
     </div>
 </div>
 
-<!-- 4.기이수성적 업데이트 모달 -->
-<div id='m4' class="modal">
+<!-- 6.기이수성적 업데이트 모달 -->
+<div id='m6' class="modal">
     <div class="update_modal_content">
-        <div id='c4' class="close">&times;</div>
+        <div id='c6' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
             학생성적파일 업로드
         </div>
@@ -410,10 +450,10 @@
     </div>
 </div>
 
-<!-- 5. 기이수과목 커스텀 모달-->
-<div id='m5' class="modal" style="display:none">
+<!-- 7. 기이수과목 커스텀 모달-->
+<div id='m7' class="modal" style="display:none">
     <div class="update_modal_content">
-        <div id='c5' class="close">&times;</div>
+        <div id='c7' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
             기이수과목 커스텀
         </div>
@@ -661,6 +701,8 @@
     var b3 = document.getElementById("b3");     // 3. 관심교양 장바구니
     var b4 = document.getElementById("b4");     // 4. 비번 변경
     var b5 = document.getElementById("b5");
+    var b6 = document.getElementById("b6");
+    var b7 = document.getElementById("b7");
 
     // 모달 id
     var m1 = document.getElementById('m1');
@@ -668,6 +710,8 @@
     var m3 = document.getElementById('m3');
     var m4 = document.getElementById('m4');
     var m5 = document.getElementById('m5');
+    var m6 = document.getElementById('m6');
+    var m7 = document.getElementById('m7');
 
     // 모달 끄는 버튼(X) id
     var c1 = document.getElementById("c1");
@@ -675,6 +719,8 @@
     var c3 = document.getElementById("c3");
     var c4 = document.getElementById("c4");
     var c5 = document.getElementById("c5");
+    var c6 = document.getElementById("c6");
+    var c7 = document.getElementById("c7");
 
     // 모달 키는 함수 호출
     Btnclick(b1, m1);
@@ -682,12 +728,16 @@
     Btnclick(b3, m3);
     Btnclick(b4, m4);
     Btnclick(b5, m5);
+    Btnclick(b6, m6);
+    Btnclick(b7, m7);
     // 모달 끄는 함수 호출
     Spanclick(c1, m1);
     Spanclick(c2, m2);
     Spanclick(c3, m3);
     Spanclick(c4, m4);
     Spanclick(c5, m5);
+    Spanclick(c6, m6);
+    Spanclick(c7, m7);
     // 모달 밖 화면 누를때 꺼지게하기
     window.onclick = function (event) {
         if (event.target == m1) {
@@ -704,6 +754,12 @@
         }
         if (event.target == m5) {
             m5.style.display = "none";
+        }
+        if (event.target == m6) {
+            m6.style.display = "none";
+        }
+        if (event.target == m7) {
+            m7.style.display = "none";
         }
     }
 
