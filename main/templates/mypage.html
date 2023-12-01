@@ -112,7 +112,7 @@
                         <th class="grade_table_th" style="width:10%">학수번호</th>
                         <th class="grade_table_th" style="width:40%">과목명</th>
                         <th class="grade_table_th" style="width:10%">이수구분</th>
-                        <th class="grade_table_th" style="width:14%">선택영역</th>
+                        <th class="grade_table_th" style="width:14%">이수구분영역</th>
                         <th class="grade_table_th" style="width:6%; border-right :0px">학점</th>
                     </tr>
                     <!-- 커스텀과목 먼저 보여주고 -->
@@ -123,8 +123,8 @@
                         <td class="grade_table_td">{{ cg.subject_num }}</td>
                         <td class="grade_table_td">{{ cg.subject_name }}</td>
                         <td class="grade_table_td">{{ cg.classification }}</td>
-                        <td class="grade_table_td">{{ cg.selection }}</td>
-                        <td class="grade_table_td" style="border-right :0px">{{ cg.grade | floatformat }}</td>
+                        <td class="grade_table_td">{{ cg.classification_ge }}</td>
+                        <td class="grade_table_td" style="border-right :0px">{{ cg.subject_credit | floatformat }}</td>
                     </tr>
                     {% endfor %}
                     <!-- 그리고 찐 과목 -->
@@ -152,8 +152,8 @@
                                 {{ g.classification }}
                             {% endif %}
                         </td>
-                        <td class="grade_table_td">{{ g.selection }}</td>
-                        <td class="grade_table_td" style="border-right :0px">{{ g.grade | floatformat }}</td>
+                        <td class="grade_table_td">{{ g.classification_ge }}</td>
+                        <td class="grade_table_td" style="border-right :0px">{{ g.subject_credit | floatformat }}</td>
                     </tr>
                     {% endif %}
                     {% endfor %}
@@ -177,8 +177,8 @@
                         <td class="grade_table_td">{{ cg.subject_num }}</td>
                         <td class="grade_table_td">{{ cg.subject_name }}</td>
                         <td class="grade_table_td">{{ cg.classification }}</td>
-                        <td class="grade_table_td">{{ cg.selection }}</td>
-                        <td class="grade_table_td" style="border-right :0px">{{ cg.grade | floatformat }}</td>
+                        <td class="grade_table_td">{{ cg.classification_ge }}</td>
+                        <td class="grade_table_td" style="border-right :0px">{{ cg.subject_credit | floatformat }}</td>
                     </tr>
                     {% endfor %}
                     {% for g in grade %}
@@ -203,8 +203,8 @@
                             {% else %}
                                 {{ g.classification }}
                             {% endif %}
-                        </td>                        <td class="grade_table_td">{{ g.selection }}</td>
-                        <td class="grade_table_td" style="border-right :0px">{{ g.grade | floatformat }}</td>
+                        </td>                        <td class="grade_table_td">{{ g.classification_ge }}</td>
+                        <td class="grade_table_td" style="border-right :0px">{{ g.subject_credit | floatformat }}</td>
                     </tr>
                     {% endfor %}
                 </table>
