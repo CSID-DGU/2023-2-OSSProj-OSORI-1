@@ -430,9 +430,9 @@
 </div>
 
 <!-- 2. 장바구니가 될 모달-->
-<div id='m6' class="modal">
+<div id='m2' class="modal">
     <div class="update_modal_content">
-        <div id='c6' class="close">&times;</div>
+        <div id='c2' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">비밀번호 변경</div>
         <hr style="width:80%; margin-top:1.3rem;">
         <!-- 폼 -->
@@ -700,7 +700,6 @@
     var b4 = document.getElementById("b4");     // 4. 비번 변경
     var b5 = document.getElementById("b5");
     var b6 = document.getElementById("b6");
-    var b7 = document.getElementById("b7");
 
     // 모달 id
     var m1 = document.getElementById('m1');
@@ -709,7 +708,6 @@
     var m4 = document.getElementById('m4');
     var m5 = document.getElementById('m5');
     var m6 = document.getElementById('m6');
-    var m7 = document.getElementById('m7');
 
     // 모달 끄는 버튼(X) id
     var c1 = document.getElementById("c1");
@@ -718,7 +716,6 @@
     var c4 = document.getElementById("c4");
     var c5 = document.getElementById("c5");
     var c6 = document.getElementById("c6");
-    var c7 = document.getElementById("c7");
 
     // 모달 키는 함수 호출
     Btnclick(b1, m1);
@@ -727,7 +724,6 @@
     Btnclick(b4, m4);
     Btnclick(b5, m5);
     Btnclick(b6, m6);
-    Btnclick(b7, m7);
     // 모달 끄는 함수 호출
     Spanclick(c1, m1);
     Spanclick(c2, m2);
@@ -735,7 +731,6 @@
     Spanclick(c4, m4);
     Spanclick(c5, m5);
     Spanclick(c6, m6);
-    Spanclick(c7, m7);
     // 모달 밖 화면 누를때 꺼지게하기
     window.onclick = function (event) {
         if (event.target == m1) {
@@ -755,9 +750,6 @@
         }
         if (event.target == m6) {
             m6.style.display = "none";
-        }
-        if (event.target == m7) {
-            m7.style.display = "none";
         }
     }
 
