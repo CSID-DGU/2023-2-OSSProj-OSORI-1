@@ -104,7 +104,8 @@ class Standard(models.Model):
     leader = models.IntegerField() # 리더십 학점
     eas = models.IntegerField() # EAS1,2 학점
     sw = models.IntegerField() # 소프트웨어 학점
-    basic = models.IntegerField() # 학문 기초 학점
+    basic_eng = models.IntegerField() # 학문 기초 총 학점(외국어 선택 시)
+    basic = models.IntegerField() # 학문 기초 총 학점(자연과학 선택 시)
     basic_list_m = models.CharField(max_length=300) # 학문 기초 교과목 m 목록
     basic_list_s = models.CharField(max_length=300) # 학문 기초 교과목 s 목록
     basic_list_c = models.CharField(max_length=300) # 학문 기초 교과목 c 목록
