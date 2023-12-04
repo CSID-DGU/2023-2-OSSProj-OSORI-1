@@ -13,11 +13,7 @@
         <div class="go_result_box">
             <button onclick="go_result()" class="go_result_btn">졸업요건 검사하기</button>
         </div>
-        {% if is_engine != 0 %}
-        <!-- <div class="go_result_box">
-            <button onclick="go_en_result()" class="go_result_btn">공학인증 검사하기</button>
-        </div> -->
-        {% endif %}
+        
         <div class="go_result_box">
             <button onclick="go_ca_result()" class="go_result_btn">채용공고 바로가기</button>
         </div>
@@ -135,7 +131,7 @@
                         <td class="grade_table_td">{{ g.semester }}</td>
                         <td class="grade_table_td">{{ g.subject_num }}</td>
                         <td class="grade_table_td">{{ g.subject_name }}</td>
-                        <td class="grade_table_td" >
+                        {% comment %} <td class="grade_table_td" >
                             {% if g.is_changed_classification %}
                                 <span class="tooltip tooltip_info">{{ g.classification }}</span>
                                 <div class="tooltip_text2">
@@ -151,7 +147,7 @@
                             {% else %}
                                 {{ g.classification }}
                             {% endif %}
-                        </td>
+                        </td> {% endcomment %}
                         <td class="grade_table_td">{{ g.classification_ge }}</td>
                         <td class="grade_table_td" style="border-right :0px">{{ g.subject_credit | floatformat }}</td>
                     </tr>
