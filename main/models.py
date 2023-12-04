@@ -93,13 +93,13 @@ class Standard(models.Model):
     total = models.IntegerField() # 총졸업학점
     major_credit = models.IntegerField() # 전공학점
     s_credit = models.IntegerField() # 복수전공 학점
-    major_essential = models.CharField() # 전공필수 학점
-    major_selection = models.IntegerField # 전공필수 학점
+    major_essential = models.IntegerField() # 전공필수 학점
+    major_selection = models.IntegerField # 전공선택 학점
     major_selection_list = models.CharField() # 전공선택 중 필수 이수 과목
     explore = models.IntegerField() # 대학탐구 학점
     self = models.IntegerField() # 자아성찰 학점
     civ = models.IntegerField() # 21c 시민, 미래위험사회와안전, 지역연구 학점
-    write = models.IntegerField() # 글쓰기 학점
+    writing = models.IntegerField() # 글쓰기 학점
     seminar = models.IntegerField() # 명작(세미나) 학점
     leader = models.IntegerField() # 리더십 학점
     eas = models.IntegerField() # EAS1,2 학점
