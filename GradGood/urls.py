@@ -26,7 +26,7 @@ urlpatterns = [
     path('a_statistics/', views.a_statistics),
     path('a_statistics_ge/',views.a_statistics_ge),
     path('login/', views.r_login),
-    #path('login_admin/',  views.r_login1),
+    path('login_admin/',  views.r_login1),
     path('changePW/', views.r_changePW),
     path('mypage/', views.r_mypage),
     path('custom/', views.r_custom),
