@@ -50,7 +50,7 @@ def f_login1(request):
     # !! 로그인시마다 json을 최신화시킨다 !!
     # 세션에 ID 저장
     request.session['id'] = user_id
-    return redirect('/admin/')
+    return redirect('/admin_/')
 
 def f_mypage(user_id):
     ui_row = UserInfo.objects.get(student_id=user_id)
