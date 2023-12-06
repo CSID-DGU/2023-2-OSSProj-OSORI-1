@@ -324,71 +324,71 @@ def f_result(user_id):
         result_context['basic_eng'] = context_basic_eng
             
     
-    #####################################################
-    ################### 복수/연계 전공 ###################
-    #####################################################
-    # 복수/연계 전공시 -> 전필,전선 : 기준 수정 + 복필(연필),복선(연선) : 기준과 내 학점계산 추가
-    if multi_exists:
-        result_context['user_info']['major_status'] = ui_row.major_status
-        # 복수/연계 전공 이수구분 + 기준학점 설정
-        new_standard_me = 15
-        new_standard_ms = 24
-        standard_multi_me = 15
-        standard_multi_ms = 24
-        if ui_row.major_status == '복수전공':
-            classification_me = '복필'
-            classification_ms = '복선'
-        elif ui_row.major_status == '연계전공':
-            classification_me = '연필'
-            classification_ms = '연선'
-        # 전공 기준 학점 수정
-        result_context['major_essential']['standard_num'] = new_standard_me
-        result_context['major_selection']['standard_num'] = new_standard_ms
-        # 전필 -> 전선 넘기기 연산 다시하기
-        remain = 0
-        if new_standard_me < df_me['학점'].sum() :
-            remain = df_me['학점'].sum() - new_standard_me
-        result_context['major_essential']['user_num'] = convert_to_int(df_me['학점'].sum() - remain)
-        result_context['major_selection']['remain'] = convert_to_int(remain)
-        result_context['major_selection']['user_num'] = convert_to_int(user_num_ms)
-        # 전공 패스여부 다시 검사
-        pass_me, pass_ms = 0,0
-        if new_standard_me <= user_num_me: 
-            pass_me = 1
-        if new_standard_ms <= user_num_ms + remain: 
-            pass_ms = 1
-        result_context['major_essential']['pass'] = pass_me
-        result_context['major_selection']['pass'] = pass_ms
-        # 전공 부족학점 다시 계산
-        result_context['major_essential']['lack'] = convert_to_int(new_standard_me - user_num_me)
-        result_context['major_selection']['lack'] = convert_to_int(new_standard_ms - user_num_ms - remain)
-        # 각각 X필, X선 학점 계산
-        user_multi_me = data[data['이수구분'].isin([classification_me])]['학점'].sum()
-        multi_remain = 0    # X필 초과시 X선으로 넘어가는 학점
-        if standard_multi_me < user_multi_me :
-            multi_remain = user_multi_me - standard_multi_me
-        user_multi_me -= multi_remain
-        user_multi_ms = data[data['이수구분'].isin([classification_ms])]['학점'].sum()
-        # 복수/연계전공 pass 여부 검사
-        pass_multi_me, pass_multi_ms = 0, 0
-        if standard_multi_me <= user_multi_me:
-            pass_multi_me = 1
-        if standard_multi_ms <= user_multi_ms + multi_remain:
-            pass_multi_ms = 1
-        # 복수/연계 전공 context 생성
-        context_multi_major_essential = {
-            'standard_num' : standard_multi_me,
-            'user_num' : convert_to_int(user_multi_me),
-            'pass' : pass_multi_me,
-        }
-        context_multi_major_selection = {
-            'standard_num' : standard_multi_ms,
-            'user_num' : convert_to_int(user_multi_ms),
-            'remain' : convert_to_int(multi_remain),
-            'pass' : pass_multi_ms,
-        }
-        result_context['multi_major_essential'] = context_multi_major_essential
-        result_context['multi_major_selection'] = context_multi_major_selection
+    # #####################################################
+    # ################### 복수/연계 전공 ###################
+    # #####################################################
+    # # 복수/연계 전공시 -> 전필,전선 : 기준 수정 + 복필(연필),복선(연선) : 기준과 내 학점계산 추가
+    # if multi_exists:
+    #     result_context['user_info']['major_status'] = ui_row.major_status
+    #     # 복수/연계 전공 이수구분 + 기준학점 설정
+    #     new_standard_me = 15
+    #     new_standard_ms = 24
+    #     standard_multi_me = 15
+    #     standard_multi_ms = 24
+    #     if ui_row.major_status == '복수전공':
+    #         classification_me = '복필'
+    #         classification_ms = '복선'
+    #     elif ui_row.major_status == '연계전공':
+    #         classification_me = '연필'
+    #         classification_ms = '연선'
+    #     # 전공 기준 학점 수정
+    #     result_context['major_essential']['standard_num'] = new_standard_me
+    #     result_context['major_selection']['standard_num'] = new_standard_ms
+    #     # 전필 -> 전선 넘기기 연산 다시하기
+    #     remain = 0
+    #     if new_standard_me < df_me['학점'].sum() :
+    #         remain = df_me['학점'].sum() - new_standard_me
+    #     result_context['major_essential']['user_num'] = convert_to_int(df_me['학점'].sum() - remain)
+    #     result_context['major_selection']['remain'] = convert_to_int(remain)
+    #     result_context['major_selection']['user_num'] = convert_to_int(user_num_ms)
+    #     # 전공 패스여부 다시 검사
+    #     pass_me, pass_ms = 0,0
+    #     if new_standard_me <= user_num_me: 
+    #         pass_me = 1
+    #     if new_standard_ms <= user_num_ms + remain: 
+    #         pass_ms = 1
+    #     result_context['major_essential']['pass'] = pass_me
+    #     result_context['major_selection']['pass'] = pass_ms
+    #     # 전공 부족학점 다시 계산
+    #     result_context['major_essential']['lack'] = convert_to_int(new_standard_me - user_num_me)
+    #     result_context['major_selection']['lack'] = convert_to_int(new_standard_ms - user_num_ms - remain)
+    #     # 각각 X필, X선 학점 계산
+    #     user_multi_me = data[data['이수구분'].isin([classification_me])]['학점'].sum()
+    #     multi_remain = 0    # X필 초과시 X선으로 넘어가는 학점
+    #     if standard_multi_me < user_multi_me :
+    #         multi_remain = user_multi_me - standard_multi_me
+    #     user_multi_me -= multi_remain
+    #     user_multi_ms = data[data['이수구분'].isin([classification_ms])]['학점'].sum()
+    #     # 복수/연계전공 pass 여부 검사
+    #     pass_multi_me, pass_multi_ms = 0, 0
+    #     if standard_multi_me <= user_multi_me:
+    #         pass_multi_me = 1
+    #     if standard_multi_ms <= user_multi_ms + multi_remain:
+    #         pass_multi_ms = 1
+    #     # 복수/연계 전공 context 생성
+    #     context_multi_major_essential = {
+    #         'standard_num' : standard_multi_me,
+    #         'user_num' : convert_to_int(user_multi_me),
+    #         'pass' : pass_multi_me,
+    #     }
+    #     context_multi_major_selection = {
+    #         'standard_num' : standard_multi_ms,
+    #         'user_num' : convert_to_int(user_multi_ms),
+    #         'remain' : convert_to_int(multi_remain),
+    #         'pass' : pass_multi_ms,
+    #     }
+    #     result_context['multi_major_essential'] = context_multi_major_essential
+    #     result_context['multi_major_selection'] = context_multi_major_selection
 
 
     #############################################
