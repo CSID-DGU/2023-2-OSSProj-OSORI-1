@@ -148,7 +148,7 @@ def f_result(user_id):
         standard_essential_selection = ['해당없음']
         
     # 패스여부 검사
-    pass_ms = 0
+    pass_ms, pass_sel = 0, 0
     if standard_num_ms <= user_num_ms + remain:
         pass_ms = 1
     if pass_ms and pass_ms_essential:
