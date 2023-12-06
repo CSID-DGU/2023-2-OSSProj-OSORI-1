@@ -41,6 +41,10 @@ def r_login(request):
     request.session.clear()
     return render(request, "login.html")
 
+def r_login1(request):
+    request.session.clear()
+    return render(request, "login_admin.html")
+
 def r_agree(request):
     target_qeuryset = Standard.objects.only('user_year', 'user_dep')
     # { 학과 : [21, 20 ...] }
