@@ -331,15 +331,15 @@
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">관심과목 장바구니</div>
         <hr style="width:80%; margin-top:1.3rem;">
         <!-- 폼 -->
-        <form action="/f_mod_pw/" method="post" name='form3' onsubmit="return check_up3()">
+        <form action="/f_mod_cart/" method="post" name='form3'>
             {% csrf_token %}
             <div class="regi_box">
-                <label>새 비밀번호</label>
-                <input id="pw1" type="password" name="password">
-                <label>비밀번호 재확인</label>
-                <input id="pw2" type="password">
+                <label>관심교양</label>
+                <input id="cart1" type="cart" name="cart">
+                <label>관심전공</label>
+                <input id="cart2" type="cart" name="cart">
             </div>
-            <input type='submit' class='login_btn' value='변경하기' style="margin:2.5rem 0 2rem 0;">
+            <input type='submit' class='login_btn' value='확인' style="margin:2.5rem 0 2rem 0;">
         </form>
     </div>
 </div>
