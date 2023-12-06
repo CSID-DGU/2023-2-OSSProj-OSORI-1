@@ -54,7 +54,7 @@ def f_result(user_id):
     data = read_frame(user_qs, fieldnames=['subject_num', 'subject_name', 'classification', 'classification_ge', 'subject_credit'])
     data.rename(columns = {'subject_num' : '학수강좌번호', 'subject_name' : '교과목명', 'classification' : '이수구분', 'classification_ge' : '이수구분영역', 'subject_credit' : '학점'}, inplace = True)
     # 사용자에게 맞는 기준 row 뽑아내기
-    standard_row = Standard.objects.get(major = ui_row.major, year = ui_row.student_id[2:3])
+    standard_row = Standard.objects.get(major = ui_row.major, year = ui_row.student_id[2:4])
 
     # 아래 로직을 거치며 채워질 데이터바인딩용 context 선언
     result_context = {}
