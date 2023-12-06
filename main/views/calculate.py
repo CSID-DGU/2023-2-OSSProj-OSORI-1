@@ -85,7 +85,7 @@ def f_result(user_id):
         'id' : ui_row.student_id,
         'name' : ui_row.name,
         'major' : ui_row.major,
-        'year' : ui_row.student_id[2:3],
+        'year' : ui_row.student_id[2:4],
     }
     result_context['user_info'] = context_user_info
 
@@ -128,7 +128,7 @@ def f_result(user_id):
     ################### 전공(전선) 영역 ###################
     ################################################
     # 기준학점 & 사용자학점합계 추출
-    standard_num_ms = standard_row.major_selection
+    standard_num_ms = standard_row.major_credit - standard_row.major_essential
     user_num_ms = df_ms['학점'].sum()
     lack_ms = standard_num_ms - user_num_ms - remain
     # 패스여부 검사
