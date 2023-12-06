@@ -37,7 +37,6 @@ urlpatterns = [
     path('success/', views.r_success),
     path('success_delete/', views.r_success_delete),
     path('result/', views.r_result),
-    path('en_result/', views.r_en_result),
 
      # 다른 함수사용 url 패턴
     path('f_login/', views.f_login),
@@ -50,5 +49,6 @@ urlpatterns = [
     path('f_mod_ms_eng/', views.f_mod_ms_eng),
     path('f_mod_pw/', views.f_mod_pw),
     path('f_mod_grade/', views.f_mod_grade),
+    path('f_result/', views.f_result),
 ]
 
