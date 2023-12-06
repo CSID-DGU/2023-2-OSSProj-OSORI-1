@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 # 모델 참조
 from ..models import *
+from .calculate import *
 
 def f_logout(request):
     request.session.clear()
