@@ -76,8 +76,12 @@
             <li>
                 <!-- 로그인 세션 활용 -->
                 {% if not request.session.id %}
+                <li>
                 <a href='/login/'>로그인</a>
+                </li>
+                <li>
                 <a href='/login_admin/'>    관리자 로그인</a>
+                </li>
                 {% else %}
                 <a href='javascript:logout()'>로그아웃</a>
                 {% endif %}
