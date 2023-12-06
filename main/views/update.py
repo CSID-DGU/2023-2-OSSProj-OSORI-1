@@ -77,6 +77,9 @@ def f_mod_pw(request):
         return redirect('/mypage/')
     else:
         return redirect('/login/')
+#4 관심과목 장바구니
+def f_mod_cart(request):
+        return redirect('/mypage/')
 
 # 4. 기이수과목 수정
 def f_mod_grade(request):
