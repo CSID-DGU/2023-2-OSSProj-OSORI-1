@@ -356,7 +356,7 @@ input[type="button"]
     align-content: center;
 }
 
-.filter_select_chk {
+.filter_select_chk input[type="checkbox"]{
     text-align: left;
     margin: 0 auto;
     line-height: 2.2rem;
