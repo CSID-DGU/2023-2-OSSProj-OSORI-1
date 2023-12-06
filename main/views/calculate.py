@@ -22,13 +22,9 @@ def make_dic(my_list):
     dic = defaultdict(lambda:-1)
     for s_num in my_list:
         dic[s_num]
-        # 필수과목의 동일과목은 sg 테이블에서 1:1로만 담겨잇어야함.
-        sg = SubjectGroup.objects.filter(subject_num = s_num)
-        if sg.exists():
-            dic[s_num] = sg[0].group_num
     return dic
 
-def make_recommend_list(my_dic, dic):
+def check_list(my_dic, dic):
     my_dic_ = my_dic.copy()
     dic_ = dic.copy()
     check = dic.copy()
@@ -41,69 +37,7 @@ def make_recommend_list(my_dic, dic):
         if s_num in dic_.keys():
             check[s_num] = 1
             dic_.pop(s_num)
-        # 없다면? 2차 검사 (사용자가 새 과목으로 재수강했을 경우)
-        else :
-            # 내 과목 리스트에서 그룹번호를 꺼냄
-            g_num = my_dic_[s_num]
-            # 기준 과목 리스트에서 그룹번호가 같은게 있으면 학수를 동일과목으로 바꿈
-            for k, v in dic_.items():
-                if v == g_num :
-                    s_num = k
-            # 해당 그룹번호가 기준에도 있다면 
-            if g_num != -1 and (g_num in dic_.values()):
-                check[s_num] = 1
-                dic_.pop(s_num)
-    # 추천 리스트 알고리즘
-    recommend = []
-    for s_num in dic_.keys():
-        nl = NewLecture.objects.filter(subject_num = s_num)
-        # 부족 과목이 열리고 있다면
-        if nl.exists():
-            recommend.append(nl[0].subject_num)
-        # 더이상 열리지 않는다면 -> 그룹번호로 동일과목 찾은 후 열리는 것만 저장
-        else:
-            g_num = dic_[s_num]
-            # 동일과목도 없고 과목이 없어졌다?
-            if g_num == -1:
-                recommend.append(s_num)
-            # 아니면 동일과목중 열리고 있는 강의를 찾자
-            else:
-                sg = SubjectGroup.objects.filter(group_num = g_num)
-                for s in sg:
-                    nl2 = NewLecture.objects.filter(subject_num = s.subject_num)
-                    if nl2.exists():
-                        recommend.append(nl2[0].subject_num)
-    return recommend, list(check.values())
-
-def add_same_lecture(list_):
-    for s_num in list_:
-        sg = SubjectGroup.objects.filter(subject_num = s_num)
-        for s in sg:
-            rows = SubjectGroup.objects.filter(group_num = s.group_num)
-            for r in rows:
-                if r.subject_num not in list_:
-                    list_.append(r.subject_num)
-    return list_
-
-def make_recommend_list_other(other_, user_lec_list):
-    # 쿼리셋을 리스트로 변환 -> 등장횟수에 따라 내림차순 정렬 
-    other_ = sorted(list(other_), key = lambda x : x[1], reverse=True)
-    # 10개만 추천하기 + 내가 들었던 과목은 제외하기
-    recom = []
-    rank = 0
-    for s_num, num in other_:
-        if len(recom) >= 10:
-            break
-        # 뉴렉쳐에 있는 최신 학수강좌번호 + 내가 안들은것만 담기 + 과목정보 - 등장횟수 순위 묶어서 저장
-        if NewLecture.objects.filter(subject_num=s_num).exists() and (s_num not in user_lec_list):
-            # AllLecture에서 이수구분이 맞을때만 리스트에 추가함
-            al_qs = Lecture.objects.filter(subject_num = s_num, classification__in = ['전필', '전공', '공교', '학기'])
-            if al_qs.exists():
-                rank += 1
-                row_dic = list(al_qs.values())
-                recom.append( [row_dic[0], rank] )
-    # 학수강좌번호 -> 쿼리셋 -> 모든 정보 리스트로 변환 후 리턴
-    return recom
+    return list(check.values())
 
 def convert_to_int(num):
     if str(num)[-1] == '0':
@@ -128,26 +62,17 @@ def f_result(user_id):
     ####################################################
     ################### 예외처리 여부 ###################
     ####################################################
-    # 공교, 학기(외국어), 학기(자연과학), 학기(msc), 복수, 영어 여부 판단
-    ce_exists, lang_exists, sci_exists, msc_exists, multi_exists, english_exists = 0, 0, 0, 0, 0, 0
-    if standard_row.core_essential:
-        ce_exists = 1
-    if standard_row.language:
-        lang_exists = 1
-    if standard_row.sci:
-        lang_exists = 1
-    if standard_row.msc:
-        msc_exists = 1
+    # 학기(5영역:외국어), 학기(4영역:자연과학), 복수, 영어 여부 판단
+    basic_eng_exists, basic_exists, multi_exists = 0, 0, 0
+    if standard_row.basic_eng:
+        basic_eng_exists = 1
+    if standard_row.basic:
+        basic_exists = 1
     if ui_row.major_status != '해당없음':
         multi_exists = 1 
-    if json.loads(standard_row.english):
-        english_exists = 1
     context_exists = {
-        'ce' : ce_exists,
-        'language' : lang_exists,
-        'science' : sci_exists
-        'msc' : msc_exists,
-        'english' : english_exists,
+        'basic_eng' : basic_eng_exists,
+        'basic' : basic_exists,
         'multi' : multi_exists,
     }
     result_context['exists'] = context_exists
@@ -176,8 +101,6 @@ def f_result(user_id):
     remain = 0
     if standard_row.major_essential < df_me['학점'].sum() :
         remain = df_me['학점'].sum() - standard_row.major_essential
-    # 내가들은 전필 + 전공의 동일과목 학수강좌번호 추가한 리스트
-    user_major_lec = add_same_lecture(df_ms['학수강좌번호'].tolist() + df_me['학수강좌번호'].tolist())
 
     ################################################
     ################### 전필 영역 ###################
@@ -186,10 +109,6 @@ def f_result(user_id):
     standard_num_me = standard_row.major_essential
     user_num_me = df_me['학점'].sum() - remain
     lack_me = standard_num_me - user_num_me
-    
-    # # 선택추천과목 리스트 생성
-    # other_me = UserLecture.objects.exclude(year = '커스텀').filter(major = ui_row.major, classification = '전필').values_list('subject_num').annotate(count=Count('subject_num'))
-    # recom_selection_me = make_recommend_list_other(other_me, user_major_lec)
     
     # 패스여부 검사
     pass_me = 0
@@ -200,7 +119,6 @@ def f_result(user_id):
         'standard_num' : standard_num_me,
         'user_num' : convert_to_int(user_num_me),
         'lack' : convert_to_int(lack_me),
-        'recom_selection' : recom_selection_me,
         'pass' : pass_me,
     }
     result_context['major_essential'] = context_major_essential
@@ -213,9 +131,6 @@ def f_result(user_id):
     standard_num_ms = standard_row.major_selection
     user_num_ms = df_ms['학점'].sum()
     lack_ms = standard_num_ms - user_num_ms - remain
-    # 선택추천과목 리스트 생성
-    other_ms = UserLecture.objects.exclude(year = '커스텀').filter(major = ui_row.major, classification = '전공').values_list('subject_num').annotate(count=Count('subject_num'))
-    recom_selection_ms = make_recommend_list_other(other_ms, user_major_lec)
     # 패스여부 검사
     pass_ms = 0
     if standard_num_ms <= user_num_ms + remain:
@@ -226,7 +141,6 @@ def f_result(user_id):
         'user_num' : convert_to_int(user_num_ms),
         'remain' : convert_to_int(remain),
         'lack' : convert_to_int(lack_ms),
-        'recom_selection' : recom_selection_ms,
         'pass' : pass_ms,
     }
     result_context['major_selection'] = context_major_selection
@@ -235,282 +149,181 @@ def f_result(user_id):
     ################################################
     ################### 공교 영역 ###################
     ################################################
-    if ce_exists :
-        # 기준필수과목 & 사용자교필과목 추출 => 동일과목 매핑 dict 생성
-        dic_ce = make_dic([s_num for s_num in standard_row.ce_list.split('/')])
-        user_dic_ce = make_dic(data['학수강좌번호'].tolist())  # * 수정 : 교필, 중필 영역만 비교하지 않고 전체를 대상으로 비교
-        # 기준필수과목+체크 & 추천과목 리스트 생성
-        recom_essential_ce, check_ce = make_recommend_list(user_dic_ce, dic_ce)
-        standard_essential_ce = to_zip_list(list_to_query(dic_ce.keys()), check_ce)
-        # 필수과목, 이수과목 개수 저장
-        standard_num_ce = len(dic_ce)
-        user_num_ce = sum(check_ce)
-        # 패스여부 검사
-        pass_ce = 0
-        if standard_num_ce == user_num_ce :
-            pass_ce = 1
-        # context 생성
-        context_core_essential = {
-            'standard_num' : standard_num_ce,
-            'user_num' : convert_to_int(user_num_ce),
-            'recom_essential' : list_to_query(recom_essential_ce),
-            'standard_essential' : standard_essential_ce,
-            'pass' : pass_ce,
-        }
-        result_context['core_essential'] = context_core_essential
-
-
-    ################################################
-    ############## 학기(외국어) 영역 ################
-    ################################################
-    if lang_exists :
-        # 성적표에서 학기 추출
-        df_cs = data[data['이수구분'].isin(['학기'])]
-        df_cs.reset_index(inplace=True,drop=True)
-        # 기준학점 & 사용자학점합계 추출
-        standard_num_cs = 6
-        user_num_cs = df_cs['학점'].sum()
+    # explore, self, civ, writing, seminar, leader, eas, sw
+    df_common = data[data['이수구분'].isin(['공교'])]
+    df_common.reset_index(inplace=True,drop=True)
+    
+    standard_num_common = standard_row.common
+    user_num_common = df_common['학점'].sum()
+    
+    # 선택영역 검사
+    standard_common_part =["대학생활탐구","자아성찰", "리더십", "전지구적사고와과제","글쓰기","영어","세계명작세미나", "소프트웨어"]  
+    # 사용자의 부족 영역 체크
+    part_check = ['이수' for _ in range(len(standard_common_part))]
+    
+    if standard_row.explore > 0:
+        df_exp = data[data['이수구분영역'].isin(['대학탐구'])]
+        if standard_row.explore > df_exp['학점'].sum():
+            part_check[0] = '미이수'
+    else:
+        part_check[0] = '해당없음'
+            
+    if standard_row.self > 0:
+        df_self = data[data['이수구분영역'].isin(['자아성찰'])]
+        if standard_row.self > df_self['학점'].sum():
+            part_check[1] = '미이수'
+    else:
+        part_check[1] = '해당없음'
+            
+    if standard_row.civ > 0:
+        df_lead = data[data['이수구분영역'].isin(['리더십'])]
+        if standard_row.leader > df_lead['학점'].sum():
+            part_check[2] = '미이수'
+    else:
+        part_check[2] = '해당없음'
         
-        # # 기준필수과목 & 사용자과목 추출 => 동일과목 매핑 dict 생성
-        # dic_cs = make_dic([s_num for s_num in standard_row.cs_list.split('/')])
-        # user_dic_cs = make_dic(data['학수강좌번호'].tolist())    # * 수정 : 필수과목은 교선1만 검사하지 않고 모든 학수강좌번호를 대상으로 검사 
-        # # 기준필수과목+체크 & 추천과목 리스트 생성
-        # recom_essential_cs, check_cs = make_recommend_list(user_dic_cs, dic_cs)
-        # standard_essential_cs = to_zip_list(list_to_query(dic_cs.keys()), check_cs)
+    if standard_row.civ > 0:
+        df_civ = data[data['이수구분영역'].isin(['지역연구', '시민', '미래위험사회와 안전'])]
+        if standard_row.civ > df_civ['학점'].sum():
+            part_check[3] = '미이수'
+    else:
+        part_check[3] = '해당없음'
         
-        # 이수구분영역 검사
-        standard_cs_part =["제5영역:외국어"]   
-        user_cs_part = list(set(df_cs[df_cs['이수구분영역'].isin(standard_cs_part)]['이수구분영역'].tolist()))
-        # 사용자의 부족 영역 체크
-        part_check = ['이수' for _ in range(len(standard_cs_part))]
-        for i, c in enumerate(standard_cs_part):
-            if c not in user_cs_part:
-                part_check[i] = '미이수'
-
-        # other_cs = UserLecture.objects.exclude(year = '커스텀').filter(classification__in = ['학기'],  selection__in=standard_cs_part)
-        # other_cs = other_cs.values_list('subject_num').annotate(count=Count('subject_num'))
-        # user_cs_lec = df_cs['학수강좌번호'].tolist() + [s_num for s_num in standard_row.cs_list.split('/')]
-        # recom_selection_cs = make_recommend_list_other(other_cs, user_cs_lec)
+    if standard_row.writing > 0:
+        df_write = data[data['이수구분영역'].isin(['글쓰기'])]
+        if standard_row.writing > df_write['학점'].sum():
+            part_check[4] = '미이수'
+    else:
+        part_check[4] = '해당없음'   
+    
+    eng_category, eng_score = ui_row.eng.split('/')
+    if eng_score < 900:
+        df_eng = data[data['이수구분영역'].isin(['영어'])]
+        if standard_row.eas > df_eng['학점'].sum():
+            part_check[5] = '미이수'
+    else:
+        part_check[5] = '면제'
         
-        # 패스여부 검사 (이수구분영역, 기준학점, 전체)
-        pass_cs_part, pass_cs_num, pass_cs_ess, pass_cs= 0, 0, 0, 0
-        if user_cs_part:
-            pass_cs_part = 1
-        if standard_num_cs <= user_num_cs:
-            pass_cs_num = 1
-        if pass_cs_part and pass_cs_num:
-            pass_cs = 1
+    if standard_row.seminar > 0:
+        df_seminar = data[data['이수구분영역'].isin(['명작'])]
+        if standard_row.seminar > df_seminar['학점'].sum():
+            part_check[6] = '미이수'
+    else:
+        part_check[6] = '해당없음'
+        
+    if standard_row.sw > 0:
+        df_sw = data[data['이수구분영역'].isin(['SW'])]
+        if standard_row.sw > df_sw['학점'].sum():
+            part_check[7] = '미이수'
+    else:
+        part_check[7] = '해당없음'
+    
+    # 위 조건문 축약버전 작동할지 모르겠음
+    # standard_cs_part = ["대학생활탐구", "자아성찰", "리더십", "전지구적사고와과제", "글쓰기", "영어", "세계명작세미나", "소프트웨어"]
+    # part_check = ['이수' for _ in range(len(standard_cs_part))]
 
-        # context 생성
-        context_core_selection = {
-            'standard_num' : standard_num_cs,
-            'user_num' : convert_to_int(user_num_cs),
-            'recom_selection' : recom_selection_cs,
-            'standard_cs_part' : standard_cs_part,
+    # areas = {
+    #     '대학탐구': ('explore', 0),
+    #     '자아성찰': ('self', 1),
+    #     '리더십': ('civ', 2),
+    #     '지역연구', '시민', '미래위험사회와 안전': ('civ', 3),
+    #     '글쓰기': ('writing', 4),
+    #     '영어': ('eng', 5),
+    #     '명작': ('seminar', 6),
+    #     'SW': ('sw', 7)
+    # }
+
+    # for area, (attribute, index) in areas.items():
+    #     if getattr(standard_row, attribute) > 0:
+    #         df_area = data[data['이수구분영역'].isin([area])]
+    #         if getattr(standard_row, attribute) > df_area['학점'].sum():
+    #             part_check[index] = '미이수'
+    #     else:
+    #         part_check[index] = '해당없음' if area != '영어' else '면제'
+    
+    # 패스여부 검사
+    pass_common = 0
+    if '미이수' in part_check :
+        pass_common = 1
+    
+    context_common = {
+            'standard_num' : standard_num_common,
+            'user_num' : convert_to_int(user_num_common),
+            'standard_part' : standard_common_part,
             'part_check' : part_check,
-            'pass_part' : pass_cs_part,
-            'pass' : pass_cs,
+            'pass' : pass_common,
         }
-        result_context['core_selection'] = context_core_selection
+    result_context['common'] = context_common
         
     ################################################
     ############### 학기(자연과학) 영역 #############
     ################################################
-    if cs_exists :
-        # 성적표에서 교선 추출
-        df_cs = data[data['이수구분'].isin(['학기'])]
-        df_cs.reset_index(inplace=True,drop=True)
+    if basic_exists :
+        df_basic = data[data['이수구분영역'].isin(['제4영역:자연과학'])]
+        df_basic.reset_index(inplace=True,drop=True)
         # 기준학점 & 사용자학점합계 추출
-        standard_num_cs = standard_row.core_selection
-        user_num_cs = df_cs['학점'].sum()
-        # 기준필수과목 & 사용자과목 추출 => 동일과목 매핑 dict 생성
-        dic_cs = make_dic([s_num for s_num in standard_row.cs_list.split('/')])
-        user_dic_cs = make_dic(data['학수강좌번호'].tolist())    # * 수정 : 필수과목은 교선1만 검사하지 않고 모든 학수강좌번호를 대상으로 검사 
-        # 기준필수과목+체크 & 추천과목 리스트 생성
-        recom_essential_cs, check_cs = make_recommend_list(user_dic_cs, dic_cs)
-        standard_essential_cs = to_zip_list(list_to_query(dic_cs.keys()), check_cs)
-
-        # 이수구분영역 검사
-        standard_cs_part =["사상과역사","사회와문화","자연과과학기술","세계와지구촌","예술과체육","자기계발과진로"]   # 기준 영역 6개
-        # 사용자가 안들은 영역 추출
-        recom_cs_part = []
-        if len(user_cs_part) < 3:
-            recom_cs_part = list(set(standard_cs_part) - set(user_cs_part))
-        # 사용자의 부족 영역 체크
-        part_check = ['이수' for _ in range(len(standard_cs_part))]
-        for i, c in enumerate(standard_cs_part):
-            if c not in user_cs_part:
-                part_check[i] = '미이수'
-
-        # 선택추천과목 리스트 생성
-        if not recom_cs_part :  # 만족한경우엔 5개 다 추천
-            cs_part_for_recom = standard_cs_part
-        else:                   # 만족 못했으면 영역 recom 리스트 그대로
-            cs_part_for_recom = recom_cs_part
-        other_cs = UserGrade.objects.exclude(year = '커스텀').filter(classification__in = ['학기'],  selection__in=cs_part_for_recom)
-        other_cs = other_cs.values_list('subject_num').annotate(count=Count('subject_num'))
-        user_cs_lec = df_cs['학수강좌번호'].tolist() + [s_num for s_num in standard_row.cs_list.split('/')]
-        recom_selection_cs = make_recommend_list_other(other_cs, user_cs_lec)
-        # 패스여부 검사 (이수구분영역, 기준학점, 필수과목, 전체)
-        pass_cs_part, pass_cs_num, pass_cs_ess, pass_cs= 0, 0, 0, 0
-        if not recom_cs_part:
-            pass_cs_part = 1
-        if standard_num_cs <= user_num_cs:
-            pass_cs_num = 1
-        if not recom_essential_cs:
-            pass_cs_ess = 1
-        if pass_cs_part and pass_cs_num and pass_cs_ess:
-            pass_cs = 1
-
-        # context 생성
-        context_core_selection = {
-            'standard_num' : standard_num_cs,
-            'user_num' : convert_to_int(user_num_cs),
-            'recom_essential' : list_to_query(recom_essential_cs),
-            'standard_essential' : standard_essential_cs,
-            'recom_selection' : recom_selection_cs,
-            'standard_cs_part' : standard_cs_part,
-            'part_check' : part_check,
-            'pass_part' : pass_cs_part,
-            'pass_ess' : pass_cs_ess,
-            'pass' : pass_cs,
-        }
-        result_context['core_selection'] = context_core_selection
+        standard_num_basic = standard_row.basic
+        user_num_basic = df_basic['학점'].sum()
         
-    ################################################
-    ################# 학기(msc) 영역 ###############
-    ################################################
-    if cs_exists :
-        # 성적표에서 교선 추출
-        df_cs = data[data['이수구분'].isin(['학기'])]
-        df_cs.reset_index(inplace=True,drop=True)
-        # 기준학점 & 사용자학점합계 추출
-        standard_num_cs = 29
-        user_num_cs = df_cs['학점'].sum()
         # 기준필수과목 & 사용자과목 추출 => 동일과목 매핑 dict 생성
-        dic_cs = make_dic([s_num for s_num in standard_row.cs_list.split('/')])
-        user_dic_cs = make_dic(data['학수강좌번호'].tolist())    # * 수정 : 필수과목은 교선1만 검사하지 않고 모든 학수강좌번호를 대상으로 검사 
-        # 기준필수과목+체크 & 추천과목 리스트 생성
-        recom_essential_cs, check_cs = make_recommend_list(user_dic_cs, dic_cs)
-        standard_essential_cs = to_zip_list(list_to_query(dic_cs.keys()), check_cs)
+        dic_m = make_dic([s_num for s_num in standard_row.basic_list_m.split('/')])
+        dic_s = make_dic([s_num for s_num in standard_row.basic_list_s.split('/')])
+        dic_c = make_dic([s_num for s_num in standard_row.basic_list_c.split('/')])
+        # 기준과목 합치기
+        dic_m.update(dic_s)
+        dic_m.update(dic_c)
+        dic_basic = dic_m
+        
+        user_dic = make_dic(data['학수강좌번호'].tolist())
+        # 기준필수과목+체크
+        check_basic = check_list(user_dic, dic_basic)
+        standard_essential_basic = to_zip_list(list_to_query(dic_basic.keys()), check_basic)
 
-        # 이수구분영역 검사
-        standard_cs_part =["사상과역사","사회와문화","자연과과학기술","세계와지구촌","예술과체육","자기계발과진로"]   # 기준 영역 6개
-        # 사용자가 안들은 영역 추출
-        recom_cs_part = []
-        if len(user_cs_part) < 3:
-            recom_cs_part = list(set(standard_cs_part) - set(user_cs_part))
-        # 사용자의 부족 영역 체크
-        part_check = ['이수' for _ in range(len(standard_cs_part))]
-        for i, c in enumerate(standard_cs_part):
-            if c not in user_cs_part:
-                part_check[i] = '미이수'
-
-        # 선택추천과목 리스트 생성
-        if not recom_cs_part :  # 만족한경우엔 5개 다 추천
-            cs_part_for_recom = standard_cs_part
-        else:                   # 만족 못했으면 영역 recom 리스트 그대로
-            cs_part_for_recom = recom_cs_part
-        other_cs = UserGrade.objects.exclude(year = '커스텀').filter(classification__in = ['교선1', '중선'],  selection__in=cs_part_for_recom)
-        other_cs = other_cs.values_list('subject_num').annotate(count=Count('subject_num'))
-        user_cs_lec = df_cs['학수강좌번호'].tolist() + [s_num for s_num in standard_row.cs_list.split('/')]
-        recom_selection_cs = make_recommend_list_other(other_cs, user_cs_lec)
         # 패스여부 검사 (이수구분영역, 기준학점, 필수과목, 전체)
-        pass_cs_part, pass_cs_num, pass_cs_ess, pass_cs= 0, 0, 0, 0
-        if not recom_cs_part:
-            pass_cs_part = 1
-        if standard_num_cs <= user_num_cs:
-            pass_cs_num = 1
-        if not recom_essential_cs:
-            pass_cs_ess = 1
-        if pass_cs_part and pass_cs_num and pass_cs_ess:
-            pass_cs = 1
+        pass_basic_num, pass_basic_ess, pass_basic= 0, 0, 0
+        if standard_num_basic <= user_num_basic:
+            pass_basic_num = 1
+        if 0 not in check_basic:
+            pass_basic_ess = 1
+        if pass_basic_num and pass_basic_ess:
+            pass_basic = 1
 
         # context 생성
-        context_core_selection = {
-            'standard_num' : standard_num_cs,
-            'user_num' : convert_to_int(user_num_cs),
-            'recom_essential' : list_to_query(recom_essential_cs),
-            'standard_essential' : standard_essential_cs,
-            'recom_selection' : recom_selection_cs,
-            'standard_cs_part' : standard_cs_part,
-            'part_check' : part_check,
-            'pass_part' : pass_cs_part,
-            'pass_ess' : pass_cs_ess,
-            'pass' : pass_cs,
+        context_basic = {
+            'standard_num' : standard_num_basic,
+            'user_num' : convert_to_int(user_num_basic),
+            'standard_essential' : standard_essential_basic,
+            'pass_ess' : pass_basic_ess,
+            'pass' : pass_basic,
         }
-        result_context['core_selection'] = context_core_selection
-
+        result_context['basic'] = context_basic
+    
     
     ################################################
-    ################### 균필 영역 ###################
+    ############## 학기(외국어) 영역 ################
     ################################################
-    if la_balance_exists :
-        # 성적표에서 균필 과목 추출
-        df_la_balance = data[data['이수구분'].isin(['학기'])]
-        df_la_balance.reset_index(inplace=True,drop=True)
-
+    if basic_eng_exists :
+        # 성적표에서 학기 추출
+        df_basic_eng = data[data['이수구분영역'].isin(['제5영역:외국어'])]
+        df_basic_eng.reset_index(inplace=True,drop=True)
         # 기준학점 & 사용자학점합계 추출
-        standard_num_la_balance = standard_row.la_balance
-        user_num_la_balance = df_la_balance['학점'].sum()
-
-        # 허용영역 기준 생성 -> 대학별 영역 제외
-        standard_la_balance_part = ["역사와사상", "자연과과학", "경제와사회", "문화와예술"]
-        if user_major_row.college in ["인문과학대학"]:
-            standard_la_balance_part.remove("역사와사상")
-        elif user_major_row.college in ["자연과학대학", "생명과학대학", "전자정보공학대학", "소프트웨어융합대학", "공과대학"]:
-            standard_la_balance_part.remove("자연과과학")
-        elif user_major_row.college in ["사회과학대학", "경영경제대학", "호텔관광대학"]:
-            standard_la_balance_part.remove("경제와사회")
-        elif user_major_row.college in ["예체능대학"]:
-            standard_la_balance_part.remove("문화와예술")
-        # 디이베/만애텍은 예체능으로 침
-        if ui_row.major in ["디자인이노베이션전공", "만화애니메이션텍전공"]:
-            standard_la_balance_part = ["역사와사상", "자연과과학", "경제와사회"]
-
-        # 사용자가 들은 이수구분영역 추출
-        user_la_balance_part = list(set(df_la_balance[df_la_balance['이수구분영역'].isin(standard_la_balance_part)]['이수구분영역'].tolist()))
-        # 사용자가 안들은 영역 추출
-        lack_la_balance_part = []
-        if len(user_la_balance_part) < 2:   # 기준영역 - 사용자들은영역 = 부족영역
-            lack_la_balance_part = list(set(standard_la_balance_part) - set(user_la_balance_part))
-        # 사용자의 부족 영역 체크
-        check_la_balance_part = ['이수' for _ in range(len(standard_la_balance_part))]
-        for i, c in enumerate(standard_la_balance_part):
-            if c not in user_la_balance_part:
-                check_la_balance_part[i] = '미이수'
-
-        # 과목 추천리스트 생성 -> 부족영역이 있을때만 생성
-        recom_la_balance = []
-        if lack_la_balance_part:
-            al_qs = AllLecture.objects.filter(
-                classification = '균필', 
-                selection__in = lack_la_balance_part,
-            )
-            recom_la_balance = list(al_qs.values())
-
-        # 패스여부 검사 (이수구분영역, 기준학점, 전체)
-        pass_la_balance_part, pass_la_balance_num, pass_la_balance= 0, 0, 0
-        if not lack_la_balance_part:
-            pass_la_balance_part = 1
-        if standard_num_la_balance <= user_num_la_balance:
-            pass_la_balance_num = 1
-        if pass_la_balance_part and pass_la_balance_num:
-            pass_la_balance = 1
+        standard_num_basic_eng = standard_row.basic_eng
+        user_num_basic_eng = df_basic_eng['학점'].sum()
         
+        # 패스여부 검사 (이수구분영역, 기준학점, 전체)
+        pass_basic_eng = 0
+        if standard_num_basic_eng <= user_num_basic_eng:
+            pass_basic_eng = 1
+
         # context 생성
-        context_la_balance = {
-            'standard_num' : standard_num_la_balance,
-            'user_num' : convert_to_int(user_num_la_balance),
-            'recom' : recom_la_balance,
-            'standard_part' : standard_la_balance_part,
-            'part_check' : check_la_balance_part,
-            'pass_part' : pass_la_balance_part,
-            'pass' : pass_la_balance,
+        context_basic_eng = {
+            'standard_num' : standard_num_basic_eng,
+            'user_num' : convert_to_int(user_num_basic_eng),
+            'pass' : pass_basic_eng,
         }
-        result_context['la_balance'] = context_la_balance
-
-
+        result_context['basic_eng'] = context_basic_eng
+            
+    
     #####################################################
     ################### 복수/연계 전공 ###################
     #####################################################
