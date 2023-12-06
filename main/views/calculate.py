@@ -68,7 +68,7 @@ def f_result(user_id):
         basic_eng_exists = 1
     if standard_row.basic:
         basic_exists = 1
-    if ui_row.major_status != '해당없음':
+    if ui_row.major_state != '해당없음':
         multi_exists = 1 
     context_exists = {
         'basic_eng' : basic_eng_exists,
