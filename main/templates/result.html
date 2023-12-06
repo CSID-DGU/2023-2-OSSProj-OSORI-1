@@ -51,7 +51,7 @@
         {% if exists.multi %}
         <div class="resultbox">
             <div class="name">
-                {% if user_info.major_status == '복수전공' %}
+                {% if user_info.major_state == '복수전공' %}
                 복수전공 필수
                 {% else %}
                 연계전공 필수
@@ -76,7 +76,7 @@
 
         <div class="resultbox">
             <div class="name">
-                {% if user_info.major_status == '복수전공' %}
+                {% if user_info.major_state == '복수전공' %}
                 복수전공 선택
                 {% else %}
                 연계전공 선택
@@ -183,7 +183,6 @@
         </div>
 
         <!-- 교필/중필 -->
-        {% if exists.ce %}
         <div class="resultbox">
             <div class="name">
                 공통교양필수
@@ -216,7 +215,6 @@
                 </div>
             </div>
         </div>
-        {% endif %}
 
         <!-- 교선/중선 -->
         {% if exists.cs %}
@@ -309,8 +307,8 @@
         </div>
         {% endif %}
 
-        <!-- 기교 -->
-        {% if exists.b %}
+        <!-- 학기 -->
+        {% if exists.basic or exists.basic_eng %}
         <div class="resultbox">
             <div class="name">
                 학문기초교양필수
@@ -876,7 +874,7 @@
 </div>
 
 
-<!-- 기교 -->
+<!-- 학기 -->
 <div id="myModal5" class="modal">
     <div class="modal-content">
         <span class="close" id="close5">&times;</span>

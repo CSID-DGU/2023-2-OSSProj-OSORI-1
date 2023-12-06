@@ -13,6 +13,7 @@ def f_register(request):
     major = request.POST.get('major')
     student_id = request.POST.get('student_id')
     email = request.POST.get('email')
+    major_state = request.POST.get('major_state')
 
     # 비밀번호를 DB에 저장하기 전 암호화
     password = request.POST.get('password')
@@ -36,6 +37,7 @@ def f_register(request):
     new_ui.thesis = thesis
     new_ui.eng = eng
     new_ui.email = email
+    new_ui.major_state = major_state
     new_ui.save()
 
     return redirect('/success/')

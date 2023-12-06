@@ -55,6 +55,8 @@ def f_result(user_id):
     data.rename(columns = {'subject_num' : '학수강좌번호', 'subject_name' : '교과목명', 'classification' : '이수구분', 'classification_ge' : '이수구분영역', 'subject_credit' : '학점'}, inplace = True)
     # 사용자에게 맞는 기준 row 뽑아내기
     standard_row = Standard.objects.get(major = ui_row.major, year = ui_row.student_id[2:4])
+    # 사용자 dictionary (필수과목 체크용)
+    user_dic = make_dic(data['학수강좌번호'].tolist())
 
     # 아래 로직을 거치며 채워질 데이터바인딩용 context 선언
     result_context = {}
@@ -105,46 +107,64 @@ def f_result(user_id):
     ################################################
     ################### 전필 영역 ###################
     ################################################
-    # 기준학점 & 사용자 학점 추출
-    standard_num_me = standard_row.major_essential
-    user_num_me = df_me['학점'].sum() - remain
-    lack_me = standard_num_me - user_num_me
+    if standard_row.major_essential > 0:
+        # 기준학점 & 사용자 학점 추출
+        standard_num_me = standard_row.major_essential
+        user_num_me = df_me['학점'].sum() - remain
+        lack_me = standard_num_me - user_num_me
     
-    # 패스여부 검사
-    pass_me = 0
-    if standard_num_me <= user_num_me:
-        pass_me = 1
-    # context 생성
-    context_major_essential = {
-        'standard_num' : standard_num_me,
-        'user_num' : convert_to_int(user_num_me),
-        'lack' : convert_to_int(lack_me),
-        'pass' : pass_me,
-    }
-    result_context['major_essential'] = context_major_essential
+        # 패스여부 검사
+        pass_me = 0
+        if standard_num_me <= user_num_me:
+            pass_me = 1
+        # context 생성
+        context_major_essential = {
+            'standard_num' : standard_num_me,
+            'user_num' : convert_to_int(user_num_me),
+            'lack' : convert_to_int(lack_me),
+            'pass' : pass_me,
+        }
+        result_context['major_essential'] = context_major_essential
 
 
     ################################################
-    ################### 전공(전선) 영역 ###################
+    ################ 전공(전선) 영역 ################
     ################################################
     # 기준학점 & 사용자학점합계 추출
     standard_num_ms = standard_row.major_credit - standard_row.major_essential
     user_num_ms = df_ms['학점'].sum()
     lack_ms = standard_num_ms - user_num_ms - remain
+    
+    if standard_row.major_selection_list:
+        pass_ms_essential = 0
+        dic_selection = make_dic([s_num for s_num in standard_row.major_selection_list.split('/')])
+        # 기준필수과목+체크
+        check_selection = check_list(user_dic, dic_selection)
+        if 0 not in check_selection:
+            pass_basic_ess = 1
+        standard_essential_selection = to_zip_list(list_to_query(dic_selection.keys()), check_selection)
+    else:
+        pass_ms_essential = 1
+        standard_essential_selection = ['해당없음']
+        
     # 패스여부 검사
     pass_ms = 0
     if standard_num_ms <= user_num_ms + remain:
         pass_ms = 1
+    if pass_ms and pass_ms_essential:
+        pass_sel = 1
+        
     # context 생성
     context_major_selection = {
         'standard_num' : standard_num_ms,
         'user_num' : convert_to_int(user_num_ms),
         'remain' : convert_to_int(remain),
+        'standard_essential' : standard_essential_selection,
         'lack' : convert_to_int(lack_ms),
-        'pass' : pass_ms,
+        'pass' : pass_sel,
     }
     result_context['major_selection'] = context_major_selection
-
+    
 
     ################################################
     ################### 공교 영역 ###################
@@ -218,29 +238,6 @@ def f_result(user_id):
     else:
         part_check[7] = '해당없음'
     
-    # 위 조건문 축약버전 작동할지 모르겠음
-    # standard_cs_part = ["대학생활탐구", "자아성찰", "리더십", "전지구적사고와과제", "글쓰기", "영어", "세계명작세미나", "소프트웨어"]
-    # part_check = ['이수' for _ in range(len(standard_cs_part))]
-
-    # areas = {
-    #     '대학탐구': ('explore', 0),
-    #     '자아성찰': ('self', 1),
-    #     '리더십': ('civ', 2),
-    #     '지역연구', '시민', '미래위험사회와 안전': ('civ', 3),
-    #     '글쓰기': ('writing', 4),
-    #     '영어': ('eng', 5),
-    #     '명작': ('seminar', 6),
-    #     'SW': ('sw', 7)
-    # }
-
-    # for area, (attribute, index) in areas.items():
-    #     if getattr(standard_row, attribute) > 0:
-    #         df_area = data[data['이수구분영역'].isin([area])]
-    #         if getattr(standard_row, attribute) > df_area['학점'].sum():
-    #             part_check[index] = '미이수'
-    #     else:
-    #         part_check[index] = '해당없음' if area != '영어' else '면제'
-    
     # 패스여부 검사
     pass_common = 0
     if '미이수' in part_check :
@@ -273,7 +270,6 @@ def f_result(user_id):
             if basic_list:
                 dic_basic.update(make_dic([s_num for s_num in basic_list.split('/')]))
         
-        user_dic = make_dic(data['학수강좌번호'].tolist())
         # 기준필수과목+체크
         check_basic = check_list(user_dic, dic_basic)
         standard_essential_basic = to_zip_list(list_to_query(dic_basic.keys()), check_basic)
@@ -328,16 +324,16 @@ def f_result(user_id):
     # #####################################################
     # # 복수/연계 전공시 -> 전필,전선 : 기준 수정 + 복필(연필),복선(연선) : 기준과 내 학점계산 추가
     # if multi_exists:
-    #     result_context['user_info']['major_status'] = ui_row.major_status
+    #     result_context['user_info']['major_state'] = ui_row.major_state
     #     # 복수/연계 전공 이수구분 + 기준학점 설정
     #     new_standard_me = 15
     #     new_standard_ms = 24
     #     standard_multi_me = 15
     #     standard_multi_ms = 24
-    #     if ui_row.major_status == '복수전공':
+    #     if ui_row.major_state == '복수전공':
     #         classification_me = '복필'
     #         classification_ms = '복선'
-    #     elif ui_row.major_status == '연계전공':
+    #     elif ui_row.major_state == '연계전공':
     #         classification_me = '연필'
     #         classification_ms = '연선'
     #     # 전공 기준 학점 수정
