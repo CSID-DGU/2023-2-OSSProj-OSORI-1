@@ -34,6 +34,7 @@ urlpatterns = [
     #path('agree/', views.r_agree),
     path('custom/', views.r_custom),
     path('register/', views.r_register),
+    path('admin/', views.r_register),
     path('success/', views.r_success),
     path('success_delete/', views.r_success_delete),
     path('result/', views.r_result),
