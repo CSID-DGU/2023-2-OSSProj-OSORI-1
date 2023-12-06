@@ -7,7 +7,7 @@
         <div style="font-size:4rem;">
             <i class="fas fa-graduation-cap"></i>
         </div>
-        <div class="big_title">관리자 페이지_학과 졸업요건 등록</div>
+        <div class="big_title">관리자용_학과 졸업요건 등록</div>
     </div>
 </div>
 
@@ -91,68 +91,3 @@
     
 {% endblock %}
 
-
-{% block js_section %}
-
-<script>
-    // 영어성적 입력 띄우기
-    function pop_score(){
-        var eng_box = document.getElementById('eng');
-        var eng_ind = document.getElementById("eng").options.selectedIndex;
-        if(eng_box.options[eng_ind].value !== "해당없음" && eng_box.options[eng_ind].value !== "초과학기면제")
-        {
-                document.getElementById('eng_score').style.display = "block"; 
-        }
-        else{
-            document.getElementById('eng_score').style.display = "none";
-        }
-    }
-
-    // 가입하기 버튼 눌렀을 때 검사하기
-    function check_up(){
-        // 1. 학부생일경우 학과 선택했는지 확인
-        if(document.getElementById('major_select'))
-        {
-            var sel_box = document.getElementById('major_select');
-            var sel_ind = document.getElementById('major_select').options.selectedIndex;
-            if(sel_box.options[sel_ind].value === 'x'){
-                alert('🤔 전공을 선택해주세요.') ;
-                regi_form.major_select.focus();
-                return false;
-            }
-        }
-        // 2. 영어인증 선택시 점수 입력확인
-        var eng_box = document.getElementById('eng');
-        var eng_ind = document.getElementById("eng").options.selectedIndex;
-        if(eng_box.options[eng_ind].value !== "해당없음" && eng_box.options[eng_ind].value !== "초과학기면제" && eng_box.options[eng_ind].value !== "OPIc"){
-            if (!document.getElementById('eng_score').value || document.getElementById('eng_score').value == 0) {
-                alert('🤔 영어 점수를 입력해주세요.') ;
-                regi_form.eng_score.focus();
-                return false;
-            }
-        }
-        // 3. 비밀번호 입력 확인
-        if(!document.getElementById('pw1').value){
-            alert('🤔 비밀번호를 입력해주세요.') ;
-            regi_form.pw1.focus();
-            return false;
-        }
-        // 4. 비밀번호 일치 확인
-        if(document.getElementById('pw1').value !== document.getElementById('pw2').value){
-            alert('🤔 비밀번호가 일치하지 않습니다.') ;
-            regi_form.pw1.focus();
-            return false;
-        }
-        return true;
-    }
-
-    // 세부전공 있을 경우 학과 placeholder 변경
-    const sub_major = "{{request.session.temp_user_info.sub_major}}";
-    if(sub_major){
-        document.getElementsByName("major")[0].placeholder += " (" + sub_major + ")";
-    }
-
-    
-</script>
-
-{% endblock %}
