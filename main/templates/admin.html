@@ -7,7 +7,7 @@
         <div style="font-size:4rem;">
             <i class="fas fa-graduation-cap"></i>
         </div>
-        <div class="big_title">회원가입</div>
+        <div class="big_title">관리자 페이지_학과 졸업요건 등록</div>
     </div>
 </div>
 
@@ -18,47 +18,73 @@
             {% csrf_token %}
             <div class="regi_box" style="width:400px">
 
-                <label>이름</label>
-                <input type="text" name="name">
-
                 <label>학과</label>
                 <input type="text" name="major">
 
-                <label>학번</label>
-                <input type="text" name="student_id">
+                <label>년도</label>
+                <input type="number" name="year">
 
-                <label>이메일</label>
-                <input type="text" name="email">
+                <label>총학점</label>
+                <input type="number" name="total">
 
-                <label>전공상태</label>
-                <select name="major_status">
-                    <option value="해당없음" selected>해당없음</option>
-                    <option value="복수전공">복수전공</option>
-                    <option value="연계전공">연계·융합전공</option>
-                </select>
+                <label>전공학점</label>
+                <input type="number" name="major_credit">
 
-                <label>영어인증</label>
-                <select onclick="pop_score()" id="eng" name="eng">
-                    <option value="해당없음" selected>해당없음</option>
-                    <option value="TOEIC">TOEIC</option>
-                </select>
-                <input id="eng_score" style="display:none" type="number" name="eng_score" placeholder='점수'>
+                <label>복수전공 학점</label>
+                <input type="number" name="s_credit">
 
-                <label>졸업논문 인정 여부</label>
-                <select name="thesis_status">
-                    <option value="통과" selected>통과</option>
-                    <option value="미통과">미통과</option>
-                </select>
+                <label>전공필수 학점</label>
+                <input type="number" name="major_essential">
 
-                <label>비밀번호</label>
-                <input id="pw1" type="password" name="password">
-                <div class='regi_guide'>
-                    * Graduate is good 사이트의 고유 비밀번호를 설정해주세요
-                </div>
-                <label>비밀번호 재확인</label>
-                <input id="pw2" type="password">
+                <label>전공선택 학점</label>
+                <input type="number" name="major_selection">
+
+                <label>전공선택 중 필수 이수 과목</label>
+                <input type="text" name="major_selection_list">
+
+                <label>대학탐구 학점</label>
+                <input type="number" name="explore">
+
+                <label>자아성찰 학점</label>
+                <input type="number" name="self">
+
+                <label>21c 시민, 미래위험사회와안전, 지역연구 학점</label>
+                <input type="number" name="civ">
+
+                <label>글쓰기 학점</label>
+                <input type="number" name="writing">
+
+                <label>명작(세미나) 학점</label>
+                <input type="number" name="seminar">
+
+                <label>리더십 학점</label>
+                <input type="number" name="leader">
+
+                <label>EAS1,2 학점</label>
+                <input type="number" name="eas">
+
+                <label>소프트웨어 학점</label>
+                <input type="number" name="sw">
+
+                <label>학문기초 총 학점(외국어 선택 시)</label>
+                <input type="number" name="basic_eng">
+
+                <label>학문기초 총 학점(자연과학 선택 시)</label>
+                <input type="number" name="basic">
+
+                <label>학문 기초 교과목 m 목록</label>
+                <input type="text" name="basic_list_m">
+
+                <label>학문 기초 교과목 s 목록</label>
+                <input type="text" name="basic_list_s">
+
+                <label>학문 기초 교과목 c 목록</label>
+                <input type="text" name="basic_list_c">
+
+                <label>전공 원어강의 학점</label>
+                <input type="number" name="eng_major">
             </div>
-            <input type='submit' class='regi_btn' value='가입하기'>
+            <input type='submit' class='regi_btn' value='졸업요건 등록하기'>
         </form>
     </div>
 </div>
