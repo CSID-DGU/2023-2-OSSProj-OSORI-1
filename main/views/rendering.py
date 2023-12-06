@@ -67,6 +67,8 @@ def r_agree(request):
 
 def r_register(request):
     return render(request, "register.html")
+def r_admin_(request):
+    return render(request, "admin.html")
 
 def r_success(request):
     temp_user_info = request.session.get('temp_user_info')
