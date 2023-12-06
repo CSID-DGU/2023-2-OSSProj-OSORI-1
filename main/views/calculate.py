@@ -394,7 +394,7 @@ def f_result(user_id):
     #############################################
     ################### Total ###################
     #############################################
-    standard_num_total = standard_row.sum_score
+    standard_num_total = standard_row.total
     user_num_total = data['학점'].sum()
     # 총 기준 학점 넘기 + 모든 영역에서 pass 받으면 통과
     pass_total = 1
