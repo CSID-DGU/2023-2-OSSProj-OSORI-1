@@ -97,6 +97,7 @@ class Standard(models.Model):
     major_essential = models.IntegerField() # 전공필수 학점
     major_selection = models.IntegerField # 전공선택 학점
     major_selection_list = models.CharField(max_length=100) # 전공선택 중 필수 이수 과목
+    common = models.IntegerField() # 공교 총학점
     explore = models.IntegerField() # 대학탐구 학점
     self = models.IntegerField() # 자아성찰 학점
     civ = models.IntegerField() # 21c 시민, 미래위험사회와안전, 지역연구 학점
@@ -115,3 +116,12 @@ class Standard(models.Model):
     class Meta:
         managed = False
         db_table = 'main_standard'
+
+# ------------------------------------- ( 관리자 계정 테이블 ) -------------------------------------
+class main_user(models.Model):
+    main_id = models.CharField(primary_key=True, max_length=10) # 학번 입력요구
+    password = models.CharField(max_length=100, validators=[password_validator]) # 비밀번호
+
+    class Meta:  # 자동 migrate 막을 때 사용
+        managed = False
+        db_table = 'main_user'
