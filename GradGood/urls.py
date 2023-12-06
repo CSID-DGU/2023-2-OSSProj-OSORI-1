@@ -29,6 +29,7 @@ urlpatterns = [
     path('login_admin/',  views.r_login1),
     path('changePW/', views.r_changePW),
     path('mypage/', views.r_mypage),
+    path('admin_',views.r_admin_),
     path('custom/', views.r_custom),
     path('a_search/', views.a_search),
     #path('agree/', views.r_agree),
@@ -41,7 +42,7 @@ urlpatterns = [
 
      # 다른 함수사용 url 패턴
     path('f_login/', views.f_login),
-    #path('f_login1/', views.f_login1),
+    path('f_login1/', views.f_login1),
     path('f_logout/', views.f_logout),
     path('f_mypage/', views.f_mypage),
     path('f_register/', views.f_register),
