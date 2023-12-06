@@ -90,6 +90,7 @@ class Review(models.Model):
 
 class Standard(models.Model):  
     major = models.CharField(primary_key=True) # 학과 
+    year = models.IntegerField() # 몇 학번 졸업요건인지 
     total = models.IntegerField() # 총졸업학점
     major_credit = models.IntegerField() # 전공학점
     s_credit = models.IntegerField() # 복수전공 학점
