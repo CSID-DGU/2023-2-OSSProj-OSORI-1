@@ -50,7 +50,7 @@ def f_login1(request):
     update_json(user_id)
     # 세션에 ID 저장
     request.session['id'] = user_id
-    return redirect('/mypage/')
+    return redirect('/admin/')
 
 
 def f_mypage(user_id):
