@@ -29,7 +29,7 @@ urlpatterns = [
     path('login_admin/',  views.r_login1),
     path('changePW/', views.r_changePW),
     path('mypage/', views.r_mypage),
-    #path('admin_/',views.r_admin_),
+    path('admin_/',views.r_admin_),
     path('custom/', views.r_custom),
     path('a_search/', views.a_search),
     #path('agree/', views.r_agree),
