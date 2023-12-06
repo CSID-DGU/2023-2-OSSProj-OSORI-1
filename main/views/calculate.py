@@ -197,7 +197,7 @@ def f_result(user_id):
         part_check[4] = '해당없음'   
     
     eng_category, eng_score = ui_row.eng.split('/')
-    if eng_score < 900:
+    if int(eng_score) < 900:
         df_eng = data[data['이수구분영역'].isin(['영어'])]
         if standard_row.eas > df_eng['학점'].sum():
             part_check[5] = '미이수'
