@@ -32,27 +32,6 @@ def f_login(request):
     request.session['id'] = user_id
     return redirect('/mypage/')
 
-def f_login1(request):
-    # ID PW 넘어옴
-    user_id = request.POST.get('id')
-    pw = request.POST.get('pw')
-    # 그 값으로 모델에서 행 추출
-    ui_row = Main_user.objects.filter(main_id=user_id)
-    # 우선 회원가입 되지 않았다면?
-    if not ui_row.exists():
-        messages.error(request, '⚠️ Graduate is Good에 가입되지 않은 ID입니다.')
-        return redirect('/login_admin/')
-    # 회원인데 비번이 틀렸다면? 입력받은 비번을 암호화하고 DB의 비번과 비교한다.
-    if not bcrypt.checkpw(pw.encode('utf-8'), ui_row[0].password.encode('utf-8')):
-        messages.error(request, '⚠️ Graduate is Good 학과 비밀번호를 확인하세요.')
-        return redirect('/login_admin/')
-    # !! 로그인시마다 json을 최신화시킨다 !!
-    update_json(user_id)
-    # 세션에 ID 저장
-    request.session['id'] = user_id
-    return redirect('/admin_/')
-
-
 def f_mypage(user_id):
     ui_row = UserInfo.objects.get(student_id=user_id)
     ug = UserLecture.objects.filter(student_id=user_id)
