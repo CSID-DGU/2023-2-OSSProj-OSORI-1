@@ -52,6 +52,7 @@ urlpatterns = [
     path('f_mod_ms_eng/', views.f_mod_ms_eng),
     path('f_mod_pw/', views.f_mod_pw),
     path('f_mod_grade/', views.f_mod_grade),
+    path('f_mod_cart/', views.f_mod_cart),
     path('f_result/', views.f_result),
 ]
 
