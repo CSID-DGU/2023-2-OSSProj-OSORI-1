@@ -266,13 +266,12 @@ def f_result(user_id):
         user_num_basic = df_basic['학점'].sum()
         
         # 기준필수과목 & 사용자과목 추출 => 동일과목 매핑 dict 생성
-        dic_m = make_dic([s_num for s_num in standard_row.basic_list_m.split('/')])
-        dic_s = make_dic([s_num for s_num in standard_row.basic_list_s.split('/')])
-        dic_c = make_dic([s_num for s_num in standard_row.basic_list_c.split('/')])
-        # 기준과목 합치기
-        dic_m.update(dic_s)
-        dic_m.update(dic_c)
-        dic_basic = dic_m
+        dic_basic = defaultdict(lambda:-1)
+        basic_lists = [standard_row.basic_list_m, standard_row.basic_list_s, standard_row.basic_list_c]
+
+        for basic_list in basic_lists:
+            if basic_list:
+                dic_basic.update(make_dic([s_num for s_num in basic_list.split('/')]))
         
         user_dic = make_dic(data['학수강좌번호'].tolist())
         # 기준필수과목+체크
