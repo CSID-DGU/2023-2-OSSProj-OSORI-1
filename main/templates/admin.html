@@ -1,0 +1,132 @@
+{% extends 'reference.html' %}
+
+{% block content %}
+
+<div class="gray_sec">
+    <div class="container">
+        <div style="font-size:4rem;">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="big_title">회원가입</div>
+    </div>
+</div>
+
+<!-- 입력란 -->
+<div class="white_sec">
+    <div class="container">
+        <form action="/f_register/" method="post" name='regi_form' onsubmit="return check_up()">
+            {% csrf_token %}
+            <div class="regi_box" style="width:400px">
+
+                <label>이름</label>
+                <input type="text" name="name">
+
+                <label>학과</label>
+                <input type="text" name="major">
+
+                <label>학번</label>
+                <input type="text" name="student_id">
+
+                <label>이메일</label>
+                <input type="text" name="email">
+
+                <label>전공상태</label>
+                <select name="major_status">
+                    <option value="해당없음" selected>해당없음</option>
+                    <option value="복수전공">복수전공</option>
+                    <option value="연계전공">연계·융합전공</option>
+                </select>
+
+                <label>영어인증</label>
+                <select onclick="pop_score()" id="eng" name="eng">
+                    <option value="해당없음" selected>해당없음</option>
+                    <option value="TOEIC">TOEIC</option>
+                </select>
+                <input id="eng_score" style="display:none" type="number" name="eng_score" placeholder='점수'>
+
+                <label>졸업논문 인정 여부</label>
+                <select name="thesis_status">
+                    <option value="통과" selected>통과</option>
+                    <option value="미통과">미통과</option>
+                </select>
+
+                <label>비밀번호</label>
+                <input id="pw1" type="password" name="password">
+                <div class='regi_guide'>
+                    * Graduate is good 사이트의 고유 비밀번호를 설정해주세요
+                </div>
+                <label>비밀번호 재확인</label>
+                <input id="pw2" type="password">
+            </div>
+            <input type='submit' class='regi_btn' value='가입하기'>
+        </form>
+    </div>
+</div>
+    
+{% endblock %}
+
+
+{% block js_section %}
+
+<script>
+    // 영어성적 입력 띄우기
+    function pop_score(){
+        var eng_box = document.getElementById('eng');
+        var eng_ind = document.getElementById("eng").options.selectedIndex;
+        if(eng_box.options[eng_ind].value !== "해당없음" && eng_box.options[eng_ind].value !== "초과학기면제")
+        {
+                document.getElementById('eng_score').style.display = "block"; 
+        }
+        else{
+            document.getElementById('eng_score').style.display = "none";
+        }
+    }
+
+    // 가입하기 버튼 눌렀을 때 검사하기
+    function check_up(){
+        // 1. 학부생일경우 학과 선택했는지 확인
+        if(document.getElementById('major_select'))
+        {
+            var sel_box = document.getElementById('major_select');
+            var sel_ind = document.getElementById('major_select').options.selectedIndex;
+            if(sel_box.options[sel_ind].value === 'x'){
+                alert('🤔 전공을 선택해주세요.') ;
+                regi_form.major_select.focus();
+                return false;
+            }
+        }
+        // 2. 영어인증 선택시 점수 입력확인
+        var eng_box = document.getElementById('eng');
+        var eng_ind = document.getElementById("eng").options.selectedIndex;
+        if(eng_box.options[eng_ind].value !== "해당없음" && eng_box.options[eng_ind].value !== "초과학기면제" && eng_box.options[eng_ind].value !== "OPIc"){
+            if (!document.getElementById('eng_score').value || document.getElementById('eng_score').value == 0) {
+                alert('🤔 영어 점수를 입력해주세요.') ;
+                regi_form.eng_score.focus();
+                return false;
+            }
+        }
+        // 3. 비밀번호 입력 확인
+        if(!document.getElementById('pw1').value){
+            alert('🤔 비밀번호를 입력해주세요.') ;
+            regi_form.pw1.focus();
+            return false;
+        }
+        // 4. 비밀번호 일치 확인
+        if(document.getElementById('pw1').value !== document.getElementById('pw2').value){
+            alert('🤔 비밀번호가 일치하지 않습니다.') ;
+            regi_form.pw1.focus();
+            return false;
+        }
+        return true;
+    }
+
+    // 세부전공 있을 경우 학과 placeholder 변경
+    const sub_major = "{{request.session.temp_user_info.sub_major}}";
+    if(sub_major){
+        document.getElementsByName("major")[0].placeholder += " (" + sub_major + ")";
+    }
+
+    
+</script>
+
+{% endblock %}
