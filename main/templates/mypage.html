@@ -746,37 +746,22 @@
 
 <script>
 
-$.ajax({
-    type: 'GET',
-    url: '/statistics_ge/',
-    data: { selectedLectures: selectedLectures },
-});
+let selectedLectures = JSON.parse(localStorage.getItem('selectedLectures'));
 
-// 선택된 강의 정보를 모달에 추가
-let cartContent = document.getElementById('cartContent');
-html = "<div class='loading_wrap'><div class='circle'></div> 데이터를 불러오는 중입니다...</div>"
-cartContent.innerHTML = html;
+if (selectedLectures && selectedLectures.length > 0) {
+            let cartContent = document.getElementById('cartContent');
+            let html = "<h3>장바구니</h3><ul>";
 
-html = "<table class='grade_table' style='margin-top:0'>";
-html += "<tr>";
-html += "<th class='grade_table_th' style='width:12%'>학수번호</th>";
-html += "<th class='grade_table_th' style='width:38%'>과목명</th>";
-html += "<th class='grade_table_th' style='width:13%'>이수구분</th>";
-html += "<th class='grade_table_th' style='width:8%'>학점</th>";
-html += "</tr>";
+            selectedLectures.forEach(function(lecture) {
+                html += "<li>" + lecture.subject_num + "</li>";
+                html += "<li>" + lecture.subject_name + "</li>";
+                html += "<li>" + lecture.classification + "</li>";
+                html += "<li>" + lecture.subject_credit + "</li>";
+            });
 
-selectedLectures.forEach(function(lecture_info) {
-    html += "<tr>";
-    html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
-    html += "<td class='grade_table_td'>" + lecture_info.subject_name + "</td>";
-    html += "<td class='grade_table_td'>" + lecture_info.classification + "</td>";
-    html += "<td class='grade_table_td'>" + lecture_info.subject_credit + "</td>";
-    html += "</tr>";
-});
-html += "</table>";
-
-cartContent.innerHTML = html;
-
+            html += "</ul>";
+            cartContent.innerHTML = html;
+        }
 </script>
 
 {% endblock %}
