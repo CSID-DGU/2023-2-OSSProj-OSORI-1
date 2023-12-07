@@ -111,7 +111,7 @@
                     <div style="margin-top:5rem;">
                         <div class="filter_title">
                             <div style="display: flex; align-items: center;">
-                                <input class='filter_btn' type="button" value="장바구니" id="selectButton">
+                                <input class='filter_btn' type="button" value="장바구니" id="selectButton" onclick="addToCart(); return false">
                                 <div style="margin: 0 auto;">📜 교양 순위</div>
                             </div>
                         </div>
@@ -197,29 +197,28 @@
 </script>
 
 <script>
-// '장바구니' 버튼을 클릭하면 선택된 강의 정보를 모달에 추가하는 함수
-document.getElementById('selectButton').addEventListener('click', function() {
-    let selectedLectures = [];
-    let checkboxes = document.querySelectorAll('.lectureCheckbox:checked');
+    function addToCart() {
+        let selectedLectures = [];
+        let checkboxes = document.querySelectorAll('.lectureCheckbox:checked');
+        
+        checkboxes.forEach(function(checkbox) {
+            let lectureInfo = checkbox.value;
+            selectedLectures.push(lectureInfo);
+        });
     
-    checkboxes.forEach(function(checkbox) {
-        let lectureInfo = checkbox.value;
-        selectedLectures.push(lectureInfo);
-    });
-
-    // AJAX를 사용하여 선택된 강의 정보를 마이페이지로 전송
-    $.ajax({
-        type: 'POST',
-        url: '/mypage/',  // 마이페이지 URL 또는 처리할 URL
-        data: { selectedLectures: selectedLectures },
-        success: function(response) {
-            alert('선택된 강의가 장바구니에 추가되었습니다.');
-        },
-        error: function(err) {
-            console.error('오류 발생:', err);
-        }
-    });
-});
+        // AJAX를 사용하여 선택된 강의 정보를 마이페이지로 전송
+        $.ajax({
+            type: 'POST',
+            url: '/mypage/',  // 마이페이지 URL 또는 처리할 URL
+            data: { selectedLectures: selectedLectures },
+            success: function(response) {
+                alert('선택된 강의가 장바구니에 추가되었습니다.');
+            },
+            error: function(err) {
+                console.error('오류 발생:', err);
+            }
+        });
+    }
 </script>
 
 {% endblock %}
