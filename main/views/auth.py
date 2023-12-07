@@ -99,9 +99,9 @@ def update_json(user_id):
     mypage_context = f_mypage(user_id)
     ui_row.mypage_json = json.dumps(mypage_context)
     # 업로드된 이수표가 있을때만 
-    if UserLecture.objects.filter(student_id=user_id).exists():
-        # result json 업데이트
-        result_context = f_result(user_id)
-        ui_row.result_json = json.dumps(result_context)
+    # if UserLecture.objects.filter(student_id=user_id).exists():
+    #     # result json 업데이트
+    #     result_context = f_result(user_id)
+    #     ui_row.result_json = json.dumps(result_context)
     ui_row.save()
     return
