@@ -196,4 +196,41 @@
 
 </script>
 
+<script>
+    document.getElementById('selectButton').addEventListener('click', function() {
+        let selectedLectures = []; // 선택한 강의 정보를 저장할 배열
+    
+        // 체크된 강의 정보 수집
+        let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        checkboxes.forEach(function(checkbox) {
+            let lectureNum = checkbox.value; // 강의 번호
+            let lectureName = checkbox.dataset.name; // 강의 이름
+    
+            // 선택한 강의 정보를 객체로 생성하여 배열에 추가
+            selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName });
+        });
+    
+        // 선택한 강의 정보를 장바구니 모달에 추가하는 함수
+        function addToCart(lecture) {
+            let cartContent = document.querySelector('#cartModal #cartContent');
+            let lectureInfo = document.createElement('div');
+            lectureInfo.textContent = `${lecture.subject_num} - ${lecture.subject_name}`;
+            cartContent.appendChild(lectureInfo);
+        }
+    
+        // 장바구니 모달에 선택한 강의 정보 추가
+        let modal = document.getElementById('m2');
+        modal.style.display = 'block';
+    
+        // 선택한 강의 정보를 장바구니 모달에 추가
+        selectedLectures.forEach(function(lecture) {
+            addToCart(lecture);
+        });
+    
+        // 장바구니에 추가되었음을 알리는 메시지 표시
+        alert('장바구니에 추가되었습니다.');
+    
+    });
+    </script>
+
 {% endblock %}
