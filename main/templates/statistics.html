@@ -164,6 +164,7 @@
 
                     html = "<table class='grade_table' style='margin-top:0'>";
                     html += "<tr>";
+                    html += "<th class='grade_table_th' style='width:5%'>선택</th>"
                     html += "<th class='grade_table_th' style='width:12%'>학수번호</th>"
                     html += "<th class='grade_table_th' style='width:40%'>과목명</th>"
                     html += "<th class='grade_table_th' style='width:16%'>이수구분</th>"
@@ -176,6 +177,7 @@
                         lecture_info = zip_lecture_count[i]
                         count = zip_lecture_count[i]
                         html += "<tr>";
+                        html += "<td class='grade_table_td'>"+"<input type='checkbox'>"+"<label>"+"</label>"+"</td>"
                         html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_name + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.classification + "</td>";
