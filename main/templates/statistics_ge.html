@@ -216,6 +216,8 @@ ajax_get_cart();
         selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName, classification:lectureclassification, subject_credit:lecturecredit});
     });
 
+    localStorage.setItem('selectedLectures', JSON.stringify(selectedLectures));
+    
     if (selectedLectures.length > 0) {
         alert('선택된 강의가 장바구니에 추가되었습니다.');
     }
