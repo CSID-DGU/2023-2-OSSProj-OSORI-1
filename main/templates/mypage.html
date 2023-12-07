@@ -330,16 +330,14 @@
         <div id='c2' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">관심과목 장바구니</div>
         <hr style="width:80%; margin-top:1.3rem;">
-        <!-- 폼 -->
-        <form action="/f_mod_cart/" method="post" name='form3'>
             {% csrf_token %}
             <div class="regi_box">
-                <!-- 관심과목 정보 불러오기-->
-                <div id = 'cartContent'><div>
+                <div class="update_modal_content">
+                    <div id='cartContent'></div>
+                </div>
+                <br><br>
             </div>
-            <br><br>
-            <input type='submit' class='login_btn' value='확인' style="margin:2.5rem 0 2rem 0;">
-        </form>
+        </hr>
     </div>
 </div>
 
