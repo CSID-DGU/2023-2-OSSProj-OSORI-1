@@ -216,7 +216,7 @@
             </div>
         </div>
 
-        <!-- 교선/중선 -->
+        {% comment %} <!-- 교선/중선 -->
         {% if exists.cs %}
         <div class="resultbox">
             <div class="name">
@@ -305,7 +305,7 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         <!-- 학기 -->
         {% if exists.basic or exists.basic_eng %}
@@ -316,8 +316,9 @@
                     <span class='tip_div'>Tip</span>
                 </span>
                 <div class="tooltip_text">
-                    <p>&#183; 22년도부터 <span class='tooltip_span'>학문기초교양(기교) -> 학문기초교양필수(기필)</span>로 이수구분명이 변경되었습니다.</p>
-                    <p>&#183; 한 가지 조건을 만족했을 경우 통과합니다.</p>
+                    <p>&#183; 학문기초는 <span class='tooltip_span'>외국어와 자연과학</span>으로 나뉘어집니다.</p>
+                    <p>&#183; 본인의 과에 맞게 영역을 구분하여 검사를 진행합니다.</p>
+                    <p>&#183; 공과대 학생들의 msc는 <span class='tooltip_span'>학문기초->자연과학에</span> 해당합니다.</p>
                     <p class='tooltip_sub_p'>1. 해당 영역에서 정해진 필수과목을 모두 이수해야합니다.</p>
                     <p class='tooltip_sub_p'>&nbsp;&nbsp;&nbsp;- <span class='tooltip_span'>기준 학점과 상관없이</span> 필수과목만 모두 이수하면 됩니다.</p>
                     <p class='tooltip_sub_p'>&nbsp;&nbsp;&nbsp;- 필수과목의 이수구분이 <span class='tooltip_span'>변경되어도</span> 필수과목을 이수한 것으로 인정됩니다.</p>
@@ -338,7 +339,7 @@
                         <span class="grade">이수 과목</span>
                         <span class="r" id="mygrade5"></span>
                     </div>
-                    {% if user_info.major == '화학과' %}
+                    {% comment %} {% if user_info.major == '화학과' %}
                         <div class="gbox">
                             <span class="grade">선택과목A</span>
                             {% if basic.pass_chemy_A %}
@@ -357,14 +358,14 @@
                             {% endif %}
                         </div>
                         {% endif %}
-                    {% endif %}
+                    {% endif %} {% endcomment %}
                     <button class="rbutton" id="myBtn5">Recommend</button>
                 </div>
             </div>
         </div>
         {% endif %}
 
-        <!-- 영어 -->
+        {% comment %} <!-- 영어 -->
         {% if exists.english %}
         <div class="resultbox">
             <div class="name name8">
@@ -466,7 +467,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> {% endcomment %}
 
 
 <!-- 추천 모달-->
