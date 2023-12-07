@@ -111,7 +111,7 @@
                     <div style="margin-top:5rem;">
                         <div class="filter_title">
                             <div style="display: flex; align-items: center;">
-                                <input class='filter_btn' type="button" value="장바구니" id="selectButton" onclick="ajax_get_cart; return false">
+                                <input class='filter_btn' type="button" value="장바구니" onclick="ajax_get_cart; return false">
                                 <div style="margin: 0 auto;">📜 교양 순위</div>
                             </div>
                         </div>
@@ -214,6 +214,7 @@ ajax_get_cart();
         type: 'POST',
         url: '/mypage/',
         data: { selectedLectures: selectedLectures },
+
         success: function(response) {
             alert('선택된 강의가 장바구니에 추가되었습니다.');
         },
@@ -223,8 +224,13 @@ ajax_get_cart();
     });
 
     // 선택된 강의 정보를 모달에 추가
+
+    
     let cartContent = document.getElementById('cartContent');
-    let html = "<table class='grade_table' style='margin-top:0'>";
+    html = "<div class='loading_wrap'><div class='circle'></div> 데이터를 불러오는 중입니다...</div>"
+    cartContent.innerHTML = html;
+
+    html = "<table class='grade_table' style='margin-top:0'>";
     html += "<tr>";
     html += "<th class='grade_table_th' style='width:12%'>학수번호</th>";
     html += "<th class='grade_table_th' style='width:38%'>과목명</th>";
