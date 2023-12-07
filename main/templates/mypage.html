@@ -330,12 +330,7 @@
         <div id='c2' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">관심과목 장바구니</div>
         <hr style="width:80%; margin-top:1.3rem;">
-            <!-- {% csrf_token %}
-            <div class="regi_box">
-                <div class="update_modal_content"> -->
-                    <div id='cartContent'></div>
-                <!-- </div> -->
-            <!-- </div> -->
+            <div id='cartContent'></div>
         </hr>
     </div>
 </div>
@@ -771,5 +766,24 @@ if (selectedLectures && selectedLectures.length > 0) {
             cartContent.innerHTML = html;
         }
 </script>
+
+<style>
+    /* CSS 스타일링을 cartContent ID에만 적용 */
+    #cartContent table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    #cartContent th, #cartContent td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    #cartContent th {
+        background-color: #f2f2f2;
+    }
+</style>
 
 {% endblock %}
