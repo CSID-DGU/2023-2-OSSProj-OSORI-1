@@ -750,16 +750,25 @@ let selectedLectures = JSON.parse(localStorage.getItem('selectedLectures'));
 
 if (selectedLectures && selectedLectures.length > 0) {
             let cartContent = document.getElementById('cartContent');
-            let html = "<h3>장바구니</h3><ul>";
-
+            
+            let html = "<table>";
+            html += "<tr>";            
+            html += "<th>학수번호</th>"
+            html += "<th>과목명</th>"
+            html += "<th>이수구분</th>"       
+            html += "<th>학점</th>"
+            html += "</tr>";    
+            
             selectedLectures.forEach(function(lecture) {
+                html += "<tr>"; 
                 html += "<li>" + lecture.subject_num + "</li>";
                 html += "<li>" + lecture.subject_name + "</li>";
                 html += "<li>" + lecture.classification + "</li>";
                 html += "<li>" + lecture.subject_credit + "</li>";
+                html += "</tr>";
             });
 
-            html += "</ul>";
+            html += "</table>";
             cartContent.innerHTML = html;
         }
 </script>
