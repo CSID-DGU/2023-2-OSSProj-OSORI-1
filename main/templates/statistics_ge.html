@@ -216,17 +216,17 @@ ajax_get_cart();
         selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName, classification:lectureclassification, subject_credit:lecturecredit});
     });
 
-    $.ajax(
-        {
-            type: 'POST',
-            url: '/mypage/',
-            data: { selectedLectures: selectedLectures },
+    // $.ajax(
+    //     {
+    //         type: 'POST',
+    //         url: '/mypage/',
+    //         data: { selectedLectures: selectedLectures },
         
-            success: function(response) {
-                alert('장바구니에 추가되었습니다.');
-            }
-        }
-    );
+    //         success: function(response) {
+    //             alert('장바구니에 추가되었습니다.');
+    //         }
+    //     }
+    // );
 
 }
 
