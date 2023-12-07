@@ -36,6 +36,7 @@
                     <option value="복수전공">복수전공</option>
                     <option value="연계전공">연계·융합전공</option>
                 </select>
+                <input id="submajor_name" style="display:none" type="text" name="submajor_name" placeholder='전공명'>
 
                 <label>영어인증</label>
                 <select onclick="pop_score()" id="eng" name="eng">
@@ -94,7 +95,9 @@
                 regi_form.major_select.focus();
                 return false;
             }
+        
         }
+        
         // 2. 영어인증 선택시 점수 입력확인
         var eng_box = document.getElementById('eng');
         var eng_ind = document.getElementById("eng").options.selectedIndex;
