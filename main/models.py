@@ -96,7 +96,7 @@ class Standard(models.Model):
     major_credit = models.IntegerField() # 전공학점
     s_credit = models.IntegerField() # 복수전공 학점
     major_essential = models.IntegerField() # 전공필수 학점
-    major_selection = models.IntegerField # 전공선택 학점
+    major_selection = models.IntegerField() # 전공선택 학점
     major_selection_list = models.CharField(max_length=100) # 전공선택 중 필수 이수 과목
     common = models.IntegerField() # 공교 총학점
     explore = models.IntegerField() # 대학탐구 학점
