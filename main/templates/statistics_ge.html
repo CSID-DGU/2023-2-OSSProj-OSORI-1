@@ -164,7 +164,10 @@
                     for (let i = 0; i < zip_lecture_count.length; i++) {
                         lecture_info = zip_lecture_count[i]
                         html += "<tr>";
-                        html += "<td class='grade_table_td'>"+"<input type='checkbox' name='ck' value='" + lecture_info.subject_num + "'>";+"<label>"+"</label>"+"</td>"
+                        html += "<td class='grade_table_td'>";
+                        html += "<input type='checkbox' name='ck' value='" + lecture_info.subject_num + "'>";
+                        html += "<label for='checkbox_" + lecture_info.subject_num + "'></label>"; // 라벨과 체크박스를 연결하는 for 속성 추가
+                        html += "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_name + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.classification + "</td>";
