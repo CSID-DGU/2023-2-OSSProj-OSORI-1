@@ -330,7 +330,6 @@
         <div id='c2' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">관심과목 장바구니</div>
         <hr style="width:80%; margin-top:1.3rem;">
-        <!-- 폼 -->
         <form action="/f_mod_cart/" method="post" name='form3'>
             {% csrf_token %}
             <div class="regi_box">
@@ -745,6 +744,38 @@
         }
     }
 
+</script>
+
+<script>
+    document.getElementById('selectButton').addEventListener('click', function() {
+        let selectedLectures = []; // 선택한 강의 정보를 저장할 배열
+
+        // 체크된 강의 정보 수집
+        let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        checkboxes.forEach(function(checkbox) {
+            let lectureNum = checkbox.value; // 강의 번호
+            let lectureName = checkbox.dataset.name; // 강의 이름
+
+            // 선택한 강의 정보를 객체로 생성하여 배열에 추가
+            selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName });
+        });
+
+        // 선택한 강의 정보를 장바구니 모달에 추가하는 함수
+        function addToCart(lecture) {
+            let cartContent = document.querySelector('#m2 .regi_box');
+            let lectureInfo = document.createElement('div');
+            lectureInfo.textContent = `${lecture.subject_num} - ${lecture.subject_name}`;
+            cartContent.appendChild(lectureInfo);
+        }
+
+        // 선택한 강의 정보를 장바구니 모달에 추가
+        selectedLectures.forEach(function(lecture) {
+            addToCart(lecture);
+        });
+
+        // 장바구니에 추가되었음을 알리는 메시지 표시
+        alert('장바구니에 추가되었습니다.');
+    });
 </script>
 
 {% endblock %}
