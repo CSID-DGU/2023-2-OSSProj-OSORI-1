@@ -168,7 +168,7 @@
                         lecture_info = zip_lecture_count[i]
                         html += "<tr>";
                         html += "<td class='grade_table_td'>";
-                        html += "<input type='checkbox' name='selectedLectures' value='" + lecture_info + "' class='lectureCheckbox' id='checkbox_" + lecture_info.subject_num + "'>";
+                        html += "<input type='checkbox' name='selectedLectures' value='" + JSON.stringify(lecture_info) + "' class='lectureCheckbox' id='checkbox_" + lecture_info.subject_num + "'>";
                         html += "<label for='checkbox_" + lecture_info.subject_num + "'></label>";
                         html += "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
@@ -206,10 +206,12 @@ ajax_get_cart();
     let checkboxes = document.querySelectorAll('.lectureCheckbox:checked');
     
     checkboxes.forEach(function(checkbox) {
-        let lectureNum = checkbox.value.subject_num; // 강의 번호
-        let lectureName = checkbox.value.subject_name; // 강의 이름
-        let lectureclassification = checkbox.value.classification; 
-        let lecturecredit = checkbox.value.subject_credit; 
+        let lectureInfo = JSON.parse(checkbox.value); 
+
+        let lectureNum = lectureInfo.subject_num; // 강의 번호
+        let lectureName = lectureInfo.subject_name; // 강의 이름
+        let lectureclassification = lectureInfo.classification; 
+        let lecturecredit = lectureInfo.subject_credit; 
 
         selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName, classification:lectureclassification, subject_credit:lecturecredit});
     });
