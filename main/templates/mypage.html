@@ -255,10 +255,23 @@
         <form action="/f_mod_cart/" method="post" name='form3'>
             {% csrf_token %}
             <div class="regi_box">
-                <label>관심교양</label>
-                <div id='update_div'></div>
-                <label>관심전공</label>
-                <div id='update_div'></div>
+                <div class="filter_title">
+                    <div>관심 과목</div>
+                    <div id='update_div1'>
+                        <table class='cart_table'>
+                            <thead>
+                                <tr>
+                                    <th>학수번호</th>
+                                    <th>과목명</th>
+                                    <!-- 추가 정보에 따라 필요한 열을 추가할 수 있습니다 -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 여기에 선택된 강의 정보가 추가될 것입니다 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br>
             </div>
             <input type='submit' class='login_btn' value='확인' style="margin:2.5rem 0 2rem 0;">
         </form>
@@ -431,81 +444,6 @@
 
 {% load static %}
 <script src="{% static 'js/modal.js' %}"></script>
-
-<script>
-
-    ajax_get_data();
-
-    function ajax_get_data() {
-
-        var formData = $("#filter_form").serialize();
-
-        let update_div = document.getElementById('update_div');
-        html = "<div class='loading_wrap'><div class='circle'></div> 데이터를 불러오는 중입니다...</div>"
-        update_div.innerHTML = html;
-
-        $.ajax(
-            {
-                type: 'POST',
-                url: '/a_statistics/',
-                // 보내는 데이터
-                data: formData,
-                // 성공시 받는 데이터
-                success: function (context) {
-                    let zip_lecture_count = context['zip_lecture_count']
-
-                    html = "<table class='grade_table' style='margin-top:0'>";
-                    html += "<tr>";
-                    html += "<th class='grade_table_th' style='width:5%'>선택</th>"
-                    html += "<th class='grade_table_th' style='width:12%'>학수번호</th>"
-                    html += "<th class='grade_table_th' style='width:38%'>과목명</th>"
-                    html += "<th class='grade_table_th' style='width:13%'>이수구분</th>"
-                    html += "<th class='grade_table_th' style='width:13%'>이수구분영역</th>"
-                    html += "<th class='grade_table_th' style='width:12%'>담당교원</th>"
-                    html += "<th class='grade_table_th' style='width:8%'>학점</th>"
-                    html += "<th class='grade_table_th' style='width:12%; border-right :0px'>담은횟수</th>"
-                    html += "</tr>";
-                    for (let i = 0; i < zip_lecture_count.length; i++) {
-                        lecture_info = zip_lecture_count[i]
-                        count = zip_lecture_count[i]
-                        html += "<tr>";
-                        html += "<td class='grade_table_td'>";
-                        html += "<input type='checkbox' name='ck' value='" + lecture_info.subject_num + "' id='checkbox_" + lecture_info.subject_num + "'>";
-                        html += "<label for='checkbox_" + lecture_info.subject_num + "'></label>"; // 라벨과 체크박스를 연결하는 for 속성 추가
-                        html += "</td>";
-                        html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
-                        html += "<td class='grade_table_td'>" + lecture_info.subject_name + "</td>";
-                        html += "<td class='grade_table_td'>" + lecture_info.classification + "</td>";
-                        html += "<td class='grade_table_td'>" + lecture_info.classification_ge + "</td>";
-                        html += "<td class='grade_table_td'>" + lecture_info.professor + "</td>";
-                        html += "<td class='grade_table_td'>" + lecture_info.subject_credit + "</td>";
-                        html += "<td class='grade_table_td' style='border-right :0px;'><span style='font-weight:bold; color:#17a55e;'>" + lecture_info.sum_stu + "</span>회</td>";
-                        html += "</tr>";
-                    }
-                    html += "</table>";
-
-
-                    update_div.innerHTML = html;
-                },
-                // 에러시 설정
-                error: function (err) { 
-                    console.log(err)
-                    alert('데이터를 가져오는 데 에러가 발생했습니다!');
-                }
-            }
-        );
-    }
-
-    let selectedSubjects = [];
-
-
-
-    document.getElementById('selectButton').addEventListener('click', function() {
-    console.log("선택된 과목 번호 리스트:", selectedSubjects);
-    // 여기서 선택된 정보를 활용하여 다른 작업을 수행할 수 있습니다.
-});
-
-</script>
 
 <script>
     // 마이페이지에서 뒤로가기 버튼 클릭시 무조건 head로
