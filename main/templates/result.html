@@ -149,21 +149,25 @@
 
         <!-- 전선 -->
         <div class="resultbox">
+            <!-- 타이틀 -->
             <div class="name">
                 전공 선택
                 <span class="tooltip">
                     <span class='tip_div'>Tip</span>
                 </span>
+                <!-- 클릭시 툴팁 -->
                 <div class="tooltip_text">
                     <p>&#183; 학점 계산시 <span class='tooltip_span'>초과된 전필 학점</span>이 있다면 전선 학점에 더해진 뒤 계산됩니다.</p>
                     <p>&#183; 한 가지 조건을 만족했을 경우 통과합니다.</p>
                     <p class='tooltip_sub_p'>1. 전공선택 과목으로 기준학점을 만족해야합니다.</p>
                 </div>
             </div>
+            <!-- 내용 -->
             <div class="box">
                 <div id="chart2">
                     <strong></strong>
                 </div>
+                <!-- 텍스트 영역 -->
                 <div class="sbox">
                     <div class="gbox">
                         <span class="grade">기준 학점</span>
@@ -184,11 +188,13 @@
 
         <!-- 교필/중필 -->
         <div class="resultbox">
+            <!-- 타이틀 -->
             <div class="name">
                 공통교양필수
                 <span class="tooltip">
                     <span class='tip_div'>Tip</span>
                 </span>
+                <!-- 클릭시 툴팁 -->
                 <div class="tooltip_text">
                     <p>&#183; 22년도부터 <span class='tooltip_span'>교양필수(교필) -> 공통교양필수(공필)</span>로 이수구분명이 변경되었습니다.</p>
                     <p>&#183; 한 가지 조건을 만족했을 경우 통과합니다.</p>
@@ -198,10 +204,12 @@
                     <p class='tooltip_sub_p'>&nbsp;&nbsp;&nbsp;- 해당 과목이 폐강된 경우 동일과목으로 대체 이수해야합니다.</p>
                 </div>
             </div>
+            <!-- 내용 -->
             <div class="box">
                 <div id="chart3">
                     <strong></strong>
                 </div>
+                <!-- 텍스트 영역 -->
                 <div class="sbox">
                     <div class="gbox">
                         <span class="grade">필수 과목</span>
@@ -310,11 +318,13 @@
         <!-- 학기 -->
         {% if exists.basic or exists.basic_eng %}
         <div class="resultbox">
+            <!-- 타이틀 -->
             <div class="name">
                 학문기초교양필수
                 <span class="tooltip">
                     <span class='tip_div'>Tip</span>
                 </span>
+                <!-- 클릭시 툴팁 -->
                 <div class="tooltip_text">
                     <p>&#183; 학문기초는 <span class='tooltip_span'>외국어와 자연과학</span>으로 나뉘어집니다.</p>
                     <p>&#183; 본인의 과에 맞게 영역을 구분하여 검사를 진행합니다.</p>
@@ -326,10 +336,12 @@
                     <p><span class='tooltip_span'>※ 화학과는 선택과목 조건이 추가로 존재합니다.</span></p>
                 </div>
             </div>
+            <!-- 내용 -->
             <div class="box">
                 <div id="chart5">
                     <strong></strong>
                 </div>
+                <!-- 텍스트 영역 -->
                 <div class="sbox">
                     <div class="gbox">
                         <span class="grade">필수 과목</span>
@@ -365,7 +377,7 @@
         </div>
         {% endif %}
 
-        <!-- 영어 -->
+        {% comment %} <!-- 영어 -->
         {% if exists.english %}
         <div class="resultbox">
             <div class="name name8">
@@ -398,7 +410,7 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         <!-- 고전독서 -->
         <div class="resultbox">
