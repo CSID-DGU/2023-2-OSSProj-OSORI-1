@@ -152,11 +152,11 @@
 
                     html = "<table class='grade_table' style='margin-top:0'>";
                     html += "<tr>";
-                    html += "<th class='grade_table_th' style='width:8%'>선택</th>"
+                    html += "<th class='grade_table_th' style='width:5%'>선택</th>"
                     html += "<th class='grade_table_th' style='width:12%'>학수번호</th>"
-                    html += "<th class='grade_table_th' style='width:40%'>과목명</th>"
-                    html += "<th class='grade_table_th' style='width:16%'>이수구분</th>"
-                    html += "<th class='grade_table_th' style='width:12%'>이수구분영역</th>"
+                    html += "<th class='grade_table_th' style='width:38%'>과목명</th>"
+                    html += "<th class='grade_table_th' style='width:13%'>이수구분</th>"
+                    html += "<th class='grade_table_th' style='width:13%'>이수구분영역</th>"
                     html += "<th class='grade_table_th' style='width:12%'>담당교원</th>"
                     html += "<th class='grade_table_th' style='width:8%'>학점</th>"
                     html += "<th class='grade_table_th' style='width:12%; border-right :0px'>담은횟수</th>"
@@ -164,7 +164,7 @@
                     for (let i = 0; i < zip_lecture_count.length; i++) {
                         lecture_info = zip_lecture_count[i]
                         html += "<tr>";
-                        html += "<td class='grade_table_td'><input type='checkbox' class='lecture_checkbox'></td>";
+                        html += "<td class='grade_table_td'>"+ "<input type='checkbox'class='lecture_checkbox' style='visibility: visible;'>"+ "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_name + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.classification + "</td>";
