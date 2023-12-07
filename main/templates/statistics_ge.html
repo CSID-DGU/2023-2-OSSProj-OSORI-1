@@ -111,7 +111,7 @@
                     <div style="margin-top:5rem;">
                         <div class="filter_title">
                             <div style="display: flex; align-items: center;">
-                                <input class='filter_btn' type="button" value="장바구니" id="selectButton">
+                                <input class='filter_btn' type="button" value="장바구니" id="selectButton" onclick="ajax_get_cart; return false">
                                 <div style="margin: 0 auto;">📜 교양 순위</div>
                             </div>
                         </div>
@@ -198,7 +198,9 @@
 
 <script>
 
-document.getElementById('selectButton').addEventListener('click', function() {
+ajax_get_cart();
+    function ajax_get_cart(){ 
+
     let selectedLectures = [];
     let checkboxes = document.querySelectorAll('.lectureCheckbox:checked');
     
@@ -245,7 +247,8 @@ document.getElementById('selectButton').addEventListener('click', function() {
     html += "</table>";
 
     cartContent.innerHTML = html;
-});
+}
+
 </script>
 
 
