@@ -51,8 +51,8 @@ def f_result(user_id):
     ui_row = UserInfo.objects.get(student_id = user_id)
     # user_grade 테이블에서 사용자의 성적표를 DF로 변환하기
     user_qs = UserLecture.objects.filter(student_id = user_id)
-    data = read_frame(user_qs, fieldnames=['subject_num', 'subject_name', 'classification', 'classification_ge', 'subject_credit'])
-    data.rename(columns = {'subject_num' : '학수강좌번호', 'subject_name' : '교과목명', 'classification' : '이수구분', 'classification_ge' : '이수구분영역', 'subject_credit' : '학점'}, inplace = True)
+    data = read_frame(user_qs, fieldnames=['subject_num', 'subject_name', 'classification', 'classification_ge', 'subject_credit', 'eng'])
+    data.rename(columns = {'subject_num' : '학수강좌번호', 'subject_name' : '교과목명', 'classification' : '이수구분', 'classification_ge' : '이수구분영역', 'subject_credit' : '학점', 'eng' : '영어강의'}, inplace = True)
     # 사용자에게 맞는 기준 row 뽑아내기
     standard_row = Standard.objects.get(major = ui_row.major, year = ui_row.student_id[2:4])
     # 사용자 dictionary (필수과목 체크용)
@@ -103,6 +103,10 @@ def f_result(user_id):
     remain = 0
     if standard_row.major_essential < df_me['학점'].sum() :
         remain = df_me['학점'].sum() - standard_row.major_essential
+        
+    df_me_eng = df_me['영어강의'].isin['영어']
+    df_ms_eng = df_ms['영어강의'].isin['영어']
+    major_eng = df_me_eng['학점'].sum() + df_ms_eng['학점'].sum()
 
     ################################################
     ################### 전필 영역 ###################
@@ -147,6 +151,11 @@ def f_result(user_id):
         pass_ms_essential = 1
         standard_essential_selection = ['해당없음']
         
+    if standard_row.eng_major <= major_eng:
+        major_eng_ess = ["이수"]
+    else:
+        major_eng_ess = ["미이수"]
+        
     # 패스여부 검사
     pass_ms, pass_sel = 0, 0
     if standard_num_ms <= user_num_ms + remain:
@@ -160,6 +169,7 @@ def f_result(user_id):
         'user_num' : convert_to_int(user_num_ms),
         'remain' : convert_to_int(remain),
         'standard_essential' : standard_essential_selection,
+        'english_essential' : major_eng_ess,
         'lack' : convert_to_int(lack_ms),
         'pass' : pass_sel,
     }
