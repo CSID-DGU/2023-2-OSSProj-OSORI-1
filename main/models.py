@@ -42,6 +42,7 @@ class UserLecture(models.Model): # 학생성적정보파일 업로드 시 저장
     year = models.CharField(max_length=10)
     semester = models.CharField(max_length=20)
     subject_credit = models.FloatField()
+    eng = models.CharField() # 전공 영어 강의 학점 / '영어'
     id = models.AutoField(primary_key=True)
 
     class Meta:
