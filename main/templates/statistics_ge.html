@@ -110,9 +110,10 @@
                     <!-- 결과 박스 -->
                     <div style="margin-top:5rem;">
                         <div class="filter_title">
-                            <div style="display: flex; align-items: center;"></div>
-                            <input class='filter_btn' type="button" value="장바구니" id="selectButton">
-                            <div>📜 교양 순위</div>
+                            <div style="display: flex; align-items: center;">
+                                <input class='filter_btn' type="button" value="장바구니" id="selectButton">
+                                <div style="margin: 0 auto;">📜 교양 순위</div>
+                            </div>
                         </div>
                         <hr>
                         <!-- 여기에 테이블이 채워짐-->
@@ -196,47 +197,36 @@
 </script>
 
 <script>
-    // '장바구니' 버튼 클릭 시 선택된 정보를 장바구니 모달에 추가
-    document.getElementById('selectButton').addEventListener('click', function() {
-        let selectedLectures = [];
-        // 여기서 selectedLectures 배열에 선택된 강의 정보를 가져오는 코드를 추가해야 합니다.
-        
-        let checkboxes = document.querySelectorAll('input[name="ck"]:checked');
-        checkboxes.forEach(function(checkbox) {
-            let lecture = {
-                subject_num: checkbox.value,
-            // 강의명, 교수명 등 강의 정보 추가
-            };
-            selectedLectures.push(lecture);
+document.getElementById('selectButton').addEventListener('click', function() {
+    let selectedLectures = []; // 선택한 강의 정보를 저장할 배열
+
+    // 체크된 강의 정보 수집
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    checkboxes.forEach(function(checkbox) {
+        let lectureNum = checkbox.value; // 강의 번호
+        let lectureName = checkbox.dataset.name; // 강의 이름
+
+        // 선택한 강의 정보를 객체로 생성하여 배열에 추가
+        selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName });
     });
-    
-        // 선택된 강의 정보를 마이페이지의 장바구니 모달에 추가
-        $.ajax({
-            type: 'POST',
-            url: '/mypage/', // 마이페이지 URL
-            data: formData, // 선택된 강의 정보를 담은 데이터
-            success: function (context) {
-                // 마이페이지의 모달에 선택된 강의 정보를 추가하는 코드
-                let modalContent = context.getElementById('update_div1');
-                selectedLectures.forEach(function(lecture) {
-                    let tableRow = document.createElement('div');
-                    tableRow.classList.add('row'); // 필요한 클래스 추가
-    
-                    tableRow.innerHTML = `
-                        <div class='col'>${lecture.subject_num}</div>
-                        <div class='col'>${lecture.subject_name}</div>
-                        <!-- 나머지 강의 정보 추가 -->
-                    `;
-    
-                    modalContent.appendChild(tableRow); // 장바구니 모달에 추가
-                });
-            },
-            error: function (err) { 
-                console.log(err);
-                alert('데이터를 가져오는 데 에러가 발생했습니다!');
-            }
-        });
+
+    // 선택한 강의 정보를 장바구니 모달에 추가하는 함수
+    function addToCart(lecture) {
+        let cartContent = document.querySelector('#cartModal #cartContent');
+        let lectureInfo = document.createElement('div');
+        lectureInfo.textContent = `${lecture.subject_num} - ${lecture.subject_name}`;
+        cartContent.appendChild(lectureInfo);
+    }
+
+    // 장바구니 모달에 선택한 강의 정보 추가
+    let modal = document.getElementById('cartModal');
+    modal.style.display = 'block';
+
+    // 선택한 강의 정보를 장바구니 모달에 추가
+    selectedLectures.forEach(function(lecture) {
+        addToCart(lecture);
     });
+});
 </script>
 
 {% endblock %}
