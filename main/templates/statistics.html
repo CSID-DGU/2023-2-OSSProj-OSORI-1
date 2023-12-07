@@ -122,7 +122,7 @@
                     <!-- 결과 박스 -->
                     <div style="margin-top:5rem;">
                         <div class="filter_title">
-                            <div>📜 전공 순위</div>
+                            <div><input class='filter_btn' type="button" value="장바구니" id = "selectButton">📜 전공 순위</div>
                         </div>
                         <hr>
                         <!-- 여기에 테이블이 채워짐-->
@@ -164,7 +164,7 @@
 
                     html = "<table class='grade_table' style='margin-top:0'>";
                     html += "<tr>";
-                        html += "<th class='grade_table_th' style='width:5%'>선택</th>"
+                    html += "<th class='grade_table_th' style='width:5%'>선택</th>"
                     html += "<th class='grade_table_th' style='width:12%'>학수번호</th>"
                     html += "<th class='grade_table_th' style='width:38%'>과목명</th>"
                     html += "<th class='grade_table_th' style='width:13%'>이수구분</th>"
@@ -203,6 +203,29 @@
             }
         );
     }
+
+    let selectedSubjects = [];
+
+    // 각 체크박스에 대한 이벤트 핸들러 설정
+    document.querySelectorAll('input[type="checkbox"][name="ck"]').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                // 체크된 경우 리스트에 추가
+                selectedSubjects.push(this.value);
+            } else {
+                // 체크가 해제된 경우 리스트에서 제거
+                let index = selectedSubjects.indexOf(this.value);
+                if (index !== -1) {
+                    selectedSubjects.splice(index, 1);
+                }
+            }
+        });
+    });
+
+    document.getElementById('selectButton').addEventListener('click', function() {
+    console.log("선택된 과목 번호 리스트:", selectedSubjects);
+    // 여기서 선택된 정보를 활용하여 다른 작업을 수행할 수 있습니다.
+});
 
 </script>
 {% endblock %}
