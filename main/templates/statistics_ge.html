@@ -212,7 +212,7 @@
     
         // 선택한 강의 정보를 장바구니 모달에 추가하는 함수
         function addToCart(lecture) {
-            let cartContent = document.querySelector('#cartModal #cartContent');
+            let cartContent = document.querySelector('#m2 #cartContent');
             let lectureInfo = document.createElement('div');
             lectureInfo.textContent = `${lecture.subject_num} - ${lecture.subject_name}`;
             cartContent.appendChild(lectureInfo);
