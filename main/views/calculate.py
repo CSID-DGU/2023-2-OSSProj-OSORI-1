@@ -100,8 +100,8 @@ def f_result(user_id):
     df_ms = data[data['이수구분'].isin(['전공'])]
     df_ms.reset_index(inplace=True,drop=True)
         
-    df_me_eng = df_me['영어강의'].isin['영어']
-    df_ms_eng = df_ms['영어강의'].isin['영어']
+    df_me_eng = df_me['영어강의'].isin(['영어'])
+    df_ms_eng = df_ms['영어강의'].isin(['영어'])
     major_eng = df_me_eng['학점'].sum() + df_ms_eng['학점'].sum()
 
     ################################################
