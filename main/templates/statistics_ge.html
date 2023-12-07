@@ -218,10 +218,6 @@
             cartContent.appendChild(lectureInfo);
         }
     
-        // 장바구니 모달에 선택한 강의 정보 추가
-        let modal = document.getElementById('m2');
-        modal.style.display = 'block';
-    
         // 선택한 강의 정보를 장바구니 모달에 추가
         selectedLectures.forEach(function(lecture) {
             addToCart(lecture);
