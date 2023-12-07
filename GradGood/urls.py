@@ -44,6 +44,7 @@ urlpatterns = [
     path('f_login/', views.f_login),
     path('f_login1/', views.f_login1),
     path('f_logout/', views.f_logout),
+    path('f_admin/', views.f_admin),
     path('f_mypage/', views.f_mypage),
     path('f_register/', views.f_register),
     path('f_add_custom/', views.f_add_custom),
