@@ -959,6 +959,9 @@ body:not(.device-touch) .suc_btn
     border-right :1px solid #dadada;
     border-bottom: 1px solid #dadada;
 }
+.lecture_checkbox {
+    transform: scale(0.5); /* 원하는 크기로 조절 (예: 0.8은 80% 크기) */
+}
 
 
 /* https://ingijjung.tistory.com/11 파일 업로드 css */
