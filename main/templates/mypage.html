@@ -330,13 +330,16 @@
         <div id='c2' class="close">&times;</div>
         <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">관심과목 장바구니</div>
         <hr style="width:80%; margin-top:1.3rem;">
+        <!-- 폼 -->
+        <form action="/f_mod_cart/" method="post" name='form3'>
             {% csrf_token %}
             <div class="regi_box">
-                <div class="update_modal_content">
-                    <div id='cartContent'></div>
-                </div>
-                <br><br>
+                <!-- 관심과목 정보 불러오기-->
+                <div id = 'cartContent'><div>
             </div>
+            <br><br>
+            <input type='submit' class='login_btn' value='확인' style="margin:2.5rem 0 2rem 0;">
+        </form>
     </div>
 </div>
 
@@ -741,31 +744,6 @@
         }
     }
 
-</script>
-
-<script>
-    // 마이페이지에서 선택된 강의 정보를 받아 모달에 추가하는 함수
-    function addToCartInMyPage(lectureInfo) {
-        let cartContent = document.querySelector('#m2 #cartContent');
-        let lecture = document.createElement('div');
-        lecture.textContent = lectureInfo;
-        cartContent.appendChild(lecture);
-    
-    }
-    
-    // 선택된 강의 정보를 받아와 모달에 추가하는 함수를 AJAX로 호출
-    $(document).ready(function() {
-        $.ajax({
-            type: 'GET',
-            url: '/statistics_ge/',  // 선택된 강의 정보를 가져오는 URL
-            success: function(response) {
-                addToCartInMyPage(response.lectureInfo);  // 선택된 강의 정보를 모달에 추가
-            },
-            error: function(err) {
-                console.error('오류 발생:', err);
-            }
-        });
-    });
 </script>
 
 {% endblock %}
