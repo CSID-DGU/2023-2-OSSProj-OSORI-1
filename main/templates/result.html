@@ -881,16 +881,6 @@
                 modal4.style.display = "none";
             }
         }
-        if (typeof modal5 !== 'undefined') {
-            if (event.target == modal5) {
-                modal5.style.display = "none";
-            }
-        }
-        if (typeof modal8 !== 'undefined') {
-            if (event.target == modal8) {
-                modal8.style.display = "none";
-            }
-        }
     }
 
 </script>
@@ -959,7 +949,7 @@
 {% endif %}
 
 
-{% if exists.la_balance %}
+{% comment %} {% if exists.la_balance %}
 <script>
     // 균필 영역 함수
     var Grade9 = '{{la_balance.standard_num}}';
@@ -1045,7 +1035,7 @@
 
     CircleProgress(pernum8, '#chart8', 150);
 </script>
-{% endif %}
+{% endif %} {% endcomment %}
 
 
 {% if exists.multi %}
