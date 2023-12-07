@@ -199,6 +199,7 @@
 <script>
 
 ajax_get_cart();
+
     function ajax_get_cart(){ 
 
     let selectedLectures = [];
@@ -207,8 +208,10 @@ ajax_get_cart();
     checkboxes.forEach(function(checkbox) {
         let lectureNum = checkbox.value.subject_num; // 강의 번호
         let lectureName = checkbox.value.subject_name; // 강의 이름
+        let lectureclassification = checkbox.value.classification; 
+        let lecturecredit = checkbox.value.subject_credit; 
 
-        selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName });
+        selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName, classification:lectureclassification, subject_credit:lecturecredit});
     });
 
     $.ajax(
