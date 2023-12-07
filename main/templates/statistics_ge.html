@@ -111,7 +111,7 @@
                     <div style="margin-top:5rem;">
                         <div class="filter_title">
                             <div style="display: flex; align-items: center;">
-                                <input class='filter_btn' type="button" value="장바구니" id="selectButton" onclick="addToCart(); return false">
+                                <input class='filter_btn' type="button" value="장바구니" id="selectButton">
                                 <div style="margin: 0 auto;">📜 교양 순위</div>
                             </div>
                         </div>
@@ -197,28 +197,56 @@
 </script>
 
 <script>
-    function addToCart() {
-        let selectedLectures = [];
-        let checkboxes = document.querySelectorAll('.lectureCheckbox:checked');
-        
-        checkboxes.forEach(function(checkbox) {
-            let lectureInfo = checkbox.value;
-            selectedLectures.push(lectureInfo);
-        });
+
+document.getElementById('selectButton').addEventListener('click', function() {
+    let selectedLectures = [];
+    let checkboxes = document.querySelectorAll('.lectureCheckbox:checked');
     
-        // AJAX를 사용하여 선택된 강의 정보를 마이페이지로 전송
-        $.ajax({
-            type: 'POST',
-            url: '/mypage/',  // 마이페이지 URL 또는 처리할 URL
-            data: { selectedLectures: selectedLectures },
-            success: function(response) {
-                alert('선택된 강의가 장바구니에 추가되었습니다.');
-            },
-            error: function(err) {
-                console.error('오류 발생:', err);
-            }
-        });
-    }
+    checkboxes.forEach(function(checkbox) {
+        let lectureInfo = JSON.parse(checkbox.value);
+        selectedLectures.push(lectureInfo);
+    });
+
+    // AJAX를 사용하여 선택된 강의 정보를 마이페이지로 전송
+    $.ajax({
+        type: 'POST',
+        url: '/mypage/',
+        data: { selectedLectures: selectedLectures },
+        success: function(response) {
+            alert('선택된 강의가 장바구니에 추가되었습니다.');
+        },
+        error: function(err) {
+            console.error('오류 발생:', err);
+        }
+    });
+
+    // 선택된 강의 정보를 모달에 추가
+    let cartContent = document.getElementById('cartContent');
+    let html = "<table class='grade_table' style='margin-top:0'>";
+    html += "<tr>";
+    html += "<th class='grade_table_th' style='width:12%'>학수번호</th>";
+    html += "<th class='grade_table_th' style='width:38%'>과목명</th>";
+    html += "<th class='grade_table_th' style='width:13%'>이수구분</th>";
+    html += "<th class='grade_table_th' style='width:13%'>이수구분영역</th>";
+    html += "<th class='grade_table_th' style='width:12%'>담당교원</th>";
+    html += "<th class='grade_table_th' style='width:8%'>학점</th>";
+    html += "</tr>";
+
+    selectedLectures.forEach(function(lecture_info) {
+        html += "<tr>";
+        html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
+        html += "<td class='grade_table_td'>" + lecture_info.subject_name + "</td>";
+        html += "<td class='grade_table_td'>" + lecture_info.classification + "</td>";
+        html += "<td class='grade_table_td'>" + lecture_info.classification_ge + "</td>";
+        html += "<td class='grade_table_td'>" + lecture_info.professor + "</td>";
+        html += "<td class='grade_table_td'>" + lecture_info.subject_credit + "</td>";
+        html += "</tr>";
+    });
+    html += "</table>";
+
+    cartContent.innerHTML = html;
+});
 </script>
+
 
 {% endblock %}
