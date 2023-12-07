@@ -761,10 +761,10 @@ if (selectedLectures && selectedLectures.length > 0) {
             
             selectedLectures.forEach(function(lecture) {
                 html += "<tr>"; 
-                html += "<li>" + lecture.subject_num + "</li>";
-                html += "<li>" + lecture.subject_name + "</li>";
-                html += "<li>" + lecture.classification + "</li>";
-                html += "<li>" + lecture.subject_credit + "</li>";
+                html += "<th>" + lecture.subject_num + "</th>";
+                html += "<th>" + lecture.subject_name + "</th>";
+                html += "<th>" + lecture.classification + "</th>";
+                html += "<th>" + lecture.subject_credit + "</th>";
                 html += "</tr>";
             });
 
