@@ -84,10 +84,55 @@
                 <label>전공 원어강의 학점</label>
                 <input type="number" name="eng_major">
             </div>
-            <input type='submit' class='regi_btn' value='졸업요건 등록하기'>
+            <button id='b1' class="my_box_mod_btn" style="margin-right:1.3rem">졸업요건 등록하기</button>
         </form>
     </div>
 </div>
+
+<!-- 5. 기이수과목 커스텀 모달-->
+<div id='m1' class="modal" style="display:none">
+    <div class="update_modal_content">
+        <div id='c1' class="close">&times;</div>
+        <div class="login_title" style="font-size:2rem; margin-top:1.7rem;">
+            기이수과목 커스텀
+        </div>
+        <hr style="width:80%; margin-top:1.3rem;">
+        <div style="margin:1.5rem 0 2.5rem 0;">
+            <p>학사정보시스템에서 다운받는 엑셀파일엔 이번 학기 과목들이 반영되지 않으셨죠? 😭</p>
+            <p>또 다음 학기에 들을 과목을 추가해 검사해보고 싶으신가요? </p>
+            <p style="font-size :1.3rem; margin-top:2rem;">
+                <span style="font-size :1.5 rem; font-weight: bold; color : rgb(255, 137, 2)">'커스텀 기능'</span> 으로 원하는 과목을 추가해서 검사해보세요!
+            </p>
+        </div>
+        <button onclick="location.href='/custom/'" class='login_btn' style="margin:1rem 0 2rem 0;">커스텀 시작</button>
+    </div>
+</div>
+
+<script>
+    
+    // 모달 켜는 버튼 id
+    var b1 = document.getElementById("b1");     // 1. 졸업요건 등록
+
+    // 모달 id
+    var m1 = document.getElementById('m1');
+
+    // 모달 끄는 버튼(X) id
+    var c1 = document.getElementById("c1");
+
+    // 모달 키는 함수 호출
+    Btnclick(b1, m1);
+
+    // 모달 끄는 함수 호출
+    Spanclick(c1, m1);
+
+    // 모달 밖 화면 누를때 꺼지게하기
+    window.onclick = function (event) {
+        if (event.target == m1) {
+            m1.style.display = "none";
+        }
+    }
+
+</script>
     
 {% endblock %}
 
