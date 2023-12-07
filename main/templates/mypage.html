@@ -741,8 +741,11 @@
 <script>
 
 let selectedLectures = JSON.parse(localStorage.getItem('selectedLectures'));
+let selectedLectures1 = JSON.parse(localStorage.getItem('selectedLectures1'));
 
-if (selectedLectures && selectedLectures.length > 0) {
+let allSelectedLectures = selectedLectures.concat(selectedLectures1);
+
+if (allSelectedLectures && allSelectedLectures.length > 0) {
             let cartContent = document.getElementById('cartContent');
             
             let html = "<table>";
@@ -753,7 +756,7 @@ if (selectedLectures && selectedLectures.length > 0) {
             html += "<th>학점</th>"
             html += "</tr>";    
             
-            selectedLectures.forEach(function(lecture) {
+            allSelectedLectures.forEach(function(lecture) {
                 html += "<tr>"; 
                 html += "<th>" + lecture.subject_num + "</th>";
                 html += "<th>" + lecture.subject_name + "</th>";
