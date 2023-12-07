@@ -381,7 +381,7 @@
                 {% if major_essential.pass %}
                 <span style="color:#17a55e"> 기준 학점을 만족했습니다. </span>
                 {% else %}
-                <span style="color:#d32f2f">{{ major_essential.lack }} 학점이 부족합니다</span>
+                <span style="color:#FFA500">{{ major_essential.lack }} 학점이 부족합니다</span>
                 {% endif %}
             </div>
         </div>
@@ -432,7 +432,7 @@
                     {% if major_selection.pass %}
                     <span style="color:#17a55e"> 기준 학점을 만족했습니다. </span>
                     {% else %}
-                    <span style="color:#d32f2f">{{ major_selection.lack }} 학점이 부족합니다</span>
+                    <span style="color:#FFA500">{{ major_selection.lack }} 학점이 부족합니다</span>
                     {% endif %}
                 </div>
             </div>
@@ -478,7 +478,7 @@
                     {% if core_essential.pass %}
                     <span style="color:#17a55e">필수과목 조건을 만족하셨습니다</span>
                     {% else %}
-                    <span style="color:#d32f2f">필수과목이 부족합니다</span>
+                    <span style="color:#FFA500">필수과목이 부족합니다</span>
                     {% endif %}
                 </div>
 
@@ -559,7 +559,7 @@
                     {% if core_selection.pass_part %}
                     <span style="color:#17a55e">선택영역 조건을 만족하셨습니다</span>
                     {% else %}
-                    <span style="color:#d32f2f">선택영역이 부족합니다</span>
+                    <span style="color:#FFA500">선택영역이 부족합니다</span>
                     {% endif %}
                 </div>
             </div>
@@ -595,7 +595,7 @@
                     {% if core_selection.pass_ess %}
                     <span style="color:#17a55e">필수과목 조건을 만족하셨습니다</span>
                     {% else %}
-                    <span style="color:#d32f2f">필수과목이 부족합니다</span>
+                    <span style="color:#FFA500">필수과목이 부족합니다</span>
                     {% endif %}
                 </div>
             </div>
@@ -661,7 +661,7 @@
                     {% endfor %}
                 </table>
                 <div class="partdiv">
-                    <a href="/statistics/" style="color:rgb(164, 26, 55); text-decoration : underline">더 추천받고 싶다면 클릭! 🚗</a>
+                    <a href="/statistics/" style="color: rgb(255, 140, 0); text-decoration : underline">더 추천받고 싶다면 클릭! 🚗</a>
                 </div>
             </div>
             {% endif %}
