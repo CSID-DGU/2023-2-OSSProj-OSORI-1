@@ -716,20 +716,20 @@
     var Wbook = 0;
     var Sbook = 0;
     var Scbook = 0;
-    var Mybook = 10;
+    {% comment %} var Mybook = 10;
     if ('{{book.pass}}' != 2) {
         Swbook = '{{book.W}}' + "권";
         Wbook = '{{book.E}}' + "권";
         Sbook = '{{book.EW}}' + "권";
         Scbook = '{{book.S}}' + "권";
         Mybook = '{{book.total}}';
-    }
+    } {% endcomment %}
 
     // 이수 학점 퍼센트화
     var pernum0 = to_percent(Mytotalgrade, Totalgrade); // 총학점
     var pernum1 = to_percent(Mygrade1, Grade1);         // 전필
     var pernum2 = to_percent(Number(Mygrade2) + Number(remain), Grade2);         // 전선
-    var pernum7 = to_percent(Mybook, 10);               // 고전독서
+    {% comment %} var pernum7 = to_percent(Mybook, 10);               // 고전독서 {% endcomment %}
 
     // pass 여부
     // 총 검사 결과
@@ -763,10 +763,10 @@
     document.getElementById("mytotalgrade").innerHTML = Mytotalgrade;
     document.getElementById("totalgrade").innerHTML = Totalgrade;
     document.getElementById("cangraduate").innerHTML = Cangraduate;
-    document.getElementById("swbook").innerHTML = Swbook;
+    {% comment %} document.getElementById("swbook").innerHTML = Swbook;
     document.getElementById("sbook").innerHTML = Sbook;
     document.getElementById("wbook").innerHTML = Wbook;
-    document.getElementById("scbook").innerHTML = Scbook;
+    document.getElementById("scbook").innerHTML = Scbook; {% endcomment %}
 
 
     // 차트 함수
