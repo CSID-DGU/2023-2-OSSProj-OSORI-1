@@ -144,11 +144,3 @@ def r_multi_result(request):
     context = json.loads(ui_row.result_json)
     return render(request, "multi_result.html", context)
 
-def r_en_result(request):
-    user_id = request.session.get('id')
-    if not user_id :
-        messages.error(request, '❌ 세션 정보가 없습니다!')
-        return redirect('/')
-    ui_row = UserInfo.objects.get(student_id = user_id)
-    context = json.loads(ui_row.en_result_json)
-    return render(request, "en_result.html", context)
