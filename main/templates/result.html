@@ -712,10 +712,10 @@
     var Mygrade2 = '{{major_selection.user_num}}'    // 전선
     var remain = '{{major_selection.remain}}'        // 전필 초과 학점
     // 인증권수
-    var Swbook = 0;
+    {% comment %} var Swbook = 0;
     var Wbook = 0;
     var Sbook = 0;
-    var Scbook = 0;
+    var Scbook = 0; {% endcomment %}
     {% comment %} var Mybook = 10;
     if ('{{book.pass}}' != 2) {
         Swbook = '{{book.W}}' + "권";
@@ -818,7 +818,8 @@
     CircleProgress(pernum0, '#chart0', 250);
     CircleProgress(pernum1, '#chart1', 150);
     CircleProgress(pernum2, '#chart2', 150);
-    CircleProgress(pernum7, '#chart7', 150);
+    CircleProgress(pernum7, '#chart3', 150);
+    CircleProgress(pernum7, '#chart4', 150);
     
 
     var modal1 = document.getElementById('myModal1');
