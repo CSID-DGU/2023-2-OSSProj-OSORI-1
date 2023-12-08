@@ -266,7 +266,7 @@
         </div>
         {% endif %}
 
-        <!-- 고전독서 -->
+        {% comment %} <!-- 고전독서 -->
         <div class="resultbox">
             <div class="name">
                 고전독서인증
@@ -330,7 +330,7 @@
                     </div>
                 </div>
                 {% endif %}
-            </div>
+            </div> {% endcomment %}
         </div>
     </div>
 </div>
@@ -877,16 +877,6 @@
         if (event.target == modal4) {
             modal4.style.display = "none";
         }
-//        if (typeof modal3 !== 'undefined') {
-//            if (event.target == modal3) {
-//                modal3.style.display = "none";
-//            }
-//        }
-//        if (typeof modal4 !== 'undefined') {
-//            if (event.target == modal4) {
-//                modal4.style.display = "none";
-//            }
-//        }
     }
 
 </script>
