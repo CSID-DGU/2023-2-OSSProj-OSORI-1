@@ -356,12 +356,7 @@ input[type="button"]
     align-content: center;
 }
 
-.filter_select_chk input[type="checkbox"]{
-    text-align: left;
-    margin: 0 auto;
-    line-height: 2.2rem;
-    background:rgb(255, 149, 0)
-}
+
 
 .filter_select_chk label{
     cursor:pointer;
