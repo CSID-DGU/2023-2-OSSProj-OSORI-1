@@ -88,7 +88,7 @@
     </div>
 </div>
 
-<!-- 5. 기이수과목 커스텀 모달-->
+{% comment %} <!-- 5. 기이수과목 커스텀 모달-->
 <div id='m1' class="modal" style="display:none">
     <div class="update_modal_content">
         <div id='c1' class="close">&times;</div>
@@ -105,11 +105,20 @@
         </div>
         <button onclick="location.href='/custom/'" class='login_btn' style="margin:1rem 0 2rem 0;">커스텀 시작</button>
     </div>
-</div>
+</div> {% endcomment %}
 
 <script>
 
-    // 모달 켜는 함수 정의
+    var b1 = document.getElementById("b1"); // 버튼 요소 가져오기
+
+    // 버튼 클릭 시 메시지 박스 표시
+    b1.addEventListener('click', function() {
+        // 메시지 박스 표시
+        alert('입력이 완료되었습니다!');
+    });
+
+
+    {% comment %} // 모달 켜는 함수 정의
     function Btnclick(button, modal) {
         button.addEventListener('click', function() {
             modal.style.display = "block";
@@ -143,7 +152,7 @@
         if (event.target == m1) {
             m1.style.display = "none";
         }
-    }
+    } {% endcomment %}
 
 </script>
     
