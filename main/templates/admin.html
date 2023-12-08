@@ -115,6 +115,9 @@
     b1.addEventListener('click', function() {
         // 메시지 박스 표시
         alert('입력이 완료되었습니다!');
+
+        // 기본 동작 차단
+        event.preventDefault();
     });
 
 
