@@ -142,7 +142,7 @@ def f_mod_grade(request):
         new_ug.eng = row['원어강의종류']
         new_ug.save()
     # json DB도 업데이트
-    update_json(user_id)
+    update_result(user_id)
     messages.success(request, '업데이트성공')
     
     return redirect('/mypage/')
