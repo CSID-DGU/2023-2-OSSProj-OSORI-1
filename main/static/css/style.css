@@ -425,7 +425,7 @@ input[type=radio] + label {
 }
 
 input[type=radio]:checked + label {
-    background-image: url('../img/checker-on.svg');
+    background-image: url('../img/check.png');
 }
 
 input[type=radio] {
@@ -441,7 +441,7 @@ input[type=checkbox] + label {
 }
 
 input[type=checkbox]:checked + label {
-    background-image: url('../img/checker-on.svg');
+    background-image: url('../img/check.png');
 }
 
 input[type=checkbox] {
