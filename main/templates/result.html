@@ -688,13 +688,13 @@
 
 
 <script>
-    // 교필 영역 함수
-    var Grade3 = '{{core_essential.standard_num}}';
-    var Mygrade3 = '{{core_essential.user_num}}';
+    // 공교 영역 함수
+    var Grade3 = '{{common.standard_num}}';
+    var Mygrade3 = '{{common.user_num}}';
     var pernum3 = to_percent(Mygrade3, Grade3);
 
-    document.getElementById("grade3").innerHTML = Grade3 + "개";
-    document.getElementById("mygrade3").innerHTML = Mygrade3 + "개";
+    document.getElementById("grade3").innerHTML = Grade3;
+    document.getElementById("mygrade3").innerHTML = Mygrade3;
     var modal3 = document.getElementById('myModal3');
     var btn3 = document.getElementById("myBtn3");
     var span3 = document.getElementById("close3");
@@ -704,16 +704,14 @@
     CircleProgress(pernum3, '#chart3', 150);
 </script>
 
-
-
 <script>
-    // 교선 영역 함수
-    var Grade4 = '{{core_selection.standard_num}}';
-    var Mygrade4 = '{{core_selection.user_num}}';
+    // 학기 영역 함수
+    var Grade4 = '{{basic.standard_num}}';
+    var Mygrade4 = '{{basic.user_num}}';
     var pernum4 = to_percent(Mygrade4, Grade4);
     // 선택영역 패스여부
     var Myarea4;
-    if ('{{core_selection.pass_part}}' == 1) {
+    if ('{{basic.pass}}' == 1) {
         Myarea4 = "Pass";
     }
     else {
@@ -724,7 +722,7 @@
     }
     // 필수과목 패스여부
     var Cs_p;
-    if ('{{core_selection.pass_ess}}' == 1) {
+    if ('{{basic.pass_ess}}' == 1) {
         Cs_p = "Pass";
     }
     else {
