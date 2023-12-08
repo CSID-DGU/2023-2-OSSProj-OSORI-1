@@ -883,7 +883,6 @@
 </script>
 
 
-{% if exists.ce %}
 <script>
     // 교필 영역 함수
     var Grade3 = '{{core_essential.standard_num}}';
@@ -900,10 +899,9 @@
 
     CircleProgress(pernum3, '#chart3', 150);
 </script>
-{% endif %}
 
 
-{% if exists.cs %}
+
 <script>
     // 교선 영역 함수
     var Grade4 = '{{core_selection.standard_num}}';
@@ -943,7 +941,6 @@
 
     CircleProgress(pernum4, '#chart4', 150);
 </script>
-{% endif %}
 
 
 {% if exists.multi %}
