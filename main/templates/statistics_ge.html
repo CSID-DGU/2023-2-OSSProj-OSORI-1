@@ -111,7 +111,7 @@
                     <div style="margin-top:5rem;">
                         <div class="filter_title">
                             <div style="display: flex; align-items: center;">
-                                <input class='filter_btn' type="button" value="장바구니" id="selectButton">
+                                <input class='filter_btn' type="button" value="장바구니" onclick="ajax_get_cart(); return false">
                                 <div style="margin: 0 auto;">📜 교양 순위</div>
                             </div>
                         </div>
@@ -168,8 +168,8 @@
                         lecture_info = zip_lecture_count[i]
                         html += "<tr>";
                         html += "<td class='grade_table_td'>";
-                        html += "<input type='checkbox' name='ck' value='" + lecture_info.subject_num + "' id='checkbox_" + lecture_info.subject_num + "'>";
-                        html += "<label for='checkbox_" + lecture_info.subject_num + "'></label>"; // 라벨과 체크박스를 연결하는 for 속성 추가
+                        html += "<input type='checkbox' name='selectedLectures' value='" + JSON.stringify(lecture_info) + "' class='lectureCheckbox' id='checkbox_" + lecture_info.subject_num + "'>";
+                        html += "<label for='checkbox_" + lecture_info.subject_num + "'></label>";
                         html += "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_num + "</td>";
                         html += "<td class='grade_table_td'>" + lecture_info.subject_name + "</td>";
@@ -197,36 +197,46 @@
 </script>
 
 <script>
-document.getElementById('selectButton').addEventListener('click', function() {
-    let selectedLectures = []; // 선택한 강의 정보를 저장할 배열
 
-    // 체크된 강의 정보 수집
-    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+ajax_get_cart();
+
+    function ajax_get_cart(){ 
+
+    let selectedLectures = [];
+    let checkboxes = document.querySelectorAll('.lectureCheckbox:checked');
+    
     checkboxes.forEach(function(checkbox) {
-        let lectureNum = checkbox.value; // 강의 번호
-        let lectureName = checkbox.dataset.name; // 강의 이름
+        let lectureInfo = JSON.parse(checkbox.value); 
 
-        // 선택한 강의 정보를 객체로 생성하여 배열에 추가
-        selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName });
+        let lectureNum = lectureInfo.subject_num; // 강의 번호
+        let lectureName = lectureInfo.subject_name; // 강의 이름
+        let lectureclassification = lectureInfo.classification; 
+        let lecturecredit = lectureInfo.subject_credit; 
+
+        selectedLectures.push({ subject_num: lectureNum, subject_name: lectureName, classification:lectureclassification, subject_credit:lecturecredit});
     });
 
-    // 선택한 강의 정보를 장바구니 모달에 추가하는 함수
-    function addToCart(lecture) {
-        let cartContent = document.querySelector('#cartModal #cartContent');
-        let lectureInfo = document.createElement('div');
-        lectureInfo.textContent = `${lecture.subject_num} - ${lecture.subject_name}`;
-        cartContent.appendChild(lectureInfo);
+    localStorage.setItem('selectedLectures', JSON.stringify(selectedLectures));
+    
+    if (selectedLectures.length > 0) {
+        alert('선택된 강의가 장바구니에 추가되었습니다.');
     }
 
-    // 장바구니 모달에 선택한 강의 정보 추가
-    let modal = document.getElementById('cartModal');
-    modal.style.display = 'block';
+    // $.ajax(
+    //     {
+    //         type: 'POST',
+    //         url: '/mypage/',
+    //         data: { selectedLectures: selectedLectures },
+        
+    //         success: function(response) {
+    //             alert('장바구니에 추가되었습니다.');
+    //         }
+    //     }
+    // );
 
-    // 선택한 강의 정보를 장바구니 모달에 추가
-    selectedLectures.forEach(function(lecture) {
-        addToCart(lecture);
-    });
-});
+}
+
 </script>
+
 
 {% endblock %}

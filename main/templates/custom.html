@@ -204,8 +204,8 @@
             {
                 type: 'POST',
                 url: '/a_search/',
-                // views에는 back_s_num 이라는 이름으로 input에 있는 학수번호를 넘겨준다.
-                data: { back_s_num: input_s_num },
+                // views에는 subject_num 이라는 이름으로 input에 있는 학수번호를 넘겨준다.
+                data: { subject_num: input_s_num },
                 dataType: 'json',
                 // 성공시 백에서 result 변수가 넘어온다. 
                 success: function (context) {
@@ -238,7 +238,7 @@
         html += "<th class='grade_table_th' style='width:10%'>학수번호</th>"
         html += "<th class='grade_table_th' style='width:40%'>과목명</th>"
         html += "<th class='grade_table_th' style='width:10%'>이수구분</th>"
-        html += "<th class='grade_table_th' style='width:14%'>선택영역</th>"
+        html += "<th class='grade_table_th' style='width:14%'>이수구분영역</th>"
         html += "<th class='grade_table_th' style='width:6%; border-right :0px'>학점</th>"
         html += "</tr>";
 
@@ -247,27 +247,9 @@
         html += "<td class='grade_table_td'><input class='td_input' type='text' id='semester' value='커스텀' readonly></td>";
         html += "<td class='grade_table_td'><input class='td_input' type='text' id='subject_num' value='" + result[0] + "' readonly></td>";
         html += "<td class='grade_table_td'><input class='td_input' type='text' id='subject_name' value='" + result[1] + "' readonly></td>";
-        html += "<td class='grade_table_td'>";
-        html += "<select id='classification' class='td_input'>";
-        html += "<option value='x' selected>-- 선택 --</option>"
-        html += "<option value='전필'>전필</option>"
-        html += "<option value='전선'>전선</option>"
-        html += "<option value='교필'>교필</option>"
-        html += "<option value='교선1'>교선1</option>"
-        html += "<option value='교선2'>교선2</option>"
-        html += "<option value='기교'>기교</option>"
-        html += "<option value='연필'>연필</option>"
-        html += "<option value='연선'>연선</option>"
-        html += "<option value='복필'>복필</option>"
-        html += "<option value='복선'>복선</option>"
-        html += "<option value='교선'>교선(22학번 이후)</option>"
-        html += "<option value='공필'>공필</option>"
-        html += "<option value='균필'>균필</option>"
-        html += "<option value='기필'>기필</option>"
-        html += "</select>";
-        html += "</td>";
+        html += "<td class='grade_table_td'><input class='td_input' type='text' id='classification' value='" + result[2] + "' readonly></td>";
         html += "<td class='grade_table_td'><input class='td_input' type='text' id='classification_ge' value='" + result[3] + "' readonly></td>";
-        html += "<td class='grade_table_td' style='border-right :0px'><input class='td_input' type='text' id='grade' value='" + result[4] + "' readonly></td>";
+        html += "<td class='grade_table_td' style='border-right :0px'><input class='td_input' type='text' id='subject_credit' value='" + result[5] + "' readonly></td>"; 
         html += "</tr>";
 
         html += "</table>";
@@ -276,13 +258,7 @@
     }
 
     function add_subject() {
-        // 만약 선택영역 선택안했으면 빠꾸
-        var ts_box = document.getElementById('classification');
-        var ts_ind = document.getElementById("classification").options.selectedIndex;
-        if (ts_box.options[ts_ind].value === "x") {
-            return alert('🤯 자신에게 맞는 이수구분을 선택해주세요');
-        }
-        
+
         // 0. 우선 검색결과 테이블에서 값을 다 긁어온다.
         var year = document.getElementById('year').value;
         var semester = document.getElementById('semester').value;
@@ -315,7 +291,7 @@
         var newCell2 = newRow.insertCell(2);  // 학수번호
         var newCell3 = newRow.insertCell(3);  // 과목명
         var newCell4 = newRow.insertCell(4);  // 이수구분
-        var newCell5 = newRow.insertCell(5);  // 선택영역
+        var newCell5 = newRow.insertCell(5);  // 이수구분영역
         var newCell6 = newRow.insertCell(6);  // 학점
         var newCell7 = newRow.insertCell(7);  // 삭제버튼
         // 3. 각각의 셀에 클래스지정

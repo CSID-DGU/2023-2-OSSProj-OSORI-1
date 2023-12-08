@@ -68,6 +68,7 @@ def f_mypage(user_id):
         'email' : ui_row.email,
         'major' : ui_row.major,
         'sub_major' : ui_row.sub_major,
+        'major_state' : ui_row.major_state,
         'name' : ui_row.name,
         'eng' : ui_row.eng,
         'thesis' : ui_row.thesis,
