@@ -566,123 +566,6 @@ body:not(.device-touch) .suc_btn
     font-size:1.2rem;
 }
 
-/* ---------------------------------( agree )---------------------------------------- */
-
-.info_title{
-    font-size : 1.8rem;
-    font-weight: bold;
-    padding-top:2.5rem;
-    padding-left:0.5rem;
-}
-
-.info_box{
-    margin: 0 auto; 
-    width: 100%;
-    max-width: 1280px;
-    margin-top:1rem;
-    border:0.001px solid rgb(216, 216, 216);
-    background-color: white; 
-}
-
-.info_box_wrapper{
-    margin: 0 auto; 
-    width: 100%;
-    max-width: 1280px;
-}
-
-.info_content{
-    margin-bottom:1.3rem;
-    margin-top:1.3rem;
-    margin-left:2rem;
-    margin:2rem;
-    font-weight:normal;
-    font-size:0.9rem;
-    text-align:left;
-}
-
-.confirm_btn {
-    background: rgb(255, 149, 0);;
-    width:15%;  
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border: none;
-    margin-top: 1.5rem;
-    border-radius: 3px;
-    padding:0.5rem;
-    float:right;
-    cursor: pointer;
-    outline: 0;
-}
-
-/* ---------------------------------( agree 검사대상 모달 )---------------------------------------- */
-
-.target_color_span {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: rgb(255, 149, 0);
-}
-
-.target_num_div {
-    font-size:1.5rem;
-    margin : 2rem 0 2rem 0;
-}
-
-.target_caution_div {
-    color:rgb(255, 149, 0); 
-    font-weight:bold;
-    font-size:1rem;
-    margin : 2.3rem 0 2.3rem 0;
-}
-
-.target_table {
-    font-size:1rem;
-    width: 55%;
-    margin: 0 auto;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.target_table_th {
-    text-align: center;
-    height: 2.5rem;
-    background-color: #f8f8f8;
-    border-top: 1px solid #dadada;
-    border-right: 1px solid #dadada;
-    border-bottom: 1px solid #dadada;
-}
-
-.target_table_td {
-    text-align: left;
-    padding : 0.3rem 0.7rem 0.3rem 0.7rem;
-    height: 2rem;
-    border-right: 1px solid #dadada;
-    border-bottom: 1px solid #dadada;
-    
-}
-
-/* ---------------------------------( agree 링크 / 강조 )---------------------------------------- */
-
-
-.link_site{
-    font-size:0.8rem;
-    padding:0.1rem 0.3rem 0.1rem 0.3rem;
-    color:white;
-    border-radius: 3px;
-    background-color: rgb(255, 149, 0);;
-}
-
-.caution_info{
-    color:rgb(255, 149, 0);; 
-    font-weight:bold;
-}
-
-.info_agree{
-    padding-top:1rem;
-    text-align:right;
-}
-
-
 /* ---------------------------------( register )---------------------------------------- */
 
 .regi_box {
@@ -747,56 +630,6 @@ body:not(.device-touch) .suc_btn
     color:rgb(255, 149, 0);; 
     font-size:0.9rem; 
     font-weight: lighter;
-}
-
-/* ---------------------------------( success )---------------------------------------- */
-
-.suc_container{
-    padding-top:8rem;
-    padding-bottom:10rem;
-    width: 100%;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(248,249,250);
-}
-
-.suc_container i{
-    color:rgb(124,199,106);
-    font-size:7rem;
-}
-
-.suc_container span{
-    color:rgb(255, 149, 0);;
-}
-
-.suc_content1{
-    margin-top:4rem;
-    letter-spacing:1px;
-    font-size:2.5rem;
-}
-
-.suc_content2{
-    font-weight: lighter;
-    margin-top:0.8rem;
-    font-size:1.5rem; 
-    color:rgb(199, 199, 199)
-}
-
-.suc_btn{
-    background: rgb(255, 149, 0);;
-    width:230px;  
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border: none;
-    margin-top: 1.5rem;
-    border-radius: 3px;
-    padding:0.7rem;
-    cursor: pointer;
-    outline: 0;
-    margin-top:4rem;
 }
 
 /* ---------------------------------( mypage 이동 버튼)---------------------------------------- */
@@ -1381,19 +1214,6 @@ strong {
     width: auto;
 
     top: -17px;
-}
-.book {
-    color: #424242;
-    margin: 0;
-
-    font-weight: 500;
-    position: relative;
-    top: 1px;
-
-    font-size: 18px;
-    margin-left: 10px;
-    margin-right: 10px;
-
 }
 
 .name title {

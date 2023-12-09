@@ -32,7 +32,6 @@ urlpatterns = [
     path('admin_/',views.r_admin_),
     path('custom/', views.r_custom),
     path('a_search/', views.a_search),
-    #path('agree/', views.r_agree),
     path('custom/', views.r_custom),
     path('register/', views.r_register),
     path('admin/', views.r_register),

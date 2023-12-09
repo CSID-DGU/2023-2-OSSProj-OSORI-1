@@ -695,6 +695,7 @@
     CircleProgress(pernum3, '#chart3', 150);
 </script>
 
+{% if exists.basic %}
 <script>
     // 학기 영역 함수
     var Grade4 = '{{basic.standard_num}}';
@@ -734,6 +735,26 @@
 
     CircleProgress(pernum4, '#chart4', 150);
 </script>
+{% endif %}
+
+{% if exists.basic_eng %}
+<script>
+    // 학기 영역 함수
+    var Grade4 = '{{basic_eng.standard_num}}';
+    var Mygrade4 = '{{basic_eng.user_num}}';
+    var pernum4 = to_percent(Mygrade4, Grade4);
+    document.getElementById("grade4").innerHTML = Grade4;
+    document.getElementById("myarea4").innerHTML = Myarea4;
+    document.getElementById("mygrade4").innerHTML = Mygrade4;
+    var modal4 = document.getElementById('myModal4');
+    var btn4 = document.getElementById("myBtn4");
+    var span4 = document.getElementById("close4");
+    Btnclick(btn4, modal4);
+    Spanclick(span4, modal4);
+
+    CircleProgress(pernum4, '#chart4', 150);
+</script>
+{% endif %}
 
 
 {% if exists.multi %}
