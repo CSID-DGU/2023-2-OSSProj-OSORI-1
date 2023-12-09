@@ -140,6 +140,7 @@ def f_result(user_id):
     
     if standard_row.major_selection_list:
         pass_ms_essential = 0
+        pass_sel_ess = 1
         dic_selection = make_dic([s_num for s_num in standard_row.major_selection_list.split('/')])
         # 기준필수과목+체크
         check_selection = check_list(user_dic, dic_selection)
