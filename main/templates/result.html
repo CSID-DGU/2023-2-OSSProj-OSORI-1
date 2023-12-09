@@ -312,8 +312,8 @@
                         <td class="mytd">{{ q.subject_num }}</td>
                         <td class="mytd">{{ q.subject_name }}</td>
                         <td class="mytd">{{ q.classification }}</td>
-                        <td class="mytd">{{ q.selection }}</td>
-                        <td class="mytd" style="border-right :0px">{{ q.grade|floatformat }}</td>
+                        <td class="mytd">{{ q.classification_ge }}</td>
+                        <td class="mytd" style="border-right :0px">{{ q.subject_credit|floatformat }}</td>
                     </tr>
                     {% endfor %}
                 </table>
@@ -380,6 +380,8 @@
                         </th>
                         <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.6}}
                         </th>
+                        <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.7}}
+                        </th>
                     </tr>
                     <tr class="mytr">
                         {% for check in common.part_check %}
@@ -435,8 +437,8 @@
                         <td class="mytd">{{ q.subject_num }}</td>
                         <td class="mytd">{{ q.subject_name }}</td>
                         <td class="mytd">{{ q.classification }}</td>
-                        <td class="mytd">{{ q.selection }}</td>
-                        <td class="mytd" style="border-right :0px">{{ q.grade|floatformat }}</td>
+                        <td class="mytd">{{ q.classification_ge }}</td>
+                        <td class="mytd" style="border-right :0px">{{ q.subject_credit|floatformat }}</td>
                     </tr>
                     {% endfor %}
                 </table>
@@ -497,8 +499,8 @@
                         <td class="mytd">{{ q.subject_num }}</td>
                         <td class="mytd">{{ q.subject_name }}</td>
                         <td class="mytd">{{ q.classification }}</td>
-                        <td class="mytd">{{ q.selection }}</td>
-                        <td class="mytd" style="border-right :0px">{{ q.grade|floatformat }}</td>
+                        <td class="mytd">{{ q.classification_ge }}</td>
+                        <td class="mytd" style="border-right :0px">{{ q.subject_credit|floatformat }}</td>
                     </tr>
                     {% endfor %}
                 </table>
