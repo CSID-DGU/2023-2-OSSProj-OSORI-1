@@ -318,12 +318,12 @@
         <span class="close" id="close2">&times;</span>
         <br>
         <div class="modal_div">
-            {% if major_selection.standard_essential %}
             <!-- 필수과목 -->
+            {% if major_selection.pass_ess %}
             <div class="p_div">
                 <div style="font-size : 1.5rem;"><i class="fas fa-check-circle"></i> 필수과목 목록
                 </div>
-                <div class="mydiv">필수과목을 모두 이수해야 졸업요건을 충족합니다.</div>
+                <div class="mydiv">필수과목으로 기준학점을 만족해야 졸업요건을 충족합니다.</div>
                 <hr>
                 <table class="mytable">
                     <tr class="myth" style="background-color: #f8f8f8;">
@@ -351,7 +351,7 @@
                     {% if major_selection.pass %}
                     <span style="color:#17a55e">필수과목 조건을 만족하셨습니다</span>
                     {% else %}
-                    <span style="color:#FFA500">필수과목이 부족합니다</span>
+                    <span style="color:#FFA500">이수한 필수과목 개수가 부족합니다</span>
                     {% endif %}
                 </div>
             </div>

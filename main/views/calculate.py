@@ -166,6 +166,7 @@ def f_result(user_id):
     context_major_selection = {
         'standard_num' : standard_num_ms,
         'user_num' : convert_to_int(user_num_ms),
+        'pass_ess' : pass_ms_essential,
         'standard_essential' : standard_essential_selection,
         'english_essential' : major_eng_ess,
         'lack' : convert_to_int(lack_ms),
