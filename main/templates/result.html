@@ -355,6 +355,16 @@
                     {% endif %}
                 </div>
             </div>
+            {% else %}
+            <div style="padding: 1rem; text-align: center;">
+                <div class="partdiv">
+                    {% if major_selection.pass %}
+                    <span style="color:#17a55e"> 기준 학점을 만족했습니다. </span>
+                    {% else %}
+                    <span style="color:#FFA500">{{ major_selection.lack }} 학점이 부족합니다</span>
+                    {% endif %}
+                </div>
+            </div>
             {% endif %}
         </div>
     </div>
