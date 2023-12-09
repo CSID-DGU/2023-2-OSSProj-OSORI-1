@@ -704,32 +704,9 @@
     var Grade4 = '{{basic.standard_num}}';
     var Mygrade4 = '{{basic.user_num}}';
     var pernum4 = to_percent(Mygrade4, Grade4);
-    // 이수구분영역 패스여부
-    var Myarea4;
-    if ('{{basic.pass}}' == 1) {
-        Myarea4 = "Pass";
-    }
-    else {
-        Myarea4 = "NP";
-        if (pernum4 == 100) {
-            pernum4 -= 1;
-        }
-    }
-    // 필수과목 패스여부
-    var Cs_p;
-    if ('{{basic.pass_ess}}' == 1) {
-        Cs_p = "Pass";
-    }
-    else {
-        Cs_p = "NP";
-        if (pernum4 == 100) {
-            pernum4 -= 1;
-        }
-    }
+    
     document.getElementById("grade4").innerHTML = Grade4;
-    document.getElementById("myarea4").innerHTML = Myarea4;
     document.getElementById("mygrade4").innerHTML = Mygrade4;
-    document.getElementById("cs_p").innerHTML = Cs_p;
     var modal4 = document.getElementById('myModal4');
     var btn4 = document.getElementById("myBtn4");
     var span4 = document.getElementById("close4");
