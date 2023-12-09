@@ -103,7 +103,7 @@
         </div>
         {% endif %}
 
-        {% if major_essential %}
+        {% if exists.major_ess %}
         <!-- 전필 -->
         <div class="resultbox">
             <!-- 타이틀 -->
@@ -214,7 +214,6 @@
         </div>
 
         <!-- 학기 -->
-        {% if exists.basic or exists.basic_eng %}
         <div class="resultbox">
             <!-- 타이틀 -->
             <div class="name">
@@ -252,7 +251,6 @@
                 </div>
             </div>
         </div>
-        {% endif %}
     </div>
 </div>
 

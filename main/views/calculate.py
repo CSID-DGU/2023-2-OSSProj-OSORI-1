@@ -65,7 +65,9 @@ def f_result(user_id):
     ################### 예외처리 여부 ###################
     ####################################################
     # 학기(5영역:외국어), 학기(4영역:자연과학), 복수, 영어 여부 판단
-    basic_eng_exists, basic_exists, multi_exists = 0, 0, 0
+    major_ess_exists, basic_eng_exists, basic_exists, multi_exists = 0, 0, 0, 0
+    if standard_row.major_essential:
+        major_ess_exists = 1
     if standard_row.basic_eng:
         basic_eng_exists = 1
     if standard_row.basic:
@@ -73,6 +75,7 @@ def f_result(user_id):
     if ui_row.major_state != '해당없음':
         multi_exists = 1 
     context_exists = {
+        'major_ess' : major_ess_exists.
         'basic_eng' : basic_eng_exists,
         'basic' : basic_exists,
         'multi' : multi_exists,
@@ -107,7 +110,7 @@ def f_result(user_id):
     ################################################
     ################### 전필 영역 ###################
     ################################################
-    if standard_row.major_essential > 0:
+    if major_ess_exists:
         # 기준학점 & 사용자 학점 추출
         standard_num_me = standard_row.major_essential
         user_num_me = df_me['학점'].sum()
