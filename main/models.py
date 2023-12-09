@@ -62,31 +62,6 @@ class Lecture(models.Model): # 에브리타임 강의 크롤링
        managed = False
        db_table = 'main_lecture'
 
-
-# ------------------------------------- ( 관심 강의 테이블 ) -------------------------------------
-
-class Relation(models.Model):
-    subject_num = models.ForeignKey(Lecture,on_delete=models.SET_NULL,null=True)
-    student_id = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True)
-
-    class Meta:
-       managed = False
-       db_table = 'main_relation'
-
-# ------------------------------------- ( 강의 평가 테이블 ) -------------------------------------
-class Review(models.Model):
-    id = models.IntegerField(primary_key=True) # 번호
-    subject_num = models.ForeignKey(Lecture,on_delete=models.SET_NULL,null=True) # 학수번호
-    student_id = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True) # 학번
-    u_year = models.IntegerField() # 수강 학년
-    u_semester = models.IntegerField() # 수강 학기
-    star = models.IntegerField() # 별점(1~5)
-    content = models.TextField() # 평가 내용
-
-    class Meta:
-       managed = False
-       db_table = 'main_review'
-
  # ------------------------------------- ( 검사 기준 테이블 ) -------------------------------------
 
 class Standard(models.Model):  
