@@ -70,6 +70,7 @@
                         <span class="grade">이수 학점</span>
                         <span class="r" id="my_grade_multi_me"></span>
                     </div>
+                    <button class="rbutton" id="multiBtn">Details</button>
                 </div>
             </div>
         </div>
@@ -266,38 +267,6 @@
         <span class="close" id="close1">&times;</span>
         <br>
         <div style="padding: 1rem; text-align: center;">
-            <!-- 추천과목 -->
-            <div style="font-size : 1.5rem;"><i class="my_i fas fa-check-circle"></i> 추천과목
-            </div>
-            <div class="mydiv">같은 학과 사용자들이 가장 많이 수강했던 전필과목 순으로 추천합니다.</div>
-            <hr>
-            {% if not major_essential.pass %}
-            {% if major_essential.recom_selection %}
-            <table class="mytable">
-                <tr class="myth" style="background-color: #f8f8f8;">
-                    <th style="border-right :1px solid #cccccc; width:12%">학수번호</th>
-                    <th style="border-right :1px solid #cccccc; width:40%">과목명</th>
-                    <th style="border-right :1px solid #cccccc; width:16%">이수구분</th>
-                    <th style="border-right :1px solid #cccccc; width:12%">이수구분영역</th>
-                    <th style="border-right :1px solid #cccccc; width:8%">학점</th>
-                    <th style="width:12%">수강순위</th>
-                </tr>
-                {% for a,b in major_essential.recom_selection %}
-                <tr class="mytr">
-                    <td class="mytd">{{ a.subject_num }}</td>
-                    <td class="mytd">{{ a.subject_name }}</td>
-                    <td class="mytd">{{ a.classification }}</td>
-                    <td class="mytd">{{ a.selection }}</td>
-                    <td class="mytd">{{ a.grade|floatformat }}</td>
-                    <td class="mytd" style="border-right :0px">{{ b }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-            {% else %}
-            <div style="color:#888888; margin-top:4rem; margin-bottom:2rem;font-size:1.5rem;">
-                😱 죄송합니다... 아직 참조할 수 있는 '{{user_info.major}}'의 데이터가 부족합니다...
-            </div>
-            {% endif %}
             {% endif %}
             <div class="partdiv">
                 {% if major_essential.pass %}
@@ -394,19 +363,19 @@
                 <hr>
                 <table class="mytable" style="padding-bottom:1rem">
                     <tr class="myth" style="background-color: #f8f8f8;">
-                        <th style="border-right :1px solid #cccccc; width:16%">{{common.standard_part.0}}
+                        <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.0}}
                         </th>
-                        <th style="border-right :1px solid #cccccc; width:16%">{{common.standard_part.1}}
+                        <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.1}}
                         </th>
-                        <th style="border-right :1px solid #cccccc; width:16%">{{common.standard_part.2}}
+                        <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.2}}
                         </th>
-                        <th style="border-right :1px solid #cccccc; width:16%">{{common.standard_part.3}}
+                        <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.3}}
                         </th>
-                        <th style="border-right :1px solid #cccccc; width:16%">{{common.standard_part.4}}
+                        <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.4}}
                         </th>
-                        <th style="border-right :1px solid #cccccc; width:16%">{{common.standard_part.5}}
+                        <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.5}}
                         </th>
-                        <th style="border-right :1px solid #cccccc; width:16%">{{common.standard_part.6}}
+                        <th style="border-right :1px solid #cccccc; width:14%">{{common.standard_part.6}}
                         </th>
                     </tr>
                     <tr class="mytr">
@@ -439,8 +408,8 @@
         <span class="close" id="close4">&times;</span>
         <br>
         <div class="modal_div">
-            {% if exists.basic %}
             <!-- 필수과목 -->
+            {% if exists.basic %}
             <div class="p_div">
                 <div style="font-size : 1.5rem;"><i class="fas fa-check-circle"></i> 필수과목 목록
                 </div>
@@ -491,6 +460,53 @@
                 </div>
             </div>
             {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- 복수/연계 추천 모달 -->
+<div id="multiModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="multiclose">&times;</span>
+        <br>
+        <div class="modal_div">
+            <!-- 필수과목 -->
+            {% if exists.multi %}
+            <div class="p_div">
+                <div style="font-size : 1.5rem;"><i class="fas fa-check-circle"></i> 필수과목 목록
+                </div>
+                <div class="mydiv">필수과목을 모두 이수해야 졸업요건을 충족합니다.</div>
+                <hr>
+                <table class="mytable">
+                    <tr class="myth" style="background-color: #f8f8f8;">
+                        <th style="border-right :1px solid #cccccc; width:15%">학수번호</th>
+                        <th style="border-right :1px solid #cccccc; width:40%">과목명</th>
+                        <th style="border-right :1px solid #cccccc; width:15%">이수구분</th>
+                        <th style="border-right :1px solid #cccccc; width:15%">이수구분영역</th>
+                        <th style="width:15%">학점</th>
+                    </tr>
+                    {% for q, c in multi_major_essential.standard_multi %}
+                    {% if c %}
+                    <tr class="mytr">
+                        {% else %}
+                    <tr class="mytr" style="color: #d32f2f">
+                        {% endif %}
+                        <td class="mytd">{{ q.subject_num }}</td>
+                        <td class="mytd">{{ q.subject_name }}</td>
+                        <td class="mytd">{{ q.classification }}</td>
+                        <td class="mytd">{{ q.selection }}</td>
+                        <td class="mytd" style="border-right :0px">{{ q.grade|floatformat }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <div class="partdiv">
+                    {% if multi_major_essential.pass %}
+                    <span style="color:#17a55e">필수과목 조건을 만족하셨습니다</span>
+                    {% else %}
+                    <span style="color:#FFA500">필수과목이 부족합니다</span>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -641,7 +657,7 @@
     // 모달 밖 클릭시 꺼짐 함수
     window.onclick = function (event) {
 
-        if (typeof modal3 !== 'undefined') {
+        if (typeof modal1 !== 'undefined') {
             if (event.target == modal1) {
                 modal1.style.display = "none";
             }
@@ -657,6 +673,11 @@
         if (typeof modal4 !== 'undefined') {
             if (event.target == modal4) {
                 modal4.style.display = "none";
+            }
+        }
+        if (typeof multimodal !== 'undefined') {
+            if (event.target == multimodal) {
+                multimodal.style.display = "none";
             }
         }
     }
@@ -752,6 +773,11 @@
     document.getElementById("grade_multi_ms").innerHTML = Grade_multi_ms;
     document.getElementById("my_grade_multi_me").innerHTML = Mygrade_multi_me;
     document.getElementById("my_grade_multi_ms").innerHTML = Mygrade_multi_ms;
+    var multimodal = document.getElementById('multiModal');
+    var multibtn = document.getElementById("multiBtn");
+    var multispan = document.getElementById("multiclose");
+    Btnclick(multibtn, multimodal);
+    Spanclick(multispan, multimodal);
 
     CircleProgress(pernum_multi_me, '#chart_multi_me', 150);
     CircleProgress(pernum_multi_ms, '#chart_multi_ms', 150);
