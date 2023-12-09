@@ -148,6 +148,7 @@ def f_result(user_id):
         standard_essential_selection = to_zip_list(list_to_query(dic_selection.keys()), check_selection)
     else:
         pass_ms_essential = 1
+        pass_sel_ess = 0
         standard_essential_selection = ['해당없음']
         
     if standard_row.eng_major <= major_eng:
@@ -166,7 +167,7 @@ def f_result(user_id):
     context_major_selection = {
         'standard_num' : standard_num_ms,
         'user_num' : convert_to_int(user_num_ms),
-        'pass_ess' : pass_ms_essential,
+        'pass_ess' : pass_sel_ess,
         'standard_essential' : standard_essential_selection,
         'english_essential' : major_eng_ess,
         'lack' : convert_to_int(lack_ms),

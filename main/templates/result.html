@@ -280,7 +280,7 @@
                     <th style="border-right :1px solid #cccccc; width:12%">학수번호</th>
                     <th style="border-right :1px solid #cccccc; width:40%">과목명</th>
                     <th style="border-right :1px solid #cccccc; width:16%">이수구분</th>
-                    <th style="border-right :1px solid #cccccc; width:12%">선택영역</th>
+                    <th style="border-right :1px solid #cccccc; width:12%">이수구분영역</th>
                     <th style="border-right :1px solid #cccccc; width:8%">학점</th>
                     <th style="width:12%">수강순위</th>
                 </tr>
@@ -330,7 +330,7 @@
                         <th style="border-right :1px solid #cccccc; width:15%">학수번호</th>
                         <th style="border-right :1px solid #cccccc; width:40%">과목명</th>
                         <th style="border-right :1px solid #cccccc; width:15%">이수구분</th>
-                        <th style="border-right :1px solid #cccccc; width:15%">선택영역</th>
+                        <th style="border-right :1px solid #cccccc; width:15%">이수구분영역</th>
                         <th style="width:15%">학점</th>
                     </tr>
                     {% for q, c in major_selection.standard_essential %}
@@ -402,9 +402,9 @@
                 </table>
                 <div class="partdiv">
                     {% if common.pass %}
-                    <span style="color:#17a55e">선택영역 조건을 만족하셨습니다</span>
+                    <span style="color:#17a55e">이수구분영역 조건을 만족하셨습니다</span>
                     {% else %}
-                    <span style="color:#FFA500">선택영역이 부족합니다</span>
+                    <span style="color:#FFA500">이수구분영역이 부족합니다</span>
                     {% endif %}
                 </div>
             </div>
@@ -423,7 +423,7 @@
                         <th style="border-right :1px solid #cccccc; width:12%">학수번호</th>
                         <th style="border-right :1px solid #cccccc; width:40%">과목명</th>
                         <th style="border-right :1px solid #cccccc; width:16%">이수구분</th>
-                        <th style="border-right :1px solid #cccccc; width:12%">선택영역</th>
+                        <th style="border-right :1px solid #cccccc; width:12%">이수구분영역</th>
                         <th style="border-right :1px solid #cccccc; width:8%">학점</th>
                         <th style="width:12%">수강순위</th>
                     </tr>
@@ -466,7 +466,7 @@
                         <th style="border-right :1px solid #cccccc; width:15%">학수번호</th>
                         <th style="border-right :1px solid #cccccc; width:40%">과목명</th>
                         <th style="border-right :1px solid #cccccc; width:15%">이수구분</th>
-                        <th style="border-right :1px solid #cccccc; width:15%">선택영역</th>
+                        <th style="border-right :1px solid #cccccc; width:15%">이수구분영역</th>
                         <th style="width:15%">학점</th>
                     </tr>
                     {% for q, c in basic.standard_essential %}
@@ -705,7 +705,7 @@
     var Grade4 = '{{basic.standard_num}}';
     var Mygrade4 = '{{basic.user_num}}';
     var pernum4 = to_percent(Mygrade4, Grade4);
-    // 선택영역 패스여부
+    // 이수구분영역 패스여부
     var Myarea4;
     if ('{{basic.pass}}' == 1) {
         Myarea4 = "Pass";
