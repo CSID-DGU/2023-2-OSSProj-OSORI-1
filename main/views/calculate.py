@@ -68,9 +68,9 @@ def f_result(user_id):
     major_ess_exists, basic_eng_exists, basic_exists, multi_exists = 0, 0, 0, 0
     if standard_row.major_essential:
         major_ess_exists = 1
-    if standard_row.basic_eng > 0:
+    if standard_row.basic_eng:
         basic_eng_exists = 1
-    if standard_row.basic > 0:
+    if standard_row.basic:
         basic_exists = 1
     if ui_row.major_state != '해당없음':
         multi_exists = 1 

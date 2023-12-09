@@ -429,42 +429,6 @@
                     {% endif %}
                 </div>
             </div>
-
-            <!-- 추천과목 -->
-            {% if not common.pass %}
-            <div class="p_div">
-                <div style="font-size : 1.5rem;"><i class="my_i fas fa-check-circle"></i> 추천과목
-                </div>
-                <div class="mydiv">
-                    전체 사용자들이 가장 많이 수강했던 교양과목 순으로 추천합니다. (부족한 필수영역을 우선으로 보여줍니다)
-                </div>
-                <hr>
-                <table class="mytable">
-                    <tr class="myth" style="background-color: #f8f8f8;">
-                        <th style="border-right :1px solid #cccccc; width:12%">학수번호</th>
-                        <th style="border-right :1px solid #cccccc; width:40%">과목명</th>
-                        <th style="border-right :1px solid #cccccc; width:16%">이수구분</th>
-                        <th style="border-right :1px solid #cccccc; width:12%">이수구분영역</th>
-                        <th style="border-right :1px solid #cccccc; width:8%">학점</th>
-                        <th style="width:12%">수강순위</th>
-                    </tr>
-                    {% for a,b in core_selection.recom_selection %}
-                    <tr class="mytr">
-                        <td class="mytd">{{ a.subject_num }}</td>
-                        <td class="mytd">{{ a.subject_name }}</td>
-                        <td class="mytd">{{ a.classification }}</td>
-                        <td class="mytd">{{ a.selection }}</td>
-                        <td class="mytd">{{ a.grade|floatformat }}</td>
-                        <td class="mytd" style="border-right :0px">{{ b }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-                <div class="partdiv">
-                    <a href="/statistics/" style="color: rgb(255, 140, 0); text-decoration : underline">더 추천받고 싶다면 클릭!
-                        🚗</a>
-                </div>
-            </div>
-            {% endif %}
         </div>
     </div>
 </div>
@@ -509,6 +473,20 @@
                     <span style="color:#17a55e">필수과목 조건을 만족하셨습니다</span>
                     {% else %}
                     <span style="color:#FFA500">필수과목이 부족합니다</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div style="padding: 1rem; text-align: center;">
+                <div style="font-size : 1.5rem;"><i class="my_i fas fa-check-circle"></i> 학점현황
+                </div>
+                <div class="mydiv">기준학점을 만족해야 졸업요건을 충족합니다.</div>
+                <hr>
+                <div class="partdiv">
+                    {% if basic_eng.pass %}
+                    <span style="color:#17a55e"> 기준 학점을 만족했습니다. </span>
+                    {% else %}
+                    <span style="color:#FFA500"> 이수 학점이 부족합니다</span>
                     {% endif %}
                 </div>
             </div>
