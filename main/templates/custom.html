@@ -23,9 +23,8 @@
                         href="https://mdrims.dongguk.edu/">엠드림스</a>
                     -> 학사정보 -> 교과수업 -> 수강신청관리 -> 희망강의신청
                 </p>
-                <p>2. 검색 후 해당 과목이 맞는지 확인하고, 과목의 <span class="caution_info">이수구분(ex. 전선, 전필 등)을 반드시 설정해줍니다.</span> </p>
-                <p>3. 이수구분을 설정했다면 추가하기 버튼을 눌러 임시 기이수과목 표에 해당 과목을 추가합니다.</p>
-                <p>4. 추가된 과목표를 확인하고 저장 버튼을 눌러 자신의 정보를 업데이트합니다.</p>
+                <p>2. 검색 후 해당 과목이 맞는지 확인하고, 추가하기 버튼을 눌러 임시 기이수과목 표에 해당 과목을 추가합니다.</p>
+                <p>3. 추가된 과목표를 확인하고 저장 버튼을 눌러 자신의 정보를 업데이트합니다.</p>
                 <div style="margin-top: 1.2rem;">
                 </div>
                 
@@ -50,10 +49,6 @@
                     <div class="result_zone">
                         <div class="custom_subtitle">
                             ⌨️ 검색 결과
-                            <p
-                                style="color:rgb(199, 199, 199); font-size:0.9rem; font-weight: lighter; margin-top:0.4rem">
-                                자신에게 맞는 예상 이수구분을 선택해야합니다
-                            </p>
                         </div>
 
                         <!-- 여기가 검색시 결과를 띄워주는 div@!!!!! -->
@@ -182,23 +177,6 @@
 
     function ajax_conn() {
         var input_s_num = $("#s_num").val();
-        // 영어과목 이수면제 커맨드 입력시
-        if(input_s_num == '면제'){
-            if(year <= 21){
-                show_table(['10352', 'English Listening Practice 1', '', '이수면제용', 0]);
-                var classification_input = document.getElementById('classification');
-                classification_input.value = '교필';
-                classification_input.disabled = true;
-                return;
-            }
-            else{
-                show_table(['11304', '대학영어', '', '이수면제용', 0]);
-                var classification_input = document.getElementById('classification');
-                classification_input.value = '공필';
-                classification_input.disabled = true;
-                return;
-            }
-        }
         // ajax 통신 시작
         $.ajax(
             {
