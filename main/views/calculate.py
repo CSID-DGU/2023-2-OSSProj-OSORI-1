@@ -75,7 +75,7 @@ def f_result(user_id):
     if ui_row.major_state != '해당없음':
         multi_exists = 1 
     context_exists = {
-        'major_ess' : major_ess_exists.
+        'major_ess' : major_ess_exists,
         'basic_eng' : basic_eng_exists,
         'basic' : basic_exists,
         'multi' : multi_exists,
