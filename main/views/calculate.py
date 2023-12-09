@@ -248,7 +248,7 @@ def f_result(user_id):
     
     # 패스여부 검사
     pass_common = 0
-    if '미이수' in part_check :
+    if '미이수' not in part_check :
         pass_common = 1
     
     context_common = {
