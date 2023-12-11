@@ -61,5 +61,6 @@ def f_add_custom(request):
             new_ug.save()
     # 3. 모든 변경 후 정보변경 + 재검사
     update_json(user_id)
+    update_result(user_id)
     messages.success(request, '업데이트성공')
     return redirect('/mypage/')

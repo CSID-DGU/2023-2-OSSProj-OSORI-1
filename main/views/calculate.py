@@ -74,6 +74,7 @@ def f_result(user_id):
         basic_exists = 1
     if ui_row.major_state != '해당없음':
         multi_exists = 1 
+        
     context_exists = {
         'major_ess' : major_ess_exists,
         'basic_eng' : basic_eng_exists,
@@ -140,6 +141,7 @@ def f_result(user_id):
     
     if standard_row.major_selection_list:
         pass_ms_essential = 0
+        pass_sel_ess = 1
         dic_selection = make_dic([s_num for s_num in standard_row.major_selection_list.split('/')])
         # 기준필수과목+체크
         check_selection = check_list(user_dic, dic_selection)
@@ -148,6 +150,7 @@ def f_result(user_id):
         standard_essential_selection = to_zip_list(list_to_query(dic_selection.keys()), check_selection)
     else:
         pass_ms_essential = 1
+        pass_sel_ess = 0
         standard_essential_selection = ['해당없음']
         
     if standard_row.eng_major <= major_eng:
@@ -166,6 +169,7 @@ def f_result(user_id):
     context_major_selection = {
         'standard_num' : standard_num_ms,
         'user_num' : convert_to_int(user_num_ms),
+        'pass_ess' : pass_sel_ess,
         'standard_essential' : standard_essential_selection,
         'english_essential' : major_eng_ess,
         'lack' : convert_to_int(lack_ms),
