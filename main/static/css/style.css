@@ -632,6 +632,56 @@ body:not(.device-touch) .suc_btn
     font-weight: lighter;
 }
 
+/* ---------------------------------( success )---------------------------------------- */
+
+.suc_container{
+    padding-top:8rem;
+    padding-bottom:10rem;
+    width: 100%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(248,249,250);
+}
+
+.suc_container i{
+    color:rgb(124,199,106);
+    font-size:7rem;
+}
+
+.suc_container span{
+    color:rgb(164, 26, 55);
+}
+
+.suc_content1{
+    margin-top:4rem;
+    letter-spacing:1px;
+    font-size:2.5rem;
+}
+
+.suc_content2{
+    font-weight: lighter;
+    margin-top:0.8rem;
+    font-size:1.5rem; 
+    color:rgb(199, 199, 199)
+}
+
+.suc_btn{
+    background: rgb(164, 26, 55);
+    width:230px;  
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    margin-top: 1.5rem;
+    border-radius: 3px;
+    padding:0.7rem;
+    cursor: pointer;
+    outline: 0;
+    margin-top:4rem;
+}
+
 /* ---------------------------------( mypage 이동 버튼)---------------------------------------- */
 
 .go_result_wrap{
