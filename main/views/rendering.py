@@ -45,37 +45,12 @@ def r_login1(request):
     request.session.clear()
     return render(request, "login_admin.html")
 
-def r_agree(request):
-    target_qeuryset = Standard.objects.only('user_year', 'user_dep')
-    # { 학과 : [21, 20 ...] }
-    dict_dep_yearlist = defaultdict(lambda:'')
-    for row in target_qeuryset:
-        if row.user_dep not in dict_dep_yearlist.keys():
-            dict_dep_yearlist[row.user_dep] += str(row.user_year)
-        else:
-            dict_dep_yearlist[row.user_dep] += ', ' + str(row.user_year)
-    # 지원 학과 개수
-    dep_num = len(dict_dep_yearlist.keys())
-    # [ 학과, '21,20....' ] => 정렬
-    target_list = [[ dep, year] for dep, year in dict_dep_yearlist.items()]
-    target_list = sorted(target_list, key=(lambda x: x[0]))
-    context = {
-        'target' : target_list,
-        'dep_num' : dep_num
-    }
-    return render(request, "agree.html", context)
-
 def r_register(request):
     return render(request, "register.html")
 def r_admin_(request):
     return render(request, "admin.html")
 
 def r_success(request):
-    temp_user_info = request.session.get('temp_user_info')
-    if not temp_user_info :
-        messages.error(request, '❌ 세션 정보가 없습니다!')
-        return redirect('/')
-    request.session.clear()
     return render(request, 'success.html')
 
 def r_changePW(request):
