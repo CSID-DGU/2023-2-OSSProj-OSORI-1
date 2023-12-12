@@ -147,3 +147,57 @@ def f_mod_grade(request):
     messages.success(request, '업데이트성공')
     
     return redirect('/mypage/')
+
+def f_admin(request):
+    major = request.POST.get('major')
+    year = request.POST.get('year')
+    total = request.POST.get('total')
+    major_credit = request.POST.get('major_credit')
+    s_credit = request.POST.get('s_credit')
+    major_essential = request.POST.get('major_essential')
+    major_selection = request.POST.get('major_selection')
+    major_selection_list = request.POST.get('major_selection_list')
+    common = request.POST.get('common')
+    explore = request.POST.get('explore')
+    self = request.POST.get('self')
+    civ = request.POST.get('civ')
+    writing = request.POST.get('writing')
+    seminar = request.POST.get('seminar')
+    leader = request.POST.get('leader')
+    eas = request.POST.get('eas')
+    sw = request.POST.get('sw')
+    basic_eng = request.POST.get('basic_eng')
+    basic = request.POST.get('basic')
+    basic_list_m = request.POST.get('basic_list_m')
+    basic_list_s = request.POST.get('basic_list_s')
+    basic_list_c = request.POST.get('basic_list_c')
+    eng_major = request.POST.get('eng_major')
+
+    # Standard 테이블에 데이터 입력
+    new_st = Standard()
+    new_st.major = major
+    new_st.year = year
+    new_st.total = total
+    new_st.major_credit = major_credit
+    new_st.s_credit = s_credit
+    new_st.major_essential = major_essential
+    new_st.major_selection = major_selection
+    new_st.major_selection_list = major_selection_list
+    new_st.common = common
+    new_st.explore = explore
+    new_st.self = self
+    new_st.civ = civ
+    new_st.writing = writing
+    new_st.seminar = seminar
+    new_st.leader = leader
+    new_st.eas = eas
+    new_st.sw = sw
+    new_st.basic_eng = basic_eng
+    new_st.basic = basic
+    new_st.basic_list_m = basic_list_m
+    new_st.basic_list_s = basic_list_s
+    new_st.basic_list_c = basic_list_c
+    new_st.eng_major = eng_major
+    new_st.save()
+
+    return redirect('/')
